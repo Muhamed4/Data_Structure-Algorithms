@@ -13,3 +13,9 @@
 6. [Sum as per frequency](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/sum-as-per-frequency-88b00c1f/ "HackerEarth")
 
 7. [Maximize the sum](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/maximize-sum-0423b95e/ "HackerEarth")
+
+8. [Bitwise AND sum](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/bitwise-and-sum-d8a0d265/ "HackerEarth")
+
+9. [Minimum additions](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/minimum-additions-0142ac80/ "HackerEarth")
+
+10. [Bracket sequences](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/bracket-sequence-1-40eab940/ "HackerEarth")
