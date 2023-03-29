@@ -44,10 +44,35 @@ void Reference(){
     cout << y << endl;
 }
 
+void Pointer_and_Constant(){
+    int val = 10;
+    int val2 = 20;
+    const int* ptr = &val;
+    ptr = &val2;
+    *ptr = 30; // Can't change the value that it point to.
+    // cout << *ptr << endl;
+    int* const ptr2 = &val;
+    *ptr2 = 20;
+    ptr2 = &val2; // Can't change it's value.
+    // cout << *ptr2 << endl;
+    const int* const ptr3 = &val; // const pointer to const
+    // *ptr3 = 50; // Can't change data it points to
+    // ptr3 = &val2; Can't change its value 
+}
+
 int main(){
 
-    Reference();
+    // Reference();
 
+    Pointer_and_Constant();
+    char str1[] = "belalX";
+	char str2[] = "belalY";
+ 
+	char *p1 { str1 };
+	char *p2 { str2 };
+ 
+	// cout << (p1 == p2) << " ";
+	// cout << (*p1 == *p2);
 
     return 0;
 }

@@ -19,3 +19,10 @@
 9. [Minimum additions](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/minimum-additions-0142ac80/ "HackerEarth")
 
 10. [Bracket sequences](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/bracket-sequence-1-40eab940/ "HackerEarth")
+
+11. [Permutations](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/nevedle-and-permutations-c6acb85e/ "HackerEarth")
+
+12. [Minimum operations](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/minimum-operations-2-8000e855/ "HackerEarth")
+
+13. [Scoreboard queries](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/tournament-and-ranks-67cd4b7e/ "HackerEarth")
+
