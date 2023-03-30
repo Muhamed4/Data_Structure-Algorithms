@@ -26,3 +26,6 @@
 
 13. [Scoreboard queries](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/tournament-and-ranks-67cd4b7e/ "HackerEarth")
 
+14. [In an array](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/in-an-array-9fbe4c12/ "HackerEarth")
+
+15. [2 arrays](https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/2-arrays-90c9019c/ "HackerEarth")
