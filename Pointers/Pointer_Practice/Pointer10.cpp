@@ -51,6 +51,8 @@ struct Employee
     Employee(int id_, string name_){
         id = id_;
         name = name_;
+        return;
+        cout << "HELLO" << endl;
     }
     void print(){
         cout << id << ' ' << name << endl;
@@ -73,6 +75,23 @@ void Pointer_Struct(){
     delete e2;
 }
 
+void Stack_Heap(){
+    int* arr = new int[10];
+    int arr2[10];
+    int *ptr = arr2;
+    int **ptr2 = &ptr;
+    int (*ptr3)[10] = &arr2;
+    // cout << ptr3 << endl;
+    // cout << &arr2 << endl;
+
+    vector<int>v = {1, 2, 3};
+    vector<int>*pt = &v;
+    cout << pt << endl;
+    pt = 0;
+    cout << pt << endl;
+    for(auto it: v)cout << it << ' ';
+}
+
 
 int main(){
 
@@ -80,7 +99,9 @@ int main(){
 
     // Dynamic_Memory();
 
-    Pointer_Struct();
+    // Pointer_Struct();
+
+    Stack_Heap();
 
     return 0;
 }
