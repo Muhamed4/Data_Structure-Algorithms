@@ -1,20 +1,24 @@
 
 
-#ifndef DATA_STRUCTURE_IMPLEMENTATION_LINKED_LIST_H
-#define DATA_STRUCTURE_IMPLEMENTATION_LINKED_LIST_H
+#ifndef DATA_STRUCTURE_IMPLEMENTATION_List_H
+#define DATA_STRUCTURE_IMPLEMENTATION_List_H
 #include <iostream>
 
 namespace DSA
 {
 
-    class Linked_List
+    class List
     {
+        private:
+            int data;
+            List *Next;
         public:
-        void Print(){
-            std::cout << "Linked_List" << std::endl;
-        }
+            List(): data(0), Next(nullptr) {}
+
+            List(int _data): data(_data), Next(nullptr) {}
+
     };
 
 } // namespace DSA
 
-#endif // DATA_STRUCTURE_IMPLEMENTATION_LINKED_LIST_H
+#endif // DATA_STRUCTURE_IMPLEMENTATION_List_H
