@@ -10,3 +10,12 @@
 * [Reverse Linked List (Iterative Method)](https://www.youtube.com/watch?v=sYcOK51hl-A&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=9&pp=iAQB)
 * [Print elements of a linked list in forward and reverse order using recursion](https://www.youtube.com/watch?v=K7J3nCeRC80&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=10&pp=iAQB)
 * [Reverse Linked List using recursion](https://www.youtube.com/watch?v=KYH83T4q6Vs&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=11&t=331s&pp=iAQB)
+
+
+
+# Problems :
+
+
+1. [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/ "LeetCode")
+
+2. [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/ "LeetCode")

@@ -3,17 +3,21 @@
 using DSA::List;
 using namespace std;
 
-struct Node{
+class Node{
+    public:
     int data;
     Node* Next;
     Node(): data(0), Next(nullptr) {}
-    Node(int _data): data(_data), Next(nullptr) {}
+    // Node(int _data): data(_data), Next(nullptr) {}
+    Node(int _data): Node(_data, nullptr) {}
+    Node(int _data, Node* _next): data(_data), Next(_next) {}
 };
 Node* head;
 Node* Insert(Node* head, int data){
-    Node* temp = new Node(data);
-    temp->Next = head;
-    head = temp;
+    // Node* temp = new Node(data);
+    // temp->Next = head;
+    // head = temp;
+    head = new Node(data, head);
     return head;
 }
 // void Print(Node* head){
@@ -78,7 +82,7 @@ Node* ReverseIterative(Node* head){
     return head;
 }
 
-void DeleteWithValue(Node* head, int data){
+void DeleteWithValue(Node* head, int data){ 
     if(head == nullptr)return;
     if(head->data == data){
         head = head->Next;
@@ -96,13 +100,12 @@ void DeleteWithValue(Node* head, int data){
 
 int main(){
 
-    Node* head = nullptr;
-    head = Insert(head, 2);
-    head = Insert(head, 4);
-    head = Insert(head, 6);
-    head = Insert(head, 8);
-    DeleteWithValue(head, 6);
-    ReversePrint(head);
+    // Node* head = new Node(10, new Node(20, new Node(30, nullptr)));
+    // head = Insert(head, 40);
+    // head = Insert(head, 50);
+    // Print(head);
+    Node* head = new Node(5, nullptr);
+    cout << head << ' ' << &(head->data) << endl;
     
     return 0;
 }

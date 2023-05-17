@@ -29,10 +29,17 @@ namespace DSA
         T at(int index) const;
         void push_back(T item);
         void insert(int index, T item);
+        void pop_back();
+        void Delete(int index);
+        void remove(T item);
+        void find(T item);
 
     private:
         void increment_size();
+        void decrement_size();
         void increment_capacity();
+        void Modify_data();
+        void resize();
     };
 
     template <typename T>
@@ -82,20 +89,26 @@ namespace DSA
         return this->data[index];
     }
 
+    template<typename T>
+    void Vector<T>::Modify_data(){
+        T new_data = new T[this->capacity()];
+        for (int i = 0; i < this->size(); i++)
+        {
+            new_data[i] = this->data[i];
+        }
+        delete[] this->data;
+        this->data = new_data;
+        new_data = nullptr;
+    }    
+
     template <typename T>
     void Vector<T>::push_back(T item)
     {
         if (this->size() == this->capacity())
         {
             this->increment_capacity();
-            T new_data = new T[this->capacity()];
-            for (int i = 0; i < this->size(); i++)
-            {
-                new_data[i] = this->data[i];
-            }
-            delete[] this->data;
-            this->data = new_data;
-            new_data = nullptr;
+            // Modify the data_elements
+            this->Modify_data();
         }
         this->data[this->size()] = item;
         this->increment_size();
@@ -105,6 +118,11 @@ namespace DSA
     void Vector<T>::increment_size()
     {
         ++this->size_data;
+    }
+    
+    template<typename T>
+    void Vector<T>::decrement_size(){
+        --this->size_data;
     }
 
     template <typename T>
@@ -120,6 +138,15 @@ namespace DSA
         }
     }
 
+    template<typename T>
+    void Vector<T>::resize(){
+        int ratio = this->capacity() / this->size();
+        if(ratio >= 4){
+            this->capacity_data = (this->capacity_data + 1) / 2;
+            this->Modify_data();
+        }
+    }
+
     template <typename T>
     void Vector<T>::insert(int index, T item)
     {
@@ -130,14 +157,7 @@ namespace DSA
         if (this->size() == this->capacity())
         {
             this->increment_capacity();
-            T new_data = new T[this->capacity()];
-            for (int i = 0; i < this->size(); i++)
-            {
-                new_data[i] = this->data[i];
-            }
-            delete[] this->data;
-            this->data = new_data;
-            new_data = nullptr;
+            this->Modify_data();
         }
         increment_size();
         for (int i = this->size() - 1; i > index; i++)
@@ -147,9 +167,60 @@ namespace DSA
         this->data[index] = item;
     }
 
+    template<typename T>
+    void Vector<T>::pop_back(){ // o(1)
+        if(this->size() == 0){
+            throw runtime_error("there is no elements in vector to pop!");
+        }
+        this->data[this->size() - 1] = 0;
+        decrement_size();
+        this->resize();
+    }
+
+    template<typename T>
+    void Vector<T>::Delete(int index){ // o(n)
+        if(index < 0 || index >= this->size()){
+            throw out_of_range("Index is out of the range!");
+        }
+        for(int i = index; i < this->size() - 2;i++){
+            // Shifting all trailing elements to the left
+            this->data[i] = this->data[i + 1];
+        }
+        // Decrease the size of the Vector after deleting the element !
+        this->decrement_size();
+        this->resize();
+    }
+
+    template<typename T>
+    void Vector<T>::remove(T item){ // o(n)
+        int index = 0;
+        while(index < this->size()){
+            if(this->data[index] == item){
+                // Call function Delete(index): so it will erase the element at the position (index)
+                this->Delete(index);
+            }
+            else ++index;
+        }
+    }
+
+    template<typename T>
+    void Vector<T>::find(T item){ // o(n)
+        // the first index of the match item otherwise it will be (-1) !
+        int first_index = -1;
+        for(int i = 0; i < this->size();i++){
+            if(this->data[i] == item){
+                first_index = i;
+                break;
+            }
+        }
+        return first_index;
+    }
+
     template <typename T>
     Vector<T>::~Vector()
     {
+        delete[] this->data;
+        this->data = nullptr;
     }
 
 } // DSA
