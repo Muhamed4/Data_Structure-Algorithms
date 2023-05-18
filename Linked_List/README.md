@@ -19,3 +19,7 @@
 1. [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/ "LeetCode")
 
 2. [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/ "LeetCode")
+
+3. [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/ "LeetCode")
+
+4. [Reorder List](https://leetcode.com/problems/reorder-list/ "LeetCode")

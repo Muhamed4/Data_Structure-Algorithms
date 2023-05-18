@@ -32,7 +32,7 @@ namespace DSA
         void pop_back();
         void Delete(int index);
         void remove(T item);
-        void find(T item);
+        int find(T item);
 
     private:
         void increment_size();
@@ -170,7 +170,7 @@ namespace DSA
     template<typename T>
     void Vector<T>::pop_back(){ // o(1)
         if(this->size() == 0){
-            throw runtime_error("there is no elements in vector to pop!");
+            throw std::runtime_error("there is no elements in vector to pop!");
         }
         this->data[this->size() - 1] = 0;
         decrement_size();
@@ -180,7 +180,7 @@ namespace DSA
     template<typename T>
     void Vector<T>::Delete(int index){ // o(n)
         if(index < 0 || index >= this->size()){
-            throw out_of_range("Index is out of the range!");
+            throw std::out_of_range("Index is out of the range!");
         }
         for(int i = index; i < this->size() - 2;i++){
             // Shifting all trailing elements to the left
@@ -204,7 +204,7 @@ namespace DSA
     }
 
     template<typename T>
-    void Vector<T>::find(T item){ // o(n)
+    int Vector<T>::find(T item){ // o(n)
         // the first index of the match item otherwise it will be (-1) !
         int first_index = -1;
         for(int i = 0; i < this->size();i++){
@@ -215,6 +215,8 @@ namespace DSA
         }
         return first_index;
     }
+
+    
 
     template <typename T>
     Vector<T>::~Vector()
