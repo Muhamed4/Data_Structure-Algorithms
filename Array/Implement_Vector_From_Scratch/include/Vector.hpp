@@ -20,27 +20,57 @@ namespace DSA
         int current_item;
 
     public:
+        // Parameterless (default) constructor
         Vector();
+        // parameterized constructor (takes the size of the Vector)
         Vector(int _size);
+        // Destructor to delete the dynamic allocation array (data)
         ~Vector();
+        // member function to return the size of the Vector
         int size() const;
+        // member function to return the capacity of the Vector
         int capacity() const;
+        // member function to check if the Vector empty or not
         bool empty() const;
-        T at(int index) const;
+        // member function to return item at given index, blows up if index out of bounds
+        T& at(int index);
+        // To push element of type T at the end of the Vector
         void push_back(T item);
+        // To insert element of type T at index (index)
         void insert(int index, T item);
+        // To Remove the last element of Vector
         void pop_back();
+        // To delete item at index, shifting all trailing elements left
         void Delete(int index);
+        // To looks for value and removes index holding it (even if in multiple places)
         void remove(T item);
+        // To looks for value and returns first index with that value, -1 if not found
         int find(T item);
 
+        // Operator Overloading
+
+        // Make operator overloading to (=) and make Deep copy cause there is pointer and to not make the data to be deleted twice 
+        Vector<T>& operator=(const Vector<T>& oth);
+        
+        // Make operator overloading to ([]) to access the elements and modifying the content of these positions
+        T& operator[](int index);
+
     private:
+        // Increment the size of the Vector
         void increment_size();
+        // Decrement the size of the Vector
         void decrement_size();
+        // Increment the capacity to double if the size of the Vector equal the capacity the Vector
         void increment_capacity();
+        // If the size of the Vector equal the capacity of the Vector so make new dynamic allocation array and increase the capacity of the array and put the value into the new array and delete the old one and make the pointer (this->data) points at the new array
         void Modify_data();
+        // resize(new_capacity) 
+        // when you reach capacity, resize to double the size
+        // when popping an item, if size is 1/4 of capacity, resize to half
         void resize();
     };
+
+    // Implementation of all member functions :
 
     template <typename T>
     Vector<T>::Vector()
@@ -79,14 +109,14 @@ namespace DSA
     }
 
     template <typename T>
-    T Vector<T>::at(int index) const
+    T& Vector<T>::at(int index)
     {
         if (index < 0 || index >= this->size())
         {
             throw std::out_of_range("Vector::_M_range_check: __n (which is " + std::to_string(index) + " >= this->size() (which is " +
                                     std::to_string(this->size()) + ")");
         }
-        return this->data[index];
+        return (*this)[index];
     }
 
     template<typename T>
@@ -216,7 +246,28 @@ namespace DSA
         return first_index;
     }
 
-    
+
+    // Make operator overloading to (=) and make Deep copy cause there is pointer and to not make the data to be deleted twice :(
+    template<typename T>
+    Vector<T>& Vector<T>::operator=(const Vector<T>& oth){
+        this->size_data = oth.size_data;
+        this->capacity_data = oth.capacity_data;
+        this->data = new T[this->capacity_data];
+        for(int i = 0; i < this->size();i++){
+            this->data[i] = oth.data[i];
+        }
+        return *this;
+    }
+
+    // Make operator overloading to ([]) to access the elements and modifying the content of these positions
+
+    template<typename T>
+    T& Vector<T>::operator[](int index){
+        if(index < -1 || index >= this->size()){
+            throw std::out_of_range("The index is out of the range of this Vector");
+        }
+        return this->data[index];
+    }
 
     template <typename T>
     Vector<T>::~Vector()

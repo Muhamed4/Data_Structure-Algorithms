@@ -4,27 +4,18 @@
 using namespace DSA;
 using namespace std;
 
-class Complex{
-    int Real, Img;
-    public:
-    Complex(){
-        Real = Img = 0;
-    }
-    Complex(int real, int img){
-        Real = real;
-        Img = img;
-    }
-    Complex Add(Complex c){
-        Complex res;
-        res.Real = this->Real + c.Real;
-        res.Img = this->Img + c.Img;
-        return res; 
-    }
-};
-
 int main()
 {
-    Complex c1, c2, c3;  
-    c3 = c1.Add(c2);
+    Vector<int>v(5), a(4);
+    v[0] = 20;
+    v[1] = 2;
+    v[2] = 3;
+    v[3] = 4;
+    v[4] = 5;
+    v.at(2) = 222;
+    cout << v.at(2) << endl;
+    // vector<int>x(2);
+    // x.at(0) = 6;
+    // cout << x.at(0) << endl;
     return 0;    
 }

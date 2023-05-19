@@ -46,9 +46,9 @@ Node* Delete(Node* head, int n){
 
 
 void Print(Node* head){
-    if(head == nullptr)return;
-    cout << head->data << endl;
-    Print(head->Next);
+    for(Node* temp = head; temp != nullptr; temp = temp->Next){
+        cout << temp->data << ' ';
+    }
 }
 
 void ReversePrint(Node* head){
@@ -100,12 +100,10 @@ void DeleteWithValue(Node* head, int data){
 
 int main(){
 
-    // Node* head = new Node(10, new Node(20, new Node(30, nullptr)));
-    // head = Insert(head, 40);
-    // head = Insert(head, 50);
-    // Print(head);
-    Node* head = new Node(5, nullptr);
-    cout << head << ' ' << &(head->data) << endl;
+    Node* head = new Node(10, new Node(20, new Node(30, nullptr)));
+    head = Insert(head, 40);
+    head = Insert(head, 50);
+    Print(head);
     
     return 0;
 }
