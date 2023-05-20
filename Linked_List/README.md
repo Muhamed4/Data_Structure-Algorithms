@@ -14,6 +14,8 @@
 * [Core Linked Lists Vs Arrays (video)](https://www.coursera.org/lecture/data-structures-optimizing-performance/core-linked-lists-vs-arrays-rjBs9)
 * [In The Real World Linked Lists Vs Arrays (video)](https://www.coursera.org/lecture/data-structures-optimizing-performance/in-the-real-world-lists-vs-arrays-QUaUd)
 * [Why you should avoid linked lists (video)](https://www.youtube.com/watch?v=YQs6IC-vgmo)
+* [Introduction to Doubly Linked List](https://www.youtube.com/watch?v=JdQeNxWCguQ&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=12&pp=iAQB)
+* [Doubly Linked List Implementaion](https://www.youtube.com/watch?v=VOQNf1VxU3Q&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=13&pp=iAQB)
 
 
 
@@ -27,3 +29,7 @@
 3. [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/ "LeetCode")
 
 4. [Reorder List](https://leetcode.com/problems/reorder-list/ "LeetCode")
+
+5. [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/ "LeetCode")
+
+6. [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/ "LeetCode")
