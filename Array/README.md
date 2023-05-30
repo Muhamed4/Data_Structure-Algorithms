@@ -1,5 +1,5 @@
 # Resources :
-## Vedios :
+## Videos :
 
 * [Arrays CS50 Harvard University](http://www.traversymedia.com)
 * [Arrays (video)](https://www.coursera.org/lecture/data-structures/arrays-OsBSF)

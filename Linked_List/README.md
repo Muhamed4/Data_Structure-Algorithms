@@ -1,5 +1,5 @@
 # Resources :
-## Vedios :
+## Videos :
 * [List as abstract data type](https://www.youtube.com/watch?v=HdFG8L1sajw&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=2&pp=iAQB)
 * [Introduction to Linked List](https://www.youtube.com/watch?v=NobHlGUjV3g&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=3&pp=iAQB)
 * [Array VS Linked Lists](https://www.youtube.com/watch?v=lC-yYCOnN8Q&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=4&t=2s&pp=iAQB)
@@ -33,3 +33,10 @@
 5. [Add Two Numbers](https://leetcode.com/problems/add-two-numbers/ "LeetCode")
 
 6. [Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/ "LeetCode")
+
+7. [Rotate List](https://leetcode.com/problems/rotate-list/ "LeetCode")
+
+8. [Remove Duplicates from Sorted List II](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/ "LeetCode")
+
+9. [Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/ "LeetCode")
+
