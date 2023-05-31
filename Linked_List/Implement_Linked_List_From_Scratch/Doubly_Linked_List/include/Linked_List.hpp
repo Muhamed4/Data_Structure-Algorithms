@@ -28,6 +28,8 @@ namespace DSA
 
             List();
 
+            ~List();
+
             int size() const;
 
             bool empty() const;
@@ -49,6 +51,8 @@ namespace DSA
             void insert(int index, T element);
 
             void erase(int index);
+
+            T value_n_from_end(int index);
 
         private:
 
@@ -239,6 +243,20 @@ namespace DSA
             temp = nullptr;
             (*this).decrement_size();
         }
+    }
+
+    template<typename T>
+    T List<T>::value_n_from_end(int index){
+        if(index < 0 || index >= (*this).size()){
+            throw std::out_of_range("The index is out of the range");
+        }
+        // index = 2
+        // [] [] [] [] []
+        Node* temp = tail;
+        for(int i = 0; i < index - 1;i++){
+            temp = temp->prev;
+        }
+        return (*temp).item;
     }
 
 
