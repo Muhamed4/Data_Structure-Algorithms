@@ -112,20 +112,24 @@ namespace DSA
 
     template<typename T>
     T List<T>::pop_front(){
+        T value;
         if(head == nullptr){
             throw std::runtime_error("There are no elements in the List");
         }
         else if(head == tail){
+            value = head->item; 
             delete head;
             head = tail = nullptr;
         }
         else{
+            value = head->item;
             Node *temp = head;
             head = head->next;
             delete temp;
             temp = nullptr;
         }
         (*this).decrement_size();
+        return value;
     }
 
     template<typename T>
@@ -143,14 +147,17 @@ namespace DSA
 
     template<typename T>
     T List<T>::pop_back(){
+        T value;
         if(head == nullptr){
             throw std::runtime_error("There are no elements in the List");
         }
         if(head == tail){
+            value = head->item;
             delete head;
             head = tail = nullptr;
         }
         else{
+            value = tail->item;
             Node* cur = head->next;
             Node* prev = head;
             while(cur != tail){
@@ -163,6 +170,7 @@ namespace DSA
             tail = prev;
         }
         (*this).decrement_size();
+        return value;
     }
 
     template<typename T>
