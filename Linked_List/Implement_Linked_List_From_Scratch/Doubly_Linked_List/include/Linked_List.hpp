@@ -58,6 +58,8 @@ namespace DSA
 
             void remove(T element);
 
+            T Get_Value(int index);
+
         private:
 
             void increment_size();
@@ -305,6 +307,19 @@ namespace DSA
                 (*this).decrement_size();
             }
         }
+    }
+
+    template<typename T>
+    T DList<T>::Get_Value(int index){
+        if(index < 0 || index >= (*this).size()){
+            throw std::out_of_range("The index is out of the range");
+        }
+
+        Node* temp = head;
+        for(int i = 0; i < index;i++){
+            temp = temp->next;
+        }
+        return (*temp).item;
     }
 
     template<typename T>
