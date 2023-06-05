@@ -14,3 +14,7 @@
 # Problems :
 
 1. [Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/ "LeetCode")
+
+2. [Min Stack](https://leetcode.com/problems/min-stack/ "LeetCode")
+
+3. [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/ "LeetCode")
