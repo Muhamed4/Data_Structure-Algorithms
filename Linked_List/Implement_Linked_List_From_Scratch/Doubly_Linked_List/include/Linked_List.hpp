@@ -1,14 +1,14 @@
 
 
-#ifndef DATA_STRUCTURE_IMPLEMENTATION_List_H
-#define DATA_STRUCTURE_IMPLEMENTATION_List_H
+#ifndef DATA_STRUCTURE_IMPLEMENTATION_DDList_H
+#define DATA_STRUCTURE_IMPLEMENTATION_DDList_H
 
 #include<stdexcept>
 
 namespace DSA
 {
     template<typename T>
-    class List{
+    class DList{
 
         private:
 
@@ -26,9 +26,9 @@ namespace DSA
 
         public:
 
-            List();
+            DList();
 
-            ~List();
+            ~DList();
 
             int size() const;
 
@@ -54,6 +54,10 @@ namespace DSA
 
             T value_n_from_end(int index);
 
+            void reverse();
+
+            void remove(T element);
+
         private:
 
             void increment_size();
@@ -66,20 +70,20 @@ namespace DSA
 
 
     template<typename T>
-    List<T>::List(): head(nullptr), tail(nullptr), _size(0) {}
+    DList<T>::DList(): head(nullptr), tail(nullptr), _size(0) {}
 
     template<typename T>
-    void List<T>::increment_size(){
+    void DList<T>::increment_size(){
         ++(*this)._size;
     }
 
     template<typename T>
-    void List<T>::decrement_size(){
-        --(*this)_size;
+    void DList<T>::decrement_size(){
+        --(*this)._size;
     }
 
     template<typename T>
-    Node* List<T>::Get_Node_at_index(int index){
+    typename DList<T>::Node* DList<T>::Get_Node_at_index(int index){
         Node* prev = head;
         // index = 2
         // [] [] [] [] []
@@ -90,17 +94,17 @@ namespace DSA
     }
 
     template<typename T>
-    int List<T>::size() const{
+    int DList<T>::size() const{
         return (*this)._size;
     }
 
     template<typename T>
-    bool List<T>::empty() const{
+    bool DList<T>::empty() const{
         return (*this).head == nullptr; 
     }
 
     template<typename T>
-    T List<T>::value_at(int index) const{
+    T DList<T>::value_at(int index) const{
         if(index < 0 || index >= (*this).size()){
             throw std::out_of_range("the index is out of the range");
         }
@@ -112,7 +116,7 @@ namespace DSA
     }
 
     template<typename T>
-    void List<T>::push_front(T element){
+    void DList<T>::push_front(T element){
         Node* newNode = new Node(element);
         if(head == nullptr){
             head = tail = newNode;
@@ -126,10 +130,10 @@ namespace DSA
     }
 
     template<typename T>
-    T List<T>::pop_front(){
+    T DList<T>::pop_front(){
         T value;
         if(head == nullptr){
-            throw std::runtime_error("There are no elements in the List");
+            throw std::runtime_error("There are no elements in the DList");
         }
         else if(head == tail){
             value = head->item;
@@ -149,7 +153,7 @@ namespace DSA
     }
 
     template<typename T>
-    void List<T>::push_back(T element){
+    void DList<T>::push_back(T element){
         Node* newNode = new Node(element);
         if(head == nullptr){
             head = tail = newNode;
@@ -163,10 +167,10 @@ namespace DSA
     }
 
     template<typename T>
-    T List<T>::pop_back(){
+    T DList<T>::pop_back(){
         T value;
         if(head == nullptr){
-            throw std::runtime_error("There are no elements in the List");
+            throw std::runtime_error("There are no elements in the DList");
         }
         if(head == tail){
             value = head->item;
@@ -185,30 +189,30 @@ namespace DSA
     }
 
     template<typename T>
-    T List<T>::front(){
+    T DList<T>::front(){
         if(head == nullptr){
-            throw std::runtime_error("The List is empty");
+            throw std::runtime_error("The DList is empty");
         }
         return (*this).head->item;
     }
 
     template<typename T>
-    T List<T>::back(){
+    T DList<T>::back(){
         if(head == nullptr){
-            throw std::runtime_error("The List is empty");
+            throw std::runtime_error("The DList is empty");
         }
         return (*this).tail->item;
     }
 
     template<typename T>
-    void List<T>::insert(int index, T element){
+    void DList<T>::insert(int index, T element){
         if(index < 0 || index > (*this).size()){
             throw std::out_of_range("The index is out of the range");
         }
         if(index == 0){
             (*this).push_front(element);
         }
-        else if(indx == (*this).size()){
+        else if(index == (*this).size()){
             (*this).push_back(element);
         }
         else{
@@ -224,7 +228,7 @@ namespace DSA
     }
 
     template<typename T>
-    void List<T>::erase(int index){
+    void DList<T>::erase(int index){
         if(index < 0 || index >= (*this).size()){
             throw std::runtime_error("You are trying to erase a value at index that does not in the range");
         }
@@ -246,7 +250,7 @@ namespace DSA
     }
 
     template<typename T>
-    T List<T>::value_n_from_end(int index){
+    T DList<T>::value_n_from_end(int index){
         if(index < 0 || index >= (*this).size()){
             throw std::out_of_range("The index is out of the range");
         }
@@ -259,7 +263,61 @@ namespace DSA
         return (*temp).item;
     }
 
+    template<typename T>
+    void DList<T>::reverse(){
+        Node* temp = head;
+        while(temp != nullptr){
+            Node* swapNode = temp->prev;
+            temp->prev = temp->next;
+            temp->next = swapNode;
+            swapNode = nullptr;
+            temp = temp->prev;
+        }
+        temp = head;
+        head = tail;
+        tail = temp;
+        temp = nullptr;
+    }
+
+    template<typename T>
+    void DList<T>::remove(T element){
+
+        if((*this).size() == 0){
+            return;
+        }
+        
+        if(head->item == element){
+            (*this).pop_front();
+        }
+        else{
+            Node* temp = head;
+            while(temp != nullptr && temp->item != element){
+                temp = temp->next;
+            }
+            if(temp == tail){
+                (*this).pop_back();
+            }
+            else if(temp != nullptr){
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+                delete temp;
+                temp = nullptr;
+                (*this).decrement_size();
+            }
+        }
+    }
+
+    template<typename T>
+    DList<T>::~DList(){
+        Node* temp = head;
+        while(temp != nullptr){
+            Node* Next = temp->next;
+            delete temp;
+            temp = Next;
+        }
+        head = tail = temp = nullptr;
+    }
 
 } // namespace DSA
 
-#endif // DATA_STRUCTURE_IMPLEMENTATION_List_H
+#endif // DATA_STRUCTURE_IMPLEMENTATION_DDList_H

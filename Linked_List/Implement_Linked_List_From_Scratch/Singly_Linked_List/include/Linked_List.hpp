@@ -27,6 +27,8 @@ namespace DSA
 
             List();
 
+            ~List();
+
             int size() const;
 
             bool empty() const;
@@ -297,6 +299,17 @@ namespace DSA
             }
         }
         (*this).decrement_size();
+    }
+
+    template<typename T>
+    List<T>::~List(){
+        Node* tmep = head;
+        while(temp != nullptr){
+            Node* Next = temp->next;
+            delete temp;
+            temp = Next;
+        }
+        head = tail = temp = nullptr;
     }
 
 
