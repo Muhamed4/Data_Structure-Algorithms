@@ -18,3 +18,5 @@
 2. [Min Stack](https://leetcode.com/problems/min-stack/ "LeetCode")
 
 3. [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/ "LeetCode")
+
+4. [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/ "LeetCode")
