@@ -47,6 +47,10 @@ namespace DSA
         // To looks for value and returns first index with that value, -1 if not found
         int find(T item);
 
+        T& front();
+
+        T& back();
+
         // Operator Overloading
 
         // Make operator overloading to (=) and make Deep copy cause there is pointer and to not make the data to be deleted twice 
@@ -105,7 +109,7 @@ namespace DSA
     template <typename T>
     bool Vector<T>::empty() const
     {
-        return this->size() > 0;
+        return this->size() == 0;
     }
 
     template <typename T>
@@ -121,7 +125,7 @@ namespace DSA
 
     template<typename T>
     void Vector<T>::Modify_data(){
-        T new_data = new T[this->capacity()];
+        T* new_data = new T[this->capacity()];
         for (int i = 0; i < this->size(); i++)
         {
             new_data[i] = this->data[i];
@@ -170,12 +174,12 @@ namespace DSA
 
     template<typename T>
     void Vector<T>::resize(){
-        int ratio = this->capacity() / this->size();
+        int ratio = this->capacity() / ((this->size() == 0) ? 1 : this->size());
         if(ratio >= 4){
             this->capacity_data = (this->capacity_data + 1) / 2;
             this->Modify_data();
         }
-    }
+    }   
 
     template <typename T>
     void Vector<T>::insert(int index, T item)
@@ -244,6 +248,22 @@ namespace DSA
             }
         }
         return first_index;
+    }
+
+    template<typename T>
+    T& Vector<T>::front(){
+        if((*this).empty()){
+            throw std::runtime_error("The Vector is empty");
+        }
+        return (*this).data[0];
+    }
+
+    template<typename T>
+    T& Vector<T>::back(){
+        if((*this).empty()){
+            throw std::runtime_error("The Vector is empty");
+        }
+        return (*this).data[this->size() - 1];
     }
 
 
