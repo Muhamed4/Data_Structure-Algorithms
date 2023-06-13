@@ -16,12 +16,18 @@
 
 * [Check for balanced parentheses using stack](https://www.youtube.com/watch?v=QZOLb0xHB_Q&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=19)
 
+* [Infix, Prefix and Postfix](https://www.youtube.com/watch?v=jos1Flt21is&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=19)
+
+* [Evaluation of Prefix and Postfix expressions using stack](https://www.youtube.com/watch?v=MeRb_1bddWg&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=20)
+
+* [Infix to Postfix using stack](https://www.youtube.com/watch?v=vq-nUF0G4fI&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=21)
+
 ## Articles :
 
 * [Interactive tutorial: stacks](https://leetcode.com/explore/learn/card/queue-stack/)
 
 
-# Problems :s
+# Problems :
 
 1. [Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/ "LeetCode")
 
@@ -34,3 +40,5 @@
 5. [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/ "LeetCode")
 
 6. [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/ "LeetCode")
+
+7. [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/ "LeetCode")

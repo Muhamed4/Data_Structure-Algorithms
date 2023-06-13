@@ -44,4 +44,6 @@
 
 11. [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/ "LeetCode")
 
+12. [Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/ "LeetCode")
+
 
