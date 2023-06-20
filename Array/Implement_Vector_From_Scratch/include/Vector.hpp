@@ -88,6 +88,9 @@ namespace DSA
     template <typename T>
     Vector<T>::Vector(int _size)
     {
+        if(_size < 0){
+            throw std::runtime_error("Can't assign a negative size to the vector...!");
+        }
         this->size_data = _size;
         this->capacity_data = _size;
         this->current_item = -1;
