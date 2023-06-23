@@ -41,4 +41,4 @@
 
 6. [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/ "LeetCode")
 
-7. [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/ "LeetCode")
+c

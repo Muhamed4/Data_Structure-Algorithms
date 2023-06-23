@@ -21,3 +21,7 @@
 
 # Problems :
 
+1. [Empty arrays](https://www.hackerearth.com/practice/data-structures/queues/basics-of-queues/practice-problems/algorithm/empty-array-31ed638c/ "Hackerearth")
+
+
+2. [Disk tower  ](https://www.hackerearth.com/practice/data-structures/queues/basics-of-queues/practice-problems/algorithm/disk-tower-b7cc7a50/ "Hackerearth")
