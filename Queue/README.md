@@ -23,5 +23,8 @@
 
 1. [Empty arrays](https://www.hackerearth.com/practice/data-structures/queues/basics-of-queues/practice-problems/algorithm/empty-array-31ed638c/ "Hackerearth")
 
+2. [Disk tower](https://www.hackerearth.com/practice/data-structures/queues/basics-of-queues/practice-problems/algorithm/disk-tower-b7cc7a50/ "Hackerearth")
 
-2. [Disk tower  ](https://www.hackerearth.com/practice/data-structures/queues/basics-of-queues/practice-problems/algorithm/disk-tower-b7cc7a50/ "Hackerearth")
+3. [Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/ "LeetCode")
+
+4. [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/ "LeetCode")
