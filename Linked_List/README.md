@@ -48,4 +48,8 @@
 
 13. [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/ "LeetCode")
 
+14. [Insertion Sort List](https://leetcode.com/problems/insertion-sort-list/ "LeetCode")
+
+15. [Remove Linked List Elements](https://leetcode.com/problems/remove-linked-list-elements/ "LeetCode")
+
 

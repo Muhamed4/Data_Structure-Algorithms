@@ -1,19 +1,27 @@
 #include <bits/stdc++.h>
 // #include "../include/HashMapChain.hpp"
-#include "../include/HashMapOpenAddressing.hpp"
+#include "../include/HashMapChain.hpp"
+using namespace DSA;
 using namespace std;
 
 
 
 int main()
 {
-    HashMap hash;
-    hash.put(1, 10);
-    hash.put(2, 20);
-    hash.put(3, 30);
-    hash.put(4, 40);
+    Unordered_map<string,int>mp;
+    mp.add("ali", 1);
+    mp.add("Muhamed", 2);
+    mp.add("omar", 3);
+    mp.add("amr", 44);
+    cout << mp["ali"] << endl;
+    cout << mp.get("Muhamed") << endl;
+    cout << mp.get("omar") << endl;
+    cout << mp.get("amr") << endl;
+    mp.remove("amr");
+    cout << mp["amr"] << endl;
 
-    cout << hash.get(2) << endl;
+    
+    
 
     return 0;
 }

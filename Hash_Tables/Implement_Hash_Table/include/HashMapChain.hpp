@@ -1,130 +1,225 @@
-class LinkedHashEntry
+
+//
+// Created by muhamed on 22/06/23.
+//
+
+
+#ifndef DATA_STRUCTURE_IMPLEMENTATION_HASHTABLE_H
+#define DATA_STRUCTURE_IMPLEMENTATION_HASHTABLE_H
+
+#include<stdexcept>
+
+namespace DSA
 {
-private:
-    int key;
-    int value;
-    LinkedHashEntry *next;
+    template<typename K, typename V>
+    class Unordered_map{
 
-public:
-    LinkedHashEntry(int key, int value)
-    {
-        this->key = key;
-        this->value = value;
-        this->next = nullptr;
-    }
+    private:
 
-    int getKey()
-    {
-        return this->key;
-    }
+        struct Node
+        {
+        private:
+            K key;
+            V value;
+            Node* next;
 
-    int getValue()
-    {
-        return this->value;
-    }
+        public:
 
-    void setValue(int value)
-    {
-        this->value = value;
-    }
+            Node(K _key, V _value): key(_key), value(_value), next(nullptr) {}
 
-    LinkedHashEntry *getNext()
-    {
-        return this->next;
-    }
+            const K& getKey() const { return this->key; }
 
-    void setNext(LinkedHashEntry *next)
-    {
-        this->next = next;
-    }
-};
+            V& getValue() { return this->value; }
 
-const int TABLE_SIZE = 128;
+            Node* getNext() const { return next; }
 
-class HashMap
-{
-private:
-    LinkedHashEntry **table;
+            void setValue(V _value) { this->value = _value; }
 
-public:
-    HashMap(){
-        table = new LinkedHashEntry *[TABLE_SIZE];
-        for(int i = 0; i < TABLE_SIZE;i++){
-            table[i] = nullptr;
+            void setNext(Node* _next) { this->next = _next; }
+
+            // ~Node(){
+            //     Node* head = this;
+            //     while(head != nullptr){
+            //         Node* temp = head;
+            //         head = head->getNext();
+            //         delete temp;
+            //         temp = nullptr;
+            //     }
+            // }
+        };
+
+        Node **table;
+        int _size;
+        int _capacity;
+
+
+
+
+        float getLoadFactor(){
+            return (float)(this->_size + 1) / (float)(this->_capacity);
         }
-    }
 
-    int get(int key){
-        int hash = (key % TABLE_SIZE);
-        if(table[hash] == nullptr){
-            return -1;
-        }
-        LinkedHashEntry *entry = table[hash];
-        while(entry != nullptr && entry->getKey() != key){
-            entry = entry->getNext();
-        }
-        if(entry == nullptr) return -1;
-        return entry->getValue();
-    }
 
-    void put(int key, int value){
-        int hash = (key % TABLE_SIZE);
-        if(table[hash] == nullptr){
-            table[hash] = new LinkedHashEntry(key, value);
-            return;
+        void rehashing(){
+            int oldCapacity = this->_capacity;
+            this->_capacity = oldCapacity * 2;
+            Node** newTable = this->table;
+            table = new Node* [this->_capacity]{nullptr};
+
+            for(int i = 0; i < oldCapacity;i++){
+                Node* head = newTable[i];
+                while(head != nullptr){
+                    int hashIndex = hashFunction(head->getKey());
+                    Node* newNode = new Node(head->getKey(), head->getValue());
+                    newNode->setNext(this->table[hashIndex]);
+                    table[hashIndex] = newNode;
+                    
+                    Node* temp = head;
+                    head = head->getNext();
+                    delete temp;
+                    temp = nullptr;
+                }
+                // delete newTable[i];
+            }
+
+            delete[] newTable;
+
         }
-        LinkedHashEntry *entry = table[hash];
-        while(entry->getNext() != nullptr){
-            if(entry->getKey() == key){
-                entry->setValue(value);
+
+        void increment_size(){
+            ++this->_size;
+        }
+
+        void decrement_size(){
+            --this->_size;
+        }
+
+
+    public:
+
+        Unordered_map(){
+            this->_capacity = 1;
+            this->_size = 0;
+            this->table = new Node* [_capacity]{nullptr};
+        }
+
+
+        // Any hash funcion that have these properties :'
+        // 1- Efficiently Computable.
+        // 2- Should uniformly distribute the keys.
+        // 3- Should minimize collisions.
+        // 4- Should have a low load factor (number of items in the table divided by the size of the table).
+
+        // In this function we will work with just a (string) key.
+        int hashFunction(std::string key){
+            int hashValue = 0;
+            long long sum = 0, factor = 51;
+
+            for(int i = 0;i < (int)key.size();i++){
+                sum = ((sum % this->_capacity) + (((int)key[i]) * factor) % this->_capacity) % this->_capacity;
+            }
+            hashValue = sum;
+            return hashValue;
+        }
+
+
+        void add(K key, V value){
+
+             while(this->getLoadFactor() > 0.5f){
+                 this->rehashing();
+             }
+
+            int hashIndex = hashFunction(key);
+            // std::cout << hashIndex << ' '<< this->_capacity << std::endl;
+
+            Node* head = table[hashIndex];
+            while(head != nullptr){
+                if(head->getKey() == key){
+                    head->setValue(value);
+                    return;
+                }
+                head = head->getNext();
+            }
+
+            Node* newNode = new Node(key, value);
+            newNode->setNext(table[hashIndex]);
+            table[hashIndex] = newNode;
+            this->increment_size();
+        }
+
+        bool exist(K key){
+            int hashIndex = hashFunction(key);
+
+            Node* head = table[hashIndex];
+            while(head != nullptr){
+                if(head->getKey() == key){
+                    return true;
+                }
+                head = head->getNext();
+            }
+
+            return false;
+        }
+
+
+        V& get(K key){
+            return (*this)[key];
+        }
+
+        V& operator[](const K& key){
+            int hashIndex = hashFunction(key);
+
+            Node* head = table[hashIndex];
+            while(head != nullptr){
+                if(head->getKey() == key){
+                    return head->getValue();
+                }
+                head = head->getNext();
+            }
+
+            throw std::runtime_error("This Key is Not Exist ...!");
+        }
+
+
+        void remove(K key){
+            int hashIndex = hashFunction(key);
+            // std::cout << hashIndex << std::endl;
+
+            Node* head = table[hashIndex];
+            if(head == nullptr){
+                throw std::runtime_error("This Key is Not Exist ...!");
+            }
+            if(head->getKey() == key){
+                Node* temp = head;
+                table[hashIndex] = head->getNext();
+                delete temp;
+                temp = nullptr;
+                this->decrement_size();
                 return;
             }
-            entry = entry->getNext();
-        }
-        if(entry->getKey() == key){
-            entry->setValue(value);
-        }
-        else entry->setNext(new LinkedHashEntry(key, value));
-    }
-
-    void remove(int key){
-
-        int hash = (key % TABLE_SIZE);
-        
-        if(table[hash] != nullptr){
-            LinkedHashEntry *prevEntry = nullptr;
-            LinkedHashEntry *entry = table[hash];
-
-            while(entry->getNext() != nullptr && entry->getKey() != key){
-                prevEntry = entry;
-                entry = entry->getNext();
+            while(head->getNext() != nullptr && head->getNext()->getKey() != key){
+                head = head->getNext();
+            }
+            if(head->getNext() != nullptr && head->getNext()->getKey() == key){
+                Node* temp = head->getNext();
+                head->setNext(temp->getNext());
+                delete temp;
+                temp = nullptr;
+                this->decrement_size();
             }
 
-            if(entry->getKey() == key){
-                if(prevEntry == nullptr){
-                    LinkedHashEntry *nextEntry = entry->getNext();
-                    delete entry;
-                    table[hash] = nextEntry;
-                }
-                else{
-                    LinkedHashEntry *next = entry->getNext();
-                    prevEntry->setNext(next);
-                    delete entry;
-                }
-            }
         }
-    }
 
-    ~HashMap(){
-        for(int i = 0; i < TABLE_SIZE;i++){
-            LinkedHashEntry *prevEntry = nullptr;
-            LinkedHashEntry *entry = table[i];
-            while(entry != nullptr){
-                prevEntry = entry;
-                entry = entry->getNext();
-                delete prevEntry;
+
+
+        ~Unordered_map(){
+            for(int i = 0; i < this->_capacity;i++){
+                delete table[i];
             }
+            delete[] table;
         }
-        delete[] table;
-    }
-};
+    };
+
+} // namespace DSA
+
+#endif // DATA_STRUCTURE_IMPLEMENTATION_HASHTABLE_H
