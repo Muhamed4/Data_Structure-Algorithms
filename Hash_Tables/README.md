@@ -26,3 +26,16 @@
 
 # Problems :
 
+1. [Two Sum](https://leetcode.com/problems/two-sum/description/ "LeetCode")
+
+2. [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/ "LeetCode")
+
+3. [Buddy Strings](https://leetcode.com/problems/buddy-strings/description/ "LeetCode")
+
+4. [Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/ "LeetCode")
+
+5. [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/description/ "LeetCode")
+
+6. [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/ "LeetCode")
+
+7. [Missing Number](https://leetcode.com/problems/missing-number/description/ "LeetCode")

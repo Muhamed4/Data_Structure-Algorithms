@@ -40,5 +40,3 @@
 5. [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/ "LeetCode")
 
 6. [Remove Duplicate Letters](https://leetcode.com/problems/remove-duplicate-letters/ "LeetCode")
-
-c
