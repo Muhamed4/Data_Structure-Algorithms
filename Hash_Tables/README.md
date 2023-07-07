@@ -55,11 +55,15 @@
 
 * [Separate Chaining Collision Handling Technique in Hashing](https://www.geeksforgeeks.org/separate-chaining-collision-handling-technique-in-hashing/?ref=lbp)
 
+* [Open Addressing Collision Handling technique in Hashing](https://www.geeksforgeeks.org/open-addressing-collision-handling-technique-in-hashing/?ref=lbp)
+
 
 
 * [Basics of Hash Tables](https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/)
 
 * [Interactive Tutorial: Hash tables](https://leetcode.com/explore/learn/card/hash-table/)
+
+* [CSC2100B Tutorial 6 Hashing (Tom Chao Zhou) (pdf)](https://www.cse.cuhk.edu.hk/irwin.king/_media/teaching/csc2100b/tu6.pdf)
 
 
 # Problems :
