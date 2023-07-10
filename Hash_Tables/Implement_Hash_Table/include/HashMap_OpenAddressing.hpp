@@ -124,9 +124,14 @@ namespace DSA
                 hashIndex = (hashIndex + 1) % (*this).__size;
             }
 
-            if(table[hashIndex] == nullptr || hashIndex == initialIndex){
-                throw std::runtime_error("This Key is not Exist ...!");
+            if(hashIndex == initialIndex){
+                throw std::runtime_error("The map is Full ...!");
             }
+            
+            if(table[hashIndex] == nullptr){
+                this->add(_key, V());
+            }
+
 
             return table[hashIndex]->getValue(); 
         }

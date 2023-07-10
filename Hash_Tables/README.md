@@ -57,7 +57,9 @@
 
 * [Open Addressing Collision Handling technique in Hashing](https://www.geeksforgeeks.org/open-addressing-collision-handling-technique-in-hashing/?ref=lbp)
 
+* [Double Hashing](https://www.geeksforgeeks.org/double-hashing/?ref=lbp)
 
+* [Load Factor and Rehashing](https://www.geeksforgeeks.org/load-factor-and-rehashing/?ref=lbp)
 
 * [Basics of Hash Tables](https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/)
 
@@ -87,3 +89,7 @@
 9. [Hand of Straights](https://leetcode.com/problems/hand-of-straights/ "LeetCode")
 
 10. [Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/ "LeetCode")
+
+11. [Integer to Roman](https://leetcode.com/problems/integer-to-roman/ "LeetCode")
+
+12. [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/ "LeetCode")

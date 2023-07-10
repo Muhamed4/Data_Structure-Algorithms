@@ -77,9 +77,17 @@ int main()
     cout << ump.exist("Amr") << endl;
     ump.get("Ahmed") = 4444;
     cout << ump.get("Ahmed") << endl;
+    ump["Sameh"] = 10;
+    cout << ump["Sameh"] << endl;
 
-    Slots<string, int>slot("Khaled", 10);
-    cout << slot.getKey() << endl;
+    // Slots<string, int>slot("Khaled", 10);
+    // cout << slot.getKey() << endl;
+
+
+    // map<string,int>mp;
+    // map<string,int>::iterator it = mp.begin();
+
+    
 
     
     
