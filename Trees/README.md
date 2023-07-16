@@ -24,6 +24,12 @@
 
     * [Binary Search Tree](https://www.youtube.com/watch?v=i_Q0v_Ct5lY)
 
+
+
+* ### Heap - Priority Queue - Binary Heap :
+
+    * [Heaps](https://www.youtube.com/watch?v=t0Cq6tVNRBA)
+
 ## Articles :
 
 * [Types of Trees](https://www.thecrazyprogrammer.com/2019/09/types-of-trees-in-data-structure.html)
