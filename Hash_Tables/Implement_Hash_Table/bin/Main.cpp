@@ -7,20 +7,11 @@ using namespace std;
 
 
 
+
 int main()
 {
-    // Unordered_map<string,int>mp;
-    // mp.add("ali", 1);
-    // mp.add("Muhamed", 2);
-    // mp.add("omar", 3);
-    // mp.add("amr", 44);
-    // cout << mp["ali"] << endl;
-    // cout << mp.get("Muhamed") << endl;
-    // cout << mp.get("omar") << endl;
-    // cout << mp.get("amr") << endl;
-    // mp.remove("amr");
-    // cout << mp["amr"] << endl;
-
+    #pragma region 
+    
 
     // unordered_set<int>st;
     // st.insert(4);
@@ -60,25 +51,25 @@ int main()
 
     // cout << mp.bucket_size(1) << endl;
 
-    Unordered_map<string,int>ump(10);
-    ump.add("Ali", 2);
-    ump.add("Abdo", 5);
-    ump.add("Omar", 28);
-    ump.add("Morsi", 22);
-    ump.add("Ahmed", 234);
+    // Unordered_map<string,int>ump(10);
+    // ump.add("Ali", 2);
+    // ump.add("Abdo", 5);
+    // ump.add("Omar", 28);
+    // ump.add("Morsi", 22);
+    // ump.add("Ahmed", 234);
 
-    ump["Morsi"] = 1111;
-    cout << ump["Morsi"] << endl;
-    ump.remove("Morsi");
+    // ump["Morsi"] = 1111;
+    // cout << ump["Morsi"] << endl;
+    // ump.remove("Morsi");
     // cout << ump["Morsi"] << endl;
 
-    cout << ump["Abdo"] << endl;
-    cout << ump.exist("Omar") << endl;
-    cout << ump.exist("Amr") << endl;
-    ump.get("Ahmed") = 4444;
-    cout << ump.get("Ahmed") << endl;
-    ump["Sameh"] = 10;
-    cout << ump["Sameh"] << endl;
+    // cout << ump["Abdo"] << endl;
+    // cout << ump.exist("Omar") << endl;
+    // cout << ump.exist("Amr") << endl;
+    // ump.get("Ahmed") = 4444;
+    // cout << ump.get("Ahmed") << endl;
+    // ump["Sameh"] = 10;
+    // cout << ump["Sameh"] << endl;
 
     // Slots<string, int>slot("Khaled", 10);
     // cout << slot.getKey() << endl;
@@ -87,10 +78,15 @@ int main()
     // map<string,int>mp;
     // map<string,int>::iterator it = mp.begin();
 
-    
+    #pragma endregion
 
-    
-    
+    unordered_map<vector<int>,int>mp;
+    map<int,int>m;
+    mp[{1, 2, 3, 4}] = 1;
+    mp[{1, 2, 4, 3}] = 2;
+    cout << mp[{1, 2, 3, 4}] << endl;
+
+
 
     return 0;
 }

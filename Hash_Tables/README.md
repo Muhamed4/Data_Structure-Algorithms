@@ -59,7 +59,7 @@
 
 * [Double Hashing](https://www.geeksforgeeks.org/double-hashing/?ref=lbp)
 
-* [Load Factor and Rehashing](https://www.geeksforgeeks.org/load-factor-and-rehashing/?ref=lbp)
+* [Load Factor and Rehashing](https://www.geeksforgeeks.org/load-factor-and-rehashing/?ref=lbp  )
 
 * [Basics of Hash Tables](https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/)
 
