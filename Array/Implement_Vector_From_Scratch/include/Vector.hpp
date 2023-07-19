@@ -24,6 +24,8 @@ namespace DSA
         Vector();
         // parameterized constructor (takes the size of the Vector)
         Vector(int _size);
+        // Parameterized constructor (takes an initializer list with some values with the same data type).
+        Vector(const std::initializer_list<T>& initializer);
         // Destructor to delete the dynamic allocation array (data)
         ~Vector();
         // member function to return the size of the Vector
@@ -95,6 +97,19 @@ namespace DSA
         this->capacity_data = _size;
         this->current_item = -1;
         this->data = new T[this->capacity_data];
+    }
+
+    template <typename T>
+    Vector<T>::Vector(const std::initializer_list<T> &initializer)
+    {
+        int __size = initializer.size();
+        this->size_data = __size;
+        this->capacity_data = __size;
+        this->data = new T[this->capacity_data];
+        int idx = -1;
+        for(auto &it: initializer){
+            this->data[++idx] = it;
+        }
     }
 
     template <typename T>

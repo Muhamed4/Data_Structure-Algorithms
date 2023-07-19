@@ -4,6 +4,8 @@
 
 * ### Introduction to Trees :
 
+    * [Introduction to Trees](https://www.youtube.com/watch?v=qH6yxkw0u78&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=25)
+
     * [Trees](https://www.youtube.com/watch?v=oSWTXtMglKE)
 
     * [Intro to Trees](https://www.coursera.org/lecture/data-structures/trees-95qda)
@@ -22,6 +24,8 @@
 
 * ### Binary Search Tree (BST) :
 
+    * [Binary Tree](https://www.youtube.com/watch?v=H5JubkIy_p8&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=26)
+
     * [Binary Search Tree](https://www.youtube.com/watch?v=i_Q0v_Ct5lY)
 
 
@@ -33,6 +37,9 @@
 ## Articles :
 
 * [Types of Trees](https://www.thecrazyprogrammer.com/2019/09/types-of-trees-in-data-structure.html)
+
+
+* [Everything you need to know about tree data structures](https://www.freecodecamp.org/news/all-you-need-to-know-about-tree-data-structures-bceacb85490c/)
 
 
 # Problems :
