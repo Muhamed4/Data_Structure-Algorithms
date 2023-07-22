@@ -63,7 +63,3 @@
 
 * [Everything you need to know about tree data structures](https://www.freecodecamp.org/news/all-you-need-to-know-about-tree-data-structures-bceacb85490c/)
 
-
-# Problems :
-
-1. [Two Sum](https://leetcode.com/problems/two-sum/description/ "LeetCode")
