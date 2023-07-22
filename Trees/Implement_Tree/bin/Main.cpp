@@ -96,6 +96,65 @@ void PostOrder(BstNode* root){
     cout << root->data << ' ';
 }
 
+bool IsBinarySearchTree(BstNode* root, int minValue, int maxValue){
+    if(root == nullptr)return true;
+    if(root->data < minValue || root->data > maxValue)return false;
+    return IsBinarySearchTree(root->left, minValue, root->data) && IsBinarySearchTree(root->right,
+        root->data + 1, maxValue);
+}
+
+BstNode* Delete(BstNode* root, int data){
+    if(root == nullptr)return root;
+    else if(data < root->data)root->left = Delete(root->left, data);
+    else if(data > root->data)root->right = Delete(root->right, data);
+    else{
+        if(root->left == nullptr && root->right == nullptr){
+            delete root;
+            root = nullptr;
+        }
+        else if(root->left == nullptr || root->right == nullptr){
+            BstNode* temp = root;
+            root = (root->left == nullptr) ? root->right : root->left;
+            delete temp;
+            temp = nullptr;
+        }
+        else{
+            int minValue = FindMin(root->right);
+            root->data = minValue;
+            root->right = Delete(root->right, minValue);
+        }
+    }
+    return root;
+}
+
+BstNode* Findmin(BstNode* root){
+    if(root == nullptr)return nullptr;
+    while(root->left != nullptr){
+        root = root->left;
+    }
+    return root;
+}
+
+BstNode* Getsuccessor(BstNode* root, int data){
+    BstNode* cur = Find(root, data);
+    if(cur == nullptr)return nullptr;
+    if(cur->right != nullptr){
+        return Findmin(cur->right);
+    }
+    else{
+        BstNode* successor = nullptr;
+        BstNode* ancestor = root;
+        while(ancestor != nullptr){
+            if(cur->data <= ancestor->data){
+                successor = ancestor;
+                ancestor = ancestor->left;
+            }
+            else ancestor = ancestor->right;
+        }
+        return successor;
+    }
+}
+
 void Print(BstNode* root){
     if(root == nullptr)return;
     cout << root->data << endl;
@@ -108,12 +167,16 @@ int main()
 {
 
     BstNode* root = nullptr;
+    insert(&root, 12);
+    insert(&root, 5);
     insert(&root, 15);
-    insert(&root, 10);
-    insert(&root, 15);
-    insert(&root, 54);
-    insert(&root, 78);
-    insert(&root, 24);
+    insert(&root, 5);
+    insert(&root, 7);
+    insert(&root, 13);
+    insert(&root, 17);
+    insert(&root, 1);
+    insert(&root, 9);
+    root = Delete(root, 5);
     LevelOrder(root);
 
     return 0;
