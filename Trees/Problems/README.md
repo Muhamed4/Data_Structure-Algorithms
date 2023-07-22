@@ -1,6 +1,6 @@
 # Problems :
 
-* [ ] [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) 
+* [x] [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/) 
     * <details>
         <summary> Solution </summary>
 
