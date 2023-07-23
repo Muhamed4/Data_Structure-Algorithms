@@ -53,3 +53,47 @@
 
 ---
 
+* [ ] [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/?source=submission-ac) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+                    vector<vector<int>>ans;
+                    queue<TreeNode*>bfs;
+                    if(root != nullptr)bfs.push(root);
+                    bool flag = false;
+                    while(!bfs.empty()){
+                        ans.push_back(vector<int>());
+                        queue<TreeNode*>temp;
+                        while(!bfs.empty()){
+                            ans.back().push_back(bfs.front()->val);
+                            if(bfs.front()->left != nullptr)temp.push(bfs.front()->left);
+                            if(bfs.front()->right != nullptr)temp.push(bfs.front()->right);
+                            bfs.pop();
+                        }
+                        if(flag)reverse(ans.back().begin(), ans.back().end());
+                        flag ^= true;
+                        bfs = temp;
+                    }
+                    return ans;
+                }
+            };
+        
+    </details>
+
+---
+
