@@ -24,6 +24,8 @@
 
 * ### Binary Search Tree (BST) :
 
+    * [MIT](https://www.youtube.com/watch?v=76dhtgZt38A&ab_channel=MITOpenCourseWare)
+
     * [Binary Tree](https://www.youtube.com/watch?v=H5JubkIy_p8&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=26)
 
     * [Binary Search Tree](https://www.youtube.com/watch?v=i_Q0v_Ct5lY)
@@ -58,8 +60,10 @@
 
 ## Articles :
 
+* [Introduction to Tree](https://www.geeksforgeeks.org/introduction-to-tree-data-structure-and-algorithm-tutorials/)
+
 * [Types of Trees](https://www.thecrazyprogrammer.com/2019/09/types-of-trees-in-data-structure.html)
 
-
 * [Everything you need to know about tree data structures](https://www.freecodecamp.org/news/all-you-need-to-know-about-tree-data-structures-bceacb85490c/)
+
 
