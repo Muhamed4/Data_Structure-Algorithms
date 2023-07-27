@@ -156,4 +156,142 @@
 
 ---
 
+* [ ] [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                int len(TreeNode* root, int& ans){
+                    if(root == nullptr)return 0;
+                    int mx1 = len(root->left, ans);
+                    int mx2 = len(root->right, ans);
+                    ans = max(ans, mx1 + mx2);
+                    return max(mx1, mx2) + 1;
+                }
+            public:
+                int diameterOfBinaryTree(TreeNode* root) {
+                    int ans = 0;
+                    len(root, ans);
+                    return ans;
+                }
+            };
+        
+    </details>
+
+---
+
+* [ ] [Path Sum](https://leetcode.com/problems/path-sum/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                bool Check(TreeNode* root, int sum, int& targetSum){
+                    if(root == nullptr)return (sum == targetSum);
+                    bool flag = false;
+                    sum += root->val;
+                    if(root->right == nullptr || root->left != nullptr)flag |= Check(root->left, sum, targetSum);
+                    if(root->left == nullptr || root->right != nullptr)flag |= Check(root->right, sum, targetSum);
+                    return flag;
+                }
+            public:
+                bool hasPathSum(TreeNode* root, int targetSum) {
+                    if(root == nullptr)return false;
+                    return Check(root, 0, targetSum);
+                }
+            };
+        
+    </details>
+
+---
+
+* [ ] [Largest cycle in a tree](https://www.hackerearth.com/practice/data-structures/trees/binary-and-nary-trees/practice-problems/approximate/largest-cycle-in-a-tree-9113b3ab/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            #include<bits/stdc++.h>
+            using namespace std;
+            typedef long long ll;
+            #define endl '\n'
+
+            void Farest_Node(int node, vector<vector<int>>&adj, vector<int>&depth, vector<int>&vis){
+                vis[node] = 1;
+                for(auto &child: adj[node]){
+                    if(!vis[child]){
+                        depth[child] = 1 + depth[node];
+                        Farest_Node(child, adj, depth, vis);
+                    }
+                }
+            }
+
+            int Wanted_Node(int n, int Farest, vector<vector<int>>&adj){
+                int mx = -1, node = -1;
+                vector<int>depth(n + 1), vis(n + 1);
+                Farest_Node(Farest, adj, depth, vis);
+                for(int i = 1; i <= n;i++){
+                    if(mx < depth[i]){
+                        mx = depth[i];
+                        node = i;
+                    }
+                }
+                return node;
+            }
+
+            void solve(){
+                int n;cin >> n;
+                vector<vector<int>>adj(n + 1);
+                for(int i = 1; i < n;i++){
+                    int u, v;cin >> u >> v;
+                    adj[u].push_back(v);
+                    adj[v].push_back(u);
+                }
+                // The solution is to find the farest node from any node then find the farest node from this node
+                // this is the prove of this idea :
+                // https://stackoverflow.com/questions/20010472/proof-of-correctness-algorithm-for-diameter-of-a-tree-in-graph-theory
+                int a = Wanted_Node(n, 1, adj);
+                int b = Wanted_Node(n, a, adj);
+                cout << a << ' ' << b << endl;
+            }
+
+            int main(){
+                ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+                #ifndef ONLINE_JUDGE
+                freopen("Input.txt", "r", stdin);
+                freopen("Output.txt", "w", stdout);
+                #endif
+                int t = 1;
+                for(int i = 1; i <= t;i++){
+                    solve();
+                }
+                return 0;
+            }
+        
+    </details>
+
+---
+
 
