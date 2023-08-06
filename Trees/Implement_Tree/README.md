@@ -1,4 +1,4 @@
-# Implement Binary Search Tree :
+# Implement MultiSet using (Binary Search Tree) :
 
 * [ ] insert 
 
