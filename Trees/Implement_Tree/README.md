@@ -1,7 +1,12 @@
 # Implement MultiSet using (Binary Search Tree) :
 
 * [ ] Insert
+    <details>
+    <summary>
+    </summary>
+    
     > Insert a new value into the tree.
+    </details>
 
 * [ ] Count(_value)
     > Count the number of nodes that have this value.
@@ -31,3 +36,13 @@
 
 * [ ] Get_Max
     > return the maximum value in the tree.
+
+
+
+    <details>
+    <summary>
+        Insert
+    </summary>
+    
+    > Insert a new value into the tree.
+    </details>
