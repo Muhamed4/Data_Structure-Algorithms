@@ -66,6 +66,8 @@
 
 * [Applications of tree data structure](https://www.geeksforgeeks.org/applications-of-tree-data-structure/?ref=lbp)
 
+* [Introduction to Binary Tree](https://www.geeksforgeeks.org/introduction-to-binary-tree-data-structure-and-algorithm-tutorials/?ref=lbp)
+
 * [Types of Trees](https://www.thecrazyprogrammer.com/2019/09/types-of-trees-in-data-structure.html)
 
 * [Everything you need to know about tree data structures](https://www.freecodecamp.org/news/all-you-need-to-know-about-tree-data-structures-bceacb85490c/)

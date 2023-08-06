@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
+#include "../include/Binary_Tree.hpp"
 
 using namespace std;
-
+using namespace DSA;
 
 struct BstNode
 {
@@ -135,52 +136,51 @@ BstNode* Findmin(BstNode* root){
     return root;
 }
 
-BstNode* Getsuccessor(BstNode* root, int data){
-    BstNode* cur = Find(root, data);
-    if(cur == nullptr)return nullptr;
-    if(cur->right != nullptr){
-        return Findmin(cur->right);
-    }
-    else{
-        BstNode* successor = nullptr;
-        BstNode* ancestor = root;
-        while(ancestor != nullptr){
-            if(cur->data <= ancestor->data){
-                successor = ancestor;
-                ancestor = ancestor->left;
-            }
-            else ancestor = ancestor->right;
-        }
-        return successor;
-    }
-}
+// BstNode* Getsuccessor(BstNode* root, int data){
+//     BstNode* cur = Find(root, data);
+//     if(cur == nullptr)return nullptr;
+//     if(cur->right != nullptr){
+//         return Findmin(cur->right);
+//     }
+//     else{
+//         BstNode* successor = nullptr;
+//         BstNode* ancestor = root;
+//         while(ancestor != nullptr){
+//             if(cur->data <= ancestor->data){
+//                 successor = ancestor;
+//                 ancestor = ancestor->left;
+//             }
+//             else ancestor = ancestor->right;
+//         }
+//         return successor;
+//     }
+// }
 
-void Print(BstNode* root){
-    if(root == nullptr)return;
-    cout << root->data << endl;
-    Print(root->left);
-    Print(root->right);
+void Inorder_Without_Recursion(BstNode* root){
+    stack<BstNode*>st;
+    BstNode* cur = root;
+    while(cur != nullptr || !st.empty()){
+        while(cur != nullptr){
+            st.push(cur);
+            cur = cur->left;
+        }
+        cur = st.top();
+        st.pop();
+        cout << cur->data << " ";
+        cur = cur->right;
+    }
 }
 
 
 int main()
 {
+    MultiSet<int>st{4, 4, 7, 5, 6};
+    
+    cout << st.Get_Min() << endl;
+    cout << st.Get_Max() << endl;
+    
 
-    BstNode* root = nullptr;
-    insert(&root, 12);
-    insert(&root, 5);
-    insert(&root, 15);
-    insert(&root, 5);
-    insert(&root, 7);
-    insert(&root, 13);
-    insert(&root, 17);
-    insert(&root, 1);
-    insert(&root, 9);
-    root = Delete(root, 5);
-    LevelOrder(root);
 
-    queue<int>bfs;
-    b
 
     return 0;
 }

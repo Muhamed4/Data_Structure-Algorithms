@@ -294,4 +294,70 @@
 
 ---
 
+* [ ] [Mancunian And Colored Tree](https://www.hackerearth.com/practice/data-structures/trees/binary-and-nary-trees/practice-problems/algorithm/mancunian-and-colored-tree/) 
+    * <details>
+        <summary> Solution </summary>
 
+        ```c++
+            #include<bits/stdc++.h>
+            using namespace std;
+            typedef long long ll;
+            #define endl '\n'
+
+            int *carr, *res;
+
+            void DFS(int node, vector<vector<int>>&adj, vector<int>&color){
+
+                res[node] = carr[color[node]];
+                int past = carr[color[node]];
+                carr[color[node]] = node;
+
+                for(auto &child: adj[node]){
+                    DFS(child, adj, color);
+                    carr[color[node]] = node;
+                }
+
+                carr[color[node]] = past;
+            }
+
+
+            void solve(){
+                int n, c;cin >> n >> c;
+                vector<vector<int>>adj(n + 1);
+                vector<int>color(n + 1);
+                for(int i = 1; i < n;i++){
+                    int x;cin >> x;
+                    adj[x].push_back(i + 1);
+                }
+                for(int i = 1; i <= n;i++){
+                    int x;cin >> x;
+                    color[i] = x;
+                }
+                carr = new int[c + 1];
+                memset(carr, -1, (c +  1) * sizeof(int));
+                res = new int[n + 1];
+
+                DFS(1, adj, color);
+
+                for(int i = 1; i <= n;i++)cout << res[i] << " \n"[i == n];
+
+                delete[] carr;
+                delete[] res;
+            }
+
+            int main(){
+                ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+                #ifndef ONLINE_JUDGE
+                freopen("Input.txt", "r", stdin);
+                freopen("Output.txt", "w", stdout);
+                #endif
+                int t = 1;
+                for(int i = 1; i <= t;i++){
+                    solve();
+                }
+                return 0;
+            }
+        
+    </details>
+
+---
