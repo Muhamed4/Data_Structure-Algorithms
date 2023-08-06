@@ -31,13 +31,3 @@
 
 * [ ] Get_Max
     > return the maximum value in the tree.
-
-
-
-    <details>
-    <summary>
-        Insert
-    </summary>
-    
-    > Insert a new value into the tree.
-    </details>
