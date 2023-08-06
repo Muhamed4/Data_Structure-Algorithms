@@ -9,30 +9,11 @@
 * [ ] Get_Max
 
 
-
-* <details>
+* [ ]
+    <details>
     <summary>
-        [ ] Insert
+        Insert
     </summary>
-            > Insert a new value into the tree.
+    
+    > Insert a new value into the tree.
     </details>
-
-<details>
-  <summary>
-    <input type="checkbox" id="checkbox1">
-    <label for="checkbox1">Insert</label>
-  </summary>
-  
-  > Insert a new value into the tree.
-</details>
-
-
-<details>
-  <summary>
-    <input type="checkbox" id="checkbox2">
-    <label for="checkbox2"></label>
-    Clear
-  </summary>
-  
-  This is another toggle-able content section.
-</details>
