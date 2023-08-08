@@ -64,9 +64,7 @@
 
     };
 
-
-
-
+---
 
 * [ ] Insert
     > Insert a new value into the tree.
