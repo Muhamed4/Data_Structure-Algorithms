@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <stack>
 #include <math.h>
+#include <limits.h>
 
 namespace DSA
 {
@@ -54,6 +55,10 @@ namespace DSA
 
         inline T Get_Max() const;
 
+        inline bool IsBinarySearchTree() const;
+
+        inline void erase(const T& _value);
+
     private:
 
         inline int Count_Node(const T& _value, const Node* _root);
@@ -61,6 +66,10 @@ namespace DSA
         inline void Clear(Node* &_root);
 
         int get_height(const Node* _root);
+
+        inline bool isBinarySearchTree(const Node* _root, const int& mn, const int& mx) const;
+
+        inline void deleteValue(const Node* _root, const T& _value);
 
     };
 
@@ -223,6 +232,27 @@ namespace DSA
         }
 
         return temp->item;
+    }
+
+    // This funciton works with just numbers, Try to implement it with other data types :)
+    template<typename T>
+    inline bool MultiSet<T>::isBinarySearchTree(const Node* _root, const int& mn, const int& mx) const{
+
+        if(_root == nullptr)return true;
+        if(_root->item < mn || _root->item > mx)return false;
+
+        return isBinarySearchTree(_root->left, mn, _root->item) && isBinarySearchTree(_root->right, _root->item + 1, mx); 
+    }
+
+    template<typename T>
+    inline bool MultiSet<T>::IsBinarySearchTree() const{
+        
+        return (*this).isBinarySearchTree((*this).root, INT_MIN, INT_MAX);
+    }
+
+    template<typename T>
+    inline void MultiSet<T>::deleteValue(const Node* _root, const T& _value){
+        
     }
 }
 

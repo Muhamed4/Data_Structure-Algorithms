@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "../include/Binary_Tree.hpp"
+#include "../include/Binary_Search_Tree.hpp"
 
 using namespace std;
 using namespace DSA;
@@ -174,12 +174,9 @@ void Inorder_Without_Recursion(BstNode* root){
 
 int main()
 {
-    MultiSet<int>st{4, 4, 7, 5, 6};
+    MultiSet<int>st{1, 2, 3, 4};
     
-    cout << st.Get_Min() << endl;
-    cout << st.Get_Max() << endl;
-    
-
+    cout << st.IsBinarySearchTree() << endl;
 
 
     return 0;
