@@ -176,7 +176,7 @@ int main()
 {
     MultiSet<int>st{1, 2, 3, 4};
     
-    cout << st.IsBinarySearchTree() << endl;
+    st.print();
 
 
     return 0;
