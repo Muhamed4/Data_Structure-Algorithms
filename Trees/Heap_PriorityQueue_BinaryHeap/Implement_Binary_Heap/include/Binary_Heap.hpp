@@ -1,0 +1,15 @@
+//
+// Created by muhamed on 16/08/23.
+//
+
+#ifndef DATA_STRUCTURE_IMPLEMENTATION_BINARY_HEAP_H
+#define DATA_STRUCTURE_IMPLEMENTATION_BINARY_HEAP_H
+
+#include <stdexcept>
+
+namespace DSA
+{
+    
+}
+
+#endif // DATA_STRUCTURE_IMPLEMENTATION_BINARY_HEAP_H

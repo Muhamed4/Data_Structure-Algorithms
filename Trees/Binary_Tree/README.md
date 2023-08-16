@@ -53,11 +53,6 @@
     * [Inorder Successor in a binary search tree](https://www.youtube.com/watch?v=5cPbNCrdotA&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=37)
 
 
-
-* ### Heap - Priority Queue - Binary Heap :
-
-    * [Heaps](https://www.youtube.com/watch?v=t0Cq6tVNRBA)
-
 ## Articles :
 
 * [Introduction to Tree](https://www.geeksforgeeks.org/introduction-to-tree-data-structure-and-algorithm-tutorials/)
@@ -75,6 +70,8 @@
 * [Properties of Binary Tree](https://www.geeksforgeeks.org/properties-of-binary-tree/?ref=lbp)
 
 * [Introduction to Binary Search Tree](https://www.geeksforgeeks.org/introduction-to-binary-search-tree-data-structure-and-algorithm-tutorials/?ref=lbp)
+
+* [Insertion in Binary Search Tree (BST)](https://www.geeksforgeeks.org/insertion-in-binary-search-tree/?ref=lbp)
 
 
 
