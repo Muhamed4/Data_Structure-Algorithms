@@ -9,5 +9,5 @@
 
 ## Articles :
 
-* [Introduction to Heap](https://www.geeksforgeeks.org/introduction-to-heap-data-structure-and-algorithm-tutorials/?ref=outind)
+  * [Introduction to Heap](https://www.geeksforgeeks.org/introduction-to-heap-data-structure-and-algorithm-tutorials/?ref=outind)
 
