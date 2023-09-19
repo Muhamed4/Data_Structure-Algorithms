@@ -2,9 +2,7 @@
 
 ## Videos :
 
-* ### Heap / Priority Queue / Binary Heap :
-
-    * [Introduction to Tree](https://www.geeksforgeeks.org/introduction-to-tree-data-structure-and-algorithm-tutorials/)
+  * [Introduction to Tree](https://www.geeksforgeeks.org/introduction-to-tree-data-structure-and-algorithm-tutorials/)
 
 
 ## Articles :
