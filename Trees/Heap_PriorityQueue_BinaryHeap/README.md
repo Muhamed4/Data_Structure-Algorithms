@@ -2,7 +2,9 @@
 
 ## Videos :
 
-  * [Introduction to Tree](https://www.geeksforgeeks.org/introduction-to-tree-data-structure-and-algorithm-tutorials/)
+  * [Heap - Heap Sort - Heapify - Priority Queues](https://www.youtube.com/watch?v=HqPJF2L5h9U&t=13s)
+
+  * [Implement A Binary Heap](https://www.youtube.com/watch?v=g9YK6sftDi0&list=RDCMUCmJz2DV1a3yfgrR7GqRtUUA&start_radio=1&rv=g9YK6sftDi0&t=0)
 
 
 ## Articles :

@@ -275,6 +275,8 @@ int main()
     h.decreaseKey(2, 1);
     cout << h.getmin();
 
+    priority_queue<int>big;
+
 
     return 0;
 }

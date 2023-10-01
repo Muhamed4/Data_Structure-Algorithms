@@ -125,3 +125,30 @@
 
 ---
 
+
+* [ ] [Last Stone Weight](https://leetcode.com/problems/last-stone-weight/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int lastStoneWeight(vector<int>& stones) {
+                    priority_queue<int>big;
+                    for(auto &it: stones)big.push(it);
+                    while(big.size() > 1){
+                        int y = big.top();
+                        big.pop();
+                        int x = big.top();
+                        big.pop();
+                        y -= x;
+                        big.push(y);
+                    }
+                    return big.top();
+                }
+            };
+        
+    </details>
+
+---
+
