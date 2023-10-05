@@ -6,6 +6,8 @@
 
   * [Implement A Binary Heap](https://www.youtube.com/watch?v=g9YK6sftDi0&list=RDCMUCmJz2DV1a3yfgrR7GqRtUUA&start_radio=1&rv=g9YK6sftDi0&t=0)
 
+  * [Priority_queue Playlist](https://www.youtube.com/watch?v=wptevk0bshY&list=PLDV1Zeh2NRsCLFSHm1nYb9daYf60lCcag&pp=iAQB)
+
 
 ## Articles :
 

@@ -152,3 +152,33 @@
 
 ---
 
+
+* [ ] [Find Kth Largest XOR Coordinate Value](https://leetcode.com/problems/find-kth-largest-xor-coordinate-value/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int kthLargestValue(vector<vector<int>>& matrix, int k) {
+                    priority_queue<int>big;
+                    int m = matrix.size();
+                    int n = matrix[0].size();
+                    int xor_ = 0;
+                    vector<vector<int>>xorPre(m + 2, vector<int>(n + 2));
+                    for(int i = 0; i < m;i++){
+                        for(int j = 0; j < n;j++){
+                            xorPre[i + 1][j + 1] = ((xorPre[i][j + 1] ^ xorPre[i + 1][j]) ^ xorPre[i][j]);
+                            xorPre[i + 1][j + 1] ^= matrix[i][j];
+                            big.push(xorPre[i + 1][j + 1]);
+                        }
+                    }
+                    while(k > 1 && --k)big.pop();
+                    return big.top();
+                }
+            };
+        
+    </details>
+
+---
+

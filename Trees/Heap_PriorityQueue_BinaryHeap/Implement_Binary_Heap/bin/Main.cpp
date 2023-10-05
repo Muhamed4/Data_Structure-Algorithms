@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
+
 
 using namespace std;
 
@@ -234,6 +236,78 @@ void swap(int *x, int *y){
     *y = temp;
 }
 
+
+
+class A
+{
+private:
+	int x;
+public:
+	A(int x_) {
+		x = x_;
+	}
+
+	int getx(void) const { 
+		return x;
+	}
+
+	bool operator<(const A& other) const {
+		return x < other.x;
+	}
+};
+
+template<typename T>
+void Print() {
+	cout << T() << endl;
+	return;
+}
+
+
+class Point2D {
+private:
+	int x;
+	int y;
+public:
+	Point2D(int x_, int y_) {
+		x = x_;
+		y = y_;
+	}
+	int getX() const {
+		return x;
+	}
+	int getY() const {
+		return y;
+	}
+};
+
+ostream& operator<<(ostream& os, const Point2D& point) {
+	os << "(" << point.getX() << " , " << point.getY() << ")" << endl;
+	return os;
+}
+
+
+class LeftRight
+{
+public:
+	bool operator()(const Point2D& p, const Point2D& q)const {
+		return p.getX() < q.getX();
+	}
+};
+
+
+class BottomTop
+{
+public:
+	bool operator()(const Point2D& p, const Point2D& q)const {
+		return p.getY() < q.getY();
+	}
+};
+
+template<typename E, typename C>
+void printSmaller(const E& p, const E& q, const C& isLess) {
+	cout << (isLess(p, q) ? p : q) << endl;
+}
+
 int main()
 {
 
@@ -262,20 +336,40 @@ int main()
     // cout << "The current maximum element is " << h.GetMax() << "\n";
 
 
-    MinHeap h(11);
-    h.insertKey(3);
-    h.insertKey(2);
-    h.deleteKey(1);
-    h.insertKey(15);
-    h.insertKey(5);
-    h.insertKey(4);
-    h.insertKey(45);
-    cout << h.extractMin() << " ";
-    cout << h.getmin() << " ";
-    h.decreaseKey(2, 1);
-    cout << h.getmin();
+    // MinHeap h(11);
+    // h.insertKey(3);
+    // h.insertKey(2);
+    // h.deleteKey(1);
+    // h.insertKey(15);
+    // h.insertKey(5);
+    // h.insertKey(4);
+    // h.insertKey(45);
+    // cout << h.extractMin() << " ";
+    // cout << h.getmin() << " ";
+    // h.decreaseKey(2, 1);
+    // cout << h.getmin();
 
-    priority_queue<int>big;
+    // priority_queue<int>big;
+
+
+    Point2D p(2, 4);
+    Point2D q(3, 2);
+    LeftRight leftright;
+    BottomTop bottomtop;
+
+    printSmaller(p, q, leftright);
+    printSmaller(p, q, bottomtop);
+    /*cout << p;
+    cout << q;*/
+
+    /*priority_queue<A> big;
+    A a1(2);
+    A a2(3);
+    A a3(1);
+    big.push(a1);
+    big.push(a2);
+    big.push(a3);
+    cout << big.top().getx() << endl;*/
 
 
     return 0;
