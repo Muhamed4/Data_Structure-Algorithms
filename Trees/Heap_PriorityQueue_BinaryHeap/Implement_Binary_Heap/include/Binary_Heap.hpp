@@ -133,8 +133,6 @@ namespace DSA
 		this->bubble_up(this->size() - 1);
 	}
 
-
-	// there is an logical error in comparison
 	template<typename T, typename comp>
 	inline void Priority_queue<T, comp>::bubble_up(const int& index)
 	{
