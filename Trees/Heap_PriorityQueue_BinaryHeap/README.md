@@ -28,3 +28,9 @@
   
   * [Time Complexity of building a heap](https://www.geeksforgeeks.org/time-complexity-of-building-a-heap/)
 
+  * [Applications of Heap Data Structure](https://www.geeksforgeeks.org/applications-of-heap-data-structure/)
+
+  * [Comparison between Heap and Tree](https://www.geeksforgeeks.org/comparison-between-heap-and-tree/?ref=lbp)
+
+  * [When building a Heap, is the structure of Heap unique?](https://www.geeksforgeeks.org/when-building-a-heap-is-the-structure-of-heap-unique/?ref=lbp)
+
