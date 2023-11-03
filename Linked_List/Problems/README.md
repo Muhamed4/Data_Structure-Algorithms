@@ -741,3 +741,90 @@
     </details>
 
 ---
+
+
+* [ ] [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+                int cntNodes(ListNode* head){
+                    if(head == nullptr)
+                        return 0;
+                    return cntNodes(head->next) + 1;
+                }
+                ListNode* Mid(ListNode* head, int middle, int idx = 0){
+                    if(idx == middle)
+                        return head;
+                    return Mid(head->next, middle, ++idx);
+                }
+            public:
+                ListNode* middleNode(ListNode* head) {
+                    int cnt = cntNodes(head);
+                    int mid = cnt / 2;
+                    return Mid(head, mid);
+                }
+            };
+        
+    </details>
+
+---
+
+
+* [ ] [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+                ListNode* root;
+            public:
+                // ListNode* reverseList(ListNode* head) {
+                //     if(head == nullptr)
+                //         return head;
+                //     if(head->next == nullptr)
+                //        return root = head;
+
+                //     reverseList(head->next);
+                //     ListNode* Next = head->next;
+                //     Next->next = head;
+                //     head->next = nullptr;
+                //     return root;
+                // }
+
+                ListNode* reverseList(ListNode* head) {
+                    ListNode* prev = nullptr, *cur = head, *next = nullptr;
+                    while(cur != nullptr){
+                        next = cur->next;
+                        cur->next = prev;
+                        prev = cur;
+                        cur = next;
+                    }
+                    return prev;
+                }
+            };
+        
+    </details>
+
+---
