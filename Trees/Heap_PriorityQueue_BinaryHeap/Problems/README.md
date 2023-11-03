@@ -182,3 +182,34 @@
 
 ---
 
+
+* [ ] [Maximum Score From Removing Stones](https://leetcode.com/problems/maximum-score-from-removing-stones/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maximumScore(int a, int b, int c) {
+                    priority_queue<int>big;
+                    big.push(a); big.push(b); big.push(c);
+                    int ans = 0;
+                    while(!big.empty() && big.size() > 1){
+                        int aa = big.top();
+                        big.pop();
+                        int bb = big.top();
+                        big.pop();
+                        ++ans;
+                        --aa; --bb;
+                        if(aa)big.push(aa);
+                        if(bb)big.push(bb);
+                    }
+
+                    return ans;
+                }
+            };
+        
+    </details>
+
+---
+
