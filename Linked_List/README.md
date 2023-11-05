@@ -33,3 +33,11 @@
 * [Introduction to Doubly Linked List](https://www.youtube.com/watch?v=JdQeNxWCguQ&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=12&pp=iAQB)
 
 * [Doubly Linked List Implementaion](https://www.youtube.com/watch?v=VOQNf1VxU3Q&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=13&pp=iAQB)
+
+
+
+## Articles :
+
+* [Understanding the basics of Linked List](https://www.geeksforgeeks.org/what-is-linked-list/)
+
+* [Introduction to Linked List – Data Structure and Algorithm Tutorials](https://www.geeksforgeeks.org/introduction-to-linked-list-data-structure-and-algorithm-tutorial/?ref=lbp)
