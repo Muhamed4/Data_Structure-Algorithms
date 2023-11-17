@@ -41,3 +41,21 @@
 * [Understanding the basics of Linked List](https://www.geeksforgeeks.org/what-is-linked-list/)
 
 * [Introduction to Linked List – Data Structure and Algorithm Tutorials](https://www.geeksforgeeks.org/introduction-to-linked-list-data-structure-and-algorithm-tutorial/?ref=lbp)
+
+* [Insertion in Linked List](https://www.geeksforgeeks.org/insertion-in-linked-list/?ref=lbp)
+
+* [Search an element in a Linked List (Iterative and Recursive)](https://www.geeksforgeeks.org/search-an-element-in-a-linked-list-iterative-and-recursive/?ref=lbp)
+
+* [Find Length of a Linked List (Iterative and Recursive)](https://www.geeksforgeeks.org/find-length-of-a-linked-list-iterative-and-recursive/?ref=lbp)
+
+* [Reverse a Linked List](https://www.geeksforgeeks.org/reverse-a-linked-list/?ref=lbp)
+
+* [Deletion in Linked List](https://www.geeksforgeeks.org/deletion-in-linked-list/?ref=lbp)
+
+* [Delete a Linked List node at a given position](https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/?ref=lbp)
+
+* [Write a function to delete a Linked List](https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/?ref=lbp)
+
+* [Write a function to get Nth node in a Linked List](https://www.geeksforgeeks.org/write-a-function-to-get-nth-node-in-a-linked-list/?ref=lbp)
+
+* [Program for Nth node from the end of a Linked List](https://www.geeksforgeeks.org/nth-node-from-the-end-of-a-linked-list/?ref=lbp)

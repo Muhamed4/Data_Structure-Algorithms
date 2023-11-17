@@ -828,3 +828,53 @@
     </details>
 
 ---
+
+
+* [ ] [Flatten a Multilevel Doubly Linked List](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /*
+            // Definition for a Node.
+            class Node {
+            public:
+                int val;
+                Node* prev;
+                Node* next;
+                Node* child;
+            };
+            */
+
+            class Solution {
+                Node* root = nullptr, *temp = nullptr;;
+                Node* Flatten(Node* head){
+                    Node* it = nullptr, *prev = nullptr;;
+                    for(it = head; it != nullptr;){
+                        if(it->child != nullptr){
+                            Node* Next = it->next;
+                            Node* child = Flatten(it->child);
+                            it->next = it->child;
+                            it->child->prev = it;
+                            child->next = Next;
+                            if(Next != nullptr)Next->prev = child;
+                            it->child = nullptr;
+                            prev = child;
+                            it = Next;
+                            continue;
+                        }
+                        prev = it;
+                        it = it->next;
+                    }
+                    return prev;
+                }
+            public:
+                Node* flatten(Node* head) {
+                    Flatten(head);
+                    return head;
+                }
+            };
+        
+    </details>
+
+---
