@@ -361,3 +361,118 @@
     </details>
 
 ---
+
+
+* [ ] [Find a Corresponding Node of a Binary Tree in a Clone of That Tree](https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+            * };
+            */
+
+            class Solution {
+                TreeNode* Res(TreeNode* cloned, TreeNode* target){
+                    if(cloned == nullptr)
+                        return nullptr;
+
+                    if(cloned->val == target->val){
+                        return cloned;
+                    }
+                    TreeNode* left = Res(cloned->left, target);
+                    TreeNode* right = Res(cloned->right, target);
+                    if(left != nullptr)return left;
+                    else if(right != nullptr)return right;
+                    return nullptr;
+                }
+            public:
+                TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+                    return Res(cloned, target);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                int rangeSumBST(TreeNode* root, int low, int high) {
+                    if(root == nullptr)
+                        return 0;
+                    
+                    int sum = 0;
+                    if(root->val >= low && root->val <= high)
+                        sum = root->val;
+                    sum += rangeSumBST(root->left, low, high);
+                    sum += rangeSumBST(root->right, low, high);
+                    return sum;
+                }
+            };
+        
+    </details>
+
+---
+
+
+* [ ] [Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                TreeNode* searchBST(TreeNode* root, int val) {
+                    if(root == nullptr)
+                        return nullptr;
+
+                    if(root->val == val)
+                        return root;
+
+                    TreeNode* left = searchBST(root->left, val);
+                    TreeNode* right = searchBST(root->right, val);
+                    if(left != nullptr)return left;
+                    if(right != nullptr)return right;
+                    return nullptr;
+                }
+            };
+        
+    </details>
+
+---
