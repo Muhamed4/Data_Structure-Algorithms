@@ -67,6 +67,17 @@ In this repository, I've documented my journey of learning data structures and a
         - exist(key) : Check if this key exists in the hash table.
         - get(key) : Get the value of the key.
         - remove(key) : Remove this key from the hash table.
+
+- [Stack (Array Based Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Stack/Implement_Stack_From_Scratch/Array_Based_Implementation/include/Stack.hpp): Implementation of a generic stack (Array Based Implementation) using dynamic allocation of array.
+
+- [Stack (Linked List Based Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Stack/Implement_Stack_From_Scratch/Array_Based_Implementation/include/Stack.hpp): Implementation of a generic stack (Linked List Based Implementation) using pointers dynamic allocation.
+    - Two Data Structure support the same functionality but different implementations.
+    - `implementation`:
+        - size() : returns number of data elements in stack.
+        - empty() : Check if the stack is empty or not.
+        - push(element) : Addint element at the top of the stack.
+        - pop() : pop the top element of the stack.
+        - top() : return the top element of the stack.
 ## Solved Problems
 
 - [Problem 1](link/to/problem): Description of the problem and the solution implemented.
