@@ -68,6 +68,27 @@ In this repository, I've documented my journey of learning data structures and a
         - get(key) : Get the value of the key.
         - remove(key) : Remove this key from the hash table.
 
+- [Binary Search Tree](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Trees/Binary_Tree/Implement_Tree/include/Binary_Search_Tree.hpp): Implementation of a generic Binary Search Tree.
+    - `implementation`:
+        - insert(element) : Insert new element into tree.
+        - count(element) : Count the number of items equal to this element in the tree.
+        - clear() : Clear all the tree.
+        - find(element) : return true if the element exists in the tree otherwise return false.
+        - getHeight() : Return the height of the tree.
+        - getMin() : Return the minimum number of items in the tree.
+        - getMax() : Return the maximum number of items in the tree.
+        - isBinarySearchTree() : Check if this is a binary search tree or not.
+        - erase(element) : delete all the items equal to this element.
+        - print() : Print the tree in any ordered (Pre-Order, In-Order, Post-Order).
+
+- [Binary Heap](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Trees/Heap_PriorityQueue_BinaryHeap/Implement_Binary_Heap/include/Binary_Heap.hpp): Implementation of a generic Binary Heap, Trying to simulate Priority_Queue and it's finctionality using vector as the container for the Priority_Queue and making the comparator as a generic type so you can use any comparator you want according to your usage and satisfies the heap property.
+    - `implementation`:
+        - empty() : Check if the Priority_Queue is empty or not.
+        - size() : Return the size of the Priority_Queue.
+        - push(element) : Push element to the Priority_Queue.
+        - pop() : Pop the root element from the Priority_Queue.
+        - top() : Return the root element of the Priority_Queue.
+
 - [Stack (Array Based Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Stack/Implement_Stack_From_Scratch/Array_Based_Implementation/include/Stack.hpp): Implementation of a generic stack (Array Based Implementation) using dynamic allocation of array.
 
 - [Stack (Linked List Based Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Stack/Implement_Stack_From_Scratch/Array_Based_Implementation/include/Stack.hpp): Implementation of a generic stack (Linked List Based Implementation) using pointers dynamic allocation.
@@ -78,6 +99,20 @@ In this repository, I've documented my journey of learning data structures and a
         - push(element) : Addint element at the top of the stack.
         - pop() : pop the top element of the stack.
         - top() : return the top element of the stack.
+
+- [Queue (Circular Array Base Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Queue/Implement_Queue_From_Scratch/Queue_With_Circular_Array/include/Queue.hpp): Implementation of a generic Queue (Circular Array) using a fixed size array.
+
+- [Queue (Linked List Base Implementation)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Queue/Implement_Queue_From_Scratch/Queue_With_Circular_Array/include/Queue.hpp): Implementation of a generic Queue (Linked List Base Implementation) using pointers and dynamic allocation.
+
+    - Two Data Structure support the same functionality but different implementations.
+    - `implementation`:
+        - size() : return the number of elements in the queue.
+        - empty() : check if the queue is empty or not.
+        - full() : check if the queue is full or not.
+        - enqueue() : adds item at end of available storage.
+        - dequeue() : remove least recently added item from the queue.
+        - front() : return the first element from the queue.
+        - back() : return the last element from the queue.
 ## Solved Problems
 
 - [Problem 1](link/to/problem): Description of the problem and the solution implemented.
