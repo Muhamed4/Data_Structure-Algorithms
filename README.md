@@ -58,6 +58,15 @@ In this repository, I've documented my journey of learning data structures and a
         erase(element) : Remove the first element in the list with this value.
         -  getValue(index) : Get the value from the node at this index.
 
+- [Hash Table (Chaining Method)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Hash_Tables/Implement_Hash_Table/include/HashMapChain.hpp): Implementation of a generic hash table with key and value using chaining method.
+
+- [Hash Table (Open Addressing Method)](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Hash_Tables/Implement_Hash_Table/include/HashMap_OpenAddressing.hpp): Implementation of a generic hash table with key and value using open addressing method.
+    - Two Data Structure support the same functionality but different implementations.
+    - `implementation`:
+        - add(key, value) : Add the key and value to the hash table.
+        - exist(key) : Check if this key exists in the hash table.
+        - get(key) : Get the value of the key.
+        - remove(key) : Remove this key from the hash table.
 ## Solved Problems
 
 - [Problem 1](link/to/problem): Description of the problem and the solution implemented.
