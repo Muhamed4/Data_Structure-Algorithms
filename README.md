@@ -23,7 +23,7 @@ In this repository, I've documented my journey of learning data structures and a
 
 ## Implemented Data Structures
 
-- [vector](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Array/Implement_Vector_From_Scratch/include/Vector.hpp) : Implementing a generic vector data structure using dynamic allocation of array and it's support these functionality
+- [Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Array/Implement_Vector_From_Scratch/include/Vector.hpp) : Implementing a generic vector data structure using dynamic allocation of array and it's support these functionality
     - `implementation`:
         - size() : Number of elements.
         - capacity() : Number of elements it can hold.
@@ -66,5 +66,5 @@ In this repository, I've documented my journey of learning data structures and a
 
 ## Contributing
 
-If you'd like to contribute or have suggestions for improvements, feel free to open an issue or submit a pull request. Contributions are welcome!
+If you'd like to contribute, have suggestions for improvements or find any wrongs in the implementations of data structures feel free to open an issue or submit a pull request. Contributions are welcome!
 
