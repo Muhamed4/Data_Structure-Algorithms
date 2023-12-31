@@ -115,9 +115,21 @@ In this repository, I've documented my journey of learning data structures and a
         - back() : return the last element from the queue.
 ## Solved Problems
 
-- [Problem 1](link/to/problem): Description of the problem and the solution implemented.
-- [Problem 2](link/to/problem): Description of the problem and the solution implemented.
-- ...
+> This section includes solutions to various algorithmic problems sourced from platforms like LeetCode and HackerEarth. Each problem is accompanied by the implemented solution. These solutions demonstrate practical applications of the data structures and algorithms discussed in this repository.
+
+- [Array & Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Array/Problems)
+
+- [Linked Lists](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Linked_List/Problems)
+
+- [Hash Table](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Hash_Tables/Problems)
+
+- [Binary Tree](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Trees/Binary_Tree/Problems)
+
+- [Binary Heap](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Trees/Heap_PriorityQueue_BinaryHeap/Problems)
+
+- [Stack](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Stack/Problems)
+
+- [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue/Problems)
 
 ## Contributing
 
