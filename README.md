@@ -118,7 +118,7 @@ In this repository, I've documented my journey of learning data structures and a
         - back() : return the last element from the queue.
 ## Solved Problems
 
-> This section includes solutions to various algorithmic problems sourced from platforms like LeetCode and HackerEarth. Each problem is accompanied by the implemented solution. These solutions demonstrate practical applications of the data structures and algorithms discussed in this repository.
+> This section includes solutions to various algorithmic problems sourced from platforms like `LeetCode` and `HackerEarth`. Each problem is accompanied by the implemented solution. These solutions demonstrate practical applications of the data structures and algorithms discussed in this repository.
 
 - [Array & Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Array/Problems)
 
@@ -154,26 +154,26 @@ In this repository, I've documented my journey of learning data structures and a
 
 ## Competitive Programming
 
-> This is not just my journey with data structure, algorithms and problem solving, I had a long journey with competitive programming, which i will explain it in the following section below.
+> This is not just my journey with data structure, algorithms and problem solving, I had a long journey with `competitive programming`, which i will explain it in the following section below.
 
-Welcome to the Competitive Programming section of this repository! Competitive programming is a fascinating domain that combines problem-solving skills with programming prowess. In this section, I'll share insights into my journey in competitive programming, highlighting achievements and experiences gained along the way.
+Welcome to the `Competitive Programming` section of this repository! Competitive programming is a fascinating domain that combines problem-solving skills with programming prowess. In this section, I'll share insights into my journey in competitive programming, highlighting achievements and experiences gained along the way.
 
 ### Introduction
 
-Competitive programming involves solving algorithmic challenges and computational problems within a specified time frame. It's not just about writing code; it's about crafting efficient solutions under time constraints. Whether you're a seasoned competitor or just starting, the world of competitive programming offers a unique opportunity to hone your skills, learn new techniques, and engage with a vibrant community of like-minded individuals.
+`Competitive programming` involves solving algorithmic challenges and computational problems within a specified time frame. It's not just about writing code; it's about crafting efficient solutions under time constraints. Whether you're a seasoned competitor or just starting, the world of competitive programming offers a unique opportunity to hone your skills, learn new techniques, and engage with a vibrant community of like-minded individuals.
 
 ### My Achievements
 
-Over the journey of my competitive programming, I've had the privilege of achieving milestones and gaining valuable experiences. Here are some notable achievements:
+Over the journey of my `competitive programming`, I've had the privilege of achieving milestones and gaining valuable experiences. Here are some notable achievements:
 
 - I have participated in [ICPC](https://en.wikipedia.org/wiki/International_Collegiate_Programming_Contest) competitions several times, you can find my ICPC profile here [Muhamed Morsi](https://icpc.global/ICPCID/TI7G73Z1791O), where I proudly showcase my achievements and journey in the `International Collegiate Programming Contest` (ICPC).
     - > What is [ICPC](https://en.wikipedia.org/wiki/International_Collegiate_Programming_Contest) ?
-        - The International Collegiate Programming Contest (ICPC) is a premier global programming competition where university students from around the world engage in solving algorithmic challenges. It provides a platform to showcase problem-solving skills, teamwork, and programming proficiency. The thrill of tackling diverse problem sets and the invaluable lessons learned during these competitions significantly contribute to the growth of participants as programmers.
+        - `The International Collegiate Programming Contest (ICPC)` is a premier global programming competition where university students from around the world engage in solving algorithmic challenges. It provides a platform to showcase problem-solving skills, teamwork, and programming proficiency. The thrill of tackling diverse problem sets and the invaluable lessons learned during these competitions significantly contribute to the growth of participants as programmers.
 
 - I have reached the `Specialist`(Almost `Expert`) rank on [Codeforces](https://codeforces.com/), a testament to my dedication, perseverance, and love for algorithmic problem-solving.
 With a track record of participation in over `135 online contests on Codeforces`, I've successfully tackled and conquered more than `+2500 problems`, spanning various difficulty levels and employing a diverse range of data structures and algorithms. You can explore my Codeforces profile here [Muhamed_Morsi](https://codeforces.com/profile/Muhamed_Morsi), where the journey from a novice to a Specialist unfolds.
     - > What is [Codeforces](https://codeforces.com/) ? 
-        - Codeforces stands as a premier online competitive programming platform, hosting regular contests that challenge programmers worldwide.
+        - `Codeforces` stands as a premier online competitive programming platform, hosting regular contests that challenge programmers worldwide.
 
 #### All platforms I practice problems on : 
 - [LeetCode](https://leetcode.com/Muhamed_Morsi/)
