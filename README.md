@@ -175,11 +175,12 @@ With a track record of participation in over `130 online contests on Codeforces`
     - > What is [Codeforces](https://codeforces.com/) ? 
         - `Codeforces` stands as a premier online competitive programming platform, hosting regular contests that challenge programmers worldwide.
 
-#### All platforms I practice problems on : 
+#### All my profiles at the platforms I have practiced problems on : 
 - [LeetCode](https://leetcode.com/Muhamed_Morsi/)
 - [Codeforces](https://codeforces.com/profile/Muhamed_Morsi)
-- [Hacker Earth](https://www.hackerearth.com/@Muhamed_Morsi)
-- [Hacker Rank](https://www.hackerrank.com/profile/mohamedmorsi722)
+- [AtCoder](https://atcoder.jp/users/Muhamed_Morsi)
+- [HackerEarth](https://www.hackerearth.com/@Muhamed_Morsi)
+- [HackerRank](https://www.hackerrank.com/profile/mohamedmorsi722)
     
 
 
