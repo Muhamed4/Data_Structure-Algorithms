@@ -135,7 +135,7 @@ In this repository, I've documented my journey of learning data structures and a
 - [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue/Problems)
 
 ## Materials
-> This section contains educational materials and resources that have been instrumental in my study of data structures, algorithms.
+> This section contains educational materials and resources that have been instrumental in my study of data structures and algorithms.
 
 - [Array & Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Array)
 
