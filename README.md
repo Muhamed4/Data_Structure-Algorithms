@@ -8,7 +8,9 @@ This repository serves as a collection of my studies in data structures and algo
 2. [Folder Structure](#folder-structure)
 3. [Implemented Data Structures](#implemented-data-structures)
 4. [Solved Problems](#solved-problems)
-5. [Contributing](#contributing)
+5. [Materials](#materials)
+6. [Competitive Programming](#competitive-programming)
+7. [Contributing](#contributing)
 
 ## Introduction
 
@@ -20,6 +22,7 @@ In this repository, I've documented my journey of learning data structures and a
 - Inside each folder, you'll find:
   - `implementation`: Source code with explanations for the implementation of the data structure or algorithm.
   - `problems`: Solutions to problems related to the respective data structure or algorithm, often sourced from platforms like LeetCode.
+  - `materials`: Educational resources, references, and learning materials related to the specific data structure or algorithm.
 
 ## Implemented Data Structures
 
@@ -130,6 +133,26 @@ In this repository, I've documented my journey of learning data structures and a
 - [Stack](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Stack/Problems)
 
 - [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue/Problems)
+
+## Materials
+> This section contains educational materials and resources that have been instrumental in my study of data structures, algorithms, and competitive programming.
+
+- [Array & Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Array)
+
+- [Linked List](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Linked_List)
+
+- [Hash Table](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Hash_Tables)
+
+- [Binary Tree](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Trees/Binary_Tree)
+
+- [Binary Heap](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Trees/Heap_PriorityQueue_BinaryHeap)
+
+- [Stack](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Stack)
+
+- [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue)
+
+
+## Competitive Programming
 
 ## Contributing
 
