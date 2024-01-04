@@ -166,7 +166,7 @@ Welcome to the `Competitive Programming` section of this repository! Competitive
 
 Over the journey of my `competitive programming`, I've had the privilege of achieving milestones and gaining valuable experiences. Here are some notable achievements:
 
-- I have participated in [ICPC](https://en.wikipedia.org/wiki/International_Collegiate_Programming_Contest) competitions several times, you can find my ICPC profile here [Muhamed Morsi](https://icpc.global/ICPCID/TI7G73Z1791O), where I proudly showcase my achievements and journey in the `International Collegiate Programming Contest` (ICPC).
+- I have participated in [ICPC](https://en.wikipedia.org/wiki/International_Collegiate_Programming_Contest) competitions several times, you can find my `ICPC profile here` [Muhamed Morsi](https://icpc.global/ICPCID/TI7G73Z1791O), where I proudly showcase my achievements and journey in the `International Collegiate Programming Contest` (ICPC).
     - > What is [ICPC](https://en.wikipedia.org/wiki/International_Collegiate_Programming_Contest) ?
         - `The International Collegiate Programming Contest (ICPC)` is a premier global programming competition where university students from around the world engage in solving algorithmic challenges. It provides a platform to showcase problem-solving skills, teamwork, and programming proficiency. The thrill of tackling diverse problem sets and the invaluable lessons learned during these competitions significantly contribute to the growth of participants as programmers.
 
