@@ -3,9 +3,9 @@
 ## Videos :
 
 * [Sedgwick - Mergesort (5 videos)](https://www.coursera.org/learn/algorithms-part1/home/week/3)
-    * 1. [Mergesort](https://www.coursera.org/lecture/algorithms-part1/mergesort-ARWDq)
-    * 2. [Bottom up Mergesort](https://www.coursera.org/lecture/algorithms-part1/bottom-up-mergesort-PWNEl)
-    
+    1. [Mergesort](https://www.coursera.org/lecture/algorithms-part1/mergesort-ARWDq)
+    2. [Bottom up Mergesort](https://www.coursera.org/lecture/algorithms-part1/bottom-up-mergesort-PWNEl)
+
 
 
 ## Articles :
