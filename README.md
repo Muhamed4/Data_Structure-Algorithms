@@ -6,7 +6,7 @@ This repository serves as a collection of my studies in data structures and algo
 
 1. [Introduction](#introduction)
 2. [Folder Structure](#folder-structure)
-3. [Implemented Data Structures & Algorithms](#implemented-data-structures)
+3. [Implemented Data Structures and Algorithms](#implemented-data-structures-and-algorithms)
 4. [Solved Problems](#solved-problems)
 5. [Materials](#materials)
 6. [Competitive Programming](#competitive-programming)
@@ -24,7 +24,7 @@ In this repository, I've documented my journey of learning data structures and a
   - `problems`: Solutions to problems related to the respective data structure or algorithm, often sourced from platforms like LeetCode.
   - `materials`: Educational resources, references, and learning materials related to the specific data structure or algorithm.
 
-## Implemented Data Structures & Algorithms
+## Implemented Data Structures and Algorithms
 
 - [Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Array/Implement_Vector_From_Scratch/include/Vector.hpp) : Implementing a generic vector data structure using dynamic allocation of array and it's support these functionality
     - `implementation`:
