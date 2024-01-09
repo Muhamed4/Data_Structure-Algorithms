@@ -6,7 +6,7 @@ This repository serves as a collection of my studies in data structures and algo
 
 1. [Introduction](#introduction)
 2. [Folder Structure](#folder-structure)
-3. [Implemented Data Structures](#implemented-data-structures)
+3. [Implemented Data Structures & Algorithms](#implemented-data-structures)
 4. [Solved Problems](#solved-problems)
 5. [Materials](#materials)
 6. [Competitive Programming](#competitive-programming)
@@ -24,7 +24,7 @@ In this repository, I've documented my journey of learning data structures and a
   - `problems`: Solutions to problems related to the respective data structure or algorithm, often sourced from platforms like LeetCode.
   - `materials`: Educational resources, references, and learning materials related to the specific data structure or algorithm.
 
-## Implemented Data Structures
+## Implemented Data Structures & Algorithms
 
 - [Vector](https://github.com/Muhamed4/Data_Structure-Algorithms/blob/master/Array/Implement_Vector_From_Scratch/include/Vector.hpp) : Implementing a generic vector data structure using dynamic allocation of array and it's support these functionality
     - `implementation`:
@@ -116,6 +116,9 @@ In this repository, I've documented my journey of learning data structures and a
         - dequeue() : remove least recently added item from the queue.
         - front() : return the first element from the queue.
         - back() : return the last element from the queue.
+
+- [Sorting](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Sorting/Implementations)
+    - Implementation of different Sorting algorithms and trying different ways of implementations.
 ## Solved Problems
 
 > This section includes solutions to various algorithmic problems sourced from platforms like `LeetCode` and `HackerEarth`. Each problem is accompanied by the implemented solution. These solutions demonstrate practical applications of the data structures and algorithms discussed in this repository.
@@ -134,6 +137,8 @@ In this repository, I've documented my journey of learning data structures and a
 
 - [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue/Problems)
 
+- [Sorting](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Sorting/Problems)
+
 ## Materials
 > This section contains educational materials and resources that have been instrumental in my study of data structures and algorithms.
 
@@ -150,6 +155,8 @@ In this repository, I've documented my journey of learning data structures and a
 - [Stack](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Stack)
 
 - [Queue](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Queue)
+
+- [Sorting](https://github.com/Muhamed4/Data_Structure-Algorithms/tree/master/Sorting)
 
 
 ## Competitive Programming

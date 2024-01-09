@@ -2,6 +2,11 @@
 
 ## Videos :
 
+* [Sedgwick - Mergesort (5 videos)](https://www.coursera.org/learn/algorithms-part1/home/week/3)
+    * 1. [Mergesort](https://www.coursera.org/lecture/algorithms-part1/mergesort-ARWDq)
+    * 2. [Bottom up Mergesort](https://www.coursera.org/lecture/algorithms-part1/bottom-up-mergesort-PWNEl)
+    
+
 
 ## Articles :
 
@@ -11,7 +16,9 @@
 
 * [Stable Sort](https://v2.ocaml.org/api/Array.html#VALsort)
 
+* [Stability In Sorting Algorithms](geeksforgeeks.org/stable-and-unstable-sorting-algorithms/)
 
+* [Sorting Algorithms - Stability](http://homepages.math.uic.edu/~leon/cs-mcs401-s08/handouts/stability.pdf)
 
 
 
