@@ -45,13 +45,27 @@ void Sort(int arr[], int Sz){
             MergeSort(arr, j, j + i - 1, min(j + i + i - 1, Sz - 1));
         }
     }
-}   
+}
+
+
+// 2 - Way Merge Sort
+void Sort2Way(int arr[], int n){
+    for(int i = 1; i <= n - 1;i *= 2){
+        for(int left = 0; left < n - 1; left += 2 * i){
+            int mid = min(left + i - 1, n - 1);
+            int right = min(left + 2 * i - 1, n - 1);
+
+            MergeSort(arr, left, mid, right);
+        }
+    }
+}
+
 
 void solve(){
     int n;cin >> n;
     int *arr = new int[n];
     for(int i = 0; i < n;i++)cin >> arr[i];
-    Sort(arr, n);
+    Sort2Way(arr, n);
     for(int i = 0; i < n;i++)cout << arr[i] << ' ';
 
     delete[] arr;

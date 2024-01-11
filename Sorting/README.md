@@ -2,9 +2,22 @@
 
 ## Videos :
 
+* [Two Way MergeSort - Iterative method](https://www.youtube.com/watch?v=6pV2IF0fgKY)
+
+* [Merge Sort Algorithm](https://www.youtube.com/watch?v=mB5HXBb_HY8)
+
+* [MergeSort in-depth Analysis](https://www.youtube.com/watch?v=ak-pz7tS5DE)
+
 * [Sedgwick - Mergesort (5 videos)](https://www.coursera.org/learn/algorithms-part1/home/week/3)
     1. [Mergesort](https://www.coursera.org/lecture/algorithms-part1/mergesort-ARWDq)
+
     2. [Bottom up Mergesort](https://www.coursera.org/lecture/algorithms-part1/bottom-up-mergesort-PWNEl)
+
+    3. [Sorting Complexity](https://www.coursera.org/lecture/algorithms-part1/sorting-complexity-xAltF)
+
+    4. [Comparators](https://www.coursera.org/lecture/algorithms-part1/comparators-9FYhS)
+
+    5. [Stability](https://www.coursera.org/lecture/algorithms-part1/stability-pvvLZ)
 
 
 
