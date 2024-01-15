@@ -61,14 +61,21 @@ void Sort2Way(int arr[], int n){
 }
 
 
+template<typename T>
+void Test(const T& a, const T& b){
+    cout << sizeof(T) << endl;
+    cout << a << ' ' << b << endl;
+}
+
+
 void solve(){
     int n;cin >> n;
     int *arr = new int[n];
     for(int i = 0; i < n;i++)cin >> arr[i];
-    Sort2Way(arr, n);
-    for(int i = 0; i < n;i++)cout << arr[i] << ' ';
-
-    delete[] arr;
+    sort(arr, arr + 10);
+    for(int i = 0; i < n;i++){
+        cout << arr[i] << ' ';
+    }
 }
 
 int main(){
