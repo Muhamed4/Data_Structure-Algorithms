@@ -72,7 +72,7 @@ void solve(){
     int n;cin >> n;
     int *arr = new int[n];
     for(int i = 0; i < n;i++)cin >> arr[i];
-    sort(arr, arr + 10);
+    sort(arr, arr + 2);
     for(int i = 0; i < n;i++){
         cout << arr[i] << ' ';
     }

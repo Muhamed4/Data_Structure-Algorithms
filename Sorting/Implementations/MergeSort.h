@@ -2,7 +2,7 @@
 namespace DSA
 {
     template<typename T>
-    void sort(const T& a, const T& b){
+    void Sort(const T& a, const T& b){
         
     }
 } // namespace DSA
