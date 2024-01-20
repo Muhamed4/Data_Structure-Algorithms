@@ -296,3 +296,85 @@
     </details>
 
 ---
+
+
+* [ ] [Digit sum](https://www.hackerearth.com/practice/algorithms/sorting/merge-sort/practice-problems/algorithm/interesting-number-2-752e7fa2/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            #include <bits/stdc++.h>
+            using namespace std;
+            typedef long long ll;
+            #define endl '\n'
+
+            void MergeSort(int l, int mid, int r, string& str){
+                int n1 = mid - l + 1;
+                int n2 = r - mid;
+                char* left = new char[n1];
+                char* right = new char[n2];
+                for(int i = 0; i < n1;i++)left[i] = str[l + i];
+                for(int i = 0; i < n2;i++)right[i] = str[mid + i + 1];
+                int lidx = 0, ridx = 0;
+                for(int i = l; i <= r;i++){
+                    if(lidx == n1)str[i] = right[ridx++];
+                    else if(ridx == n2)str[i] = left[lidx++];
+                    else if(left[lidx] < right[ridx])str[i] = left[lidx++];
+                    else str[i] = right[ridx++];
+                }
+
+                delete[] left;
+                delete[] right;
+            }
+
+            void Sort(int l, int r, string &str){
+                if(l >= r)
+                    return;
+
+                int mid = (l + r) / 2;
+                Sort(l, mid, str);
+                Sort(mid + 1, r, str);
+                MergeSort(l, mid, r, str);
+            }
+
+
+            void solve(){
+                int n;cin >> n;
+                string s;cin >> s;
+                int sum1 = 0, sum2 = 0, ans = 0;
+                for(int i = 0; i < n;i++) sum1 += (s[i] - '0');
+                for(int i = n; i < 2 * n;i++) sum2 += (s[i] - '0');
+                int l = 0, r = n;
+                if(sum1 > sum2){
+                    l = n; 
+                    r = 2 * n; 
+                    swap(sum1, sum2);
+                }
+                Sort(l, r - 1, s);
+                for(int i = l;i < r;i++){
+                    if(sum1 == sum2)break;
+                    sum1 -= (s[i] - '0');
+                    int dif = min(sum2 - sum1, 9);
+                    sum1 += dif;
+                    ++ans;
+                }
+
+                cout << ans << endl;
+            }
+
+            int main(){
+                ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+                #ifndef ONLINE_JUDGE
+                freopen("Input.txt", "r", stdin);
+                freopen("Output.txt", "w", stdout);
+                #endif
+                int t = 1;cin >> t;
+                for(int i = 1; i <= t;i++){
+                    solve();
+                }
+                return 0;
+            }
+        
+    </details>
+
+---
