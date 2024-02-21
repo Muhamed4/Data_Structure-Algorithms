@@ -476,3 +476,45 @@
     </details>
 
 ---
+
+
+* [ ] [Pseudo-Palindromic Paths in a Binary Tree](https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/description/?envType=daily-question&envId=2024-01-24) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                int frq[10]{0};
+            public:
+                int pseudoPalindromicPaths (TreeNode* root) {
+                    frq[root->val]++;
+                    int ret = 0;
+                    if(root->left == nullptr && root->right == nullptr){
+                        int odd = 0;
+                        for(int i = 1; i <= 9;i++){
+                            odd += (frq[i] % 2);
+                        }
+                        ret += (odd <= 1);
+                    }
+
+                    if(root->left != nullptr)ret += pseudoPalindromicPaths(root->left);
+                    if(root->right != nullptr)ret += pseudoPalindromicPaths(root->right);
+                    frq[root->val]--;
+                    return ret;
+                }
+            };
+        
+    </details>
+
+---

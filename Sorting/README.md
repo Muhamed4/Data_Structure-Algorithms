@@ -2,6 +2,8 @@
 
 ## Videos :
 
+### MergeSort : 
+
 * [Two Way MergeSort - Iterative method](https://www.youtube.com/watch?v=6pV2IF0fgKY)
 
 * [Merge Sort Algorithm](https://www.youtube.com/watch?v=mB5HXBb_HY8)
@@ -18,6 +20,24 @@
     4. [Comparators](https://www.coursera.org/lecture/algorithms-part1/comparators-9FYhS)
 
     5. [Stability](https://www.coursera.org/lecture/algorithms-part1/stability-pvvLZ)
+
+
+### QuickSort :
+
+* [QuickSort Algorithm](https://www.youtube.com/watch?v=7h1s2SojIRw&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&index=36)
+
+* [QuickSort Analysis](https://www.youtube.com/watch?v=-qOVVRIZzao&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&index=37)
+
+* [Quicksort algorithm(mycodeschool)](https://www.youtube.com/watch?v=COk73cpQbFQ&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=8)
+
+* [Analysis of quicksort(mycodeschool)](https://www.youtube.com/watch?v=3Bbm3Prd5Fo&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=8)
+
+
+* ### UC Berkeley :
+
+    * [CS 61B Lecture 29: Sorting I (video)](https://archive.org/details/ucberkeley_webcast_EiUvYS2DT6I)
+
+
 
 
 

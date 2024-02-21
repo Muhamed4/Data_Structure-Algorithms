@@ -1,7 +1,9 @@
 #include <iostream>
 #include <algorithm>
 #include <cassert>
+#include "QuickSort.hpp"
 using namespace std;
+using namespace DSA;
 typedef long long ll;
 #define endl '\n'
 
@@ -69,13 +71,8 @@ void Test(const T& a, const T& b){
 
 
 void solve(){
-    int n;cin >> n;
-    int *arr = new int[n];
-    for(int i = 0; i < n;i++)cin >> arr[i];
-    sort(arr, arr + 2);
-    for(int i = 0; i < n;i++){
-        cout << arr[i] << ' ';
-    }
+    int arr[] = {2, 1, 8, 4, 7, 5, 3, 9, 6};
+    QuickSort(arr, 9);
 }
 
 int main(){
