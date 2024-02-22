@@ -560,3 +560,153 @@
     </details>
 
 ---
+
+
+* [ ] [Triplet Sum in Array](https://www.geeksforgeeks.org/problems/triplet-sum-in-array-1587115621/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            class Solution{
+                public:
+                int Partition(int *arr, int l, int r){
+                    int pivot = arr[r];
+                    int pivotIndex = l;
+                    for(int i = l; i < r;i++){
+                        if(arr[i] <= pivot){
+                            swap(arr[i], arr[pivotIndex]);
+                            ++pivotIndex;
+                        }
+                    }
+                    swap(arr[r], arr[pivotIndex]);
+                    return pivotIndex;
+                }
+                void QuickSort(int *arr, int l, int r){
+                    if(l >= r)return;
+                    int pivot = Partition(arr, l, r);
+                    QuickSort(arr, l, pivot - 1);
+                    QuickSort(arr, pivot + 1, r);
+                }
+                //Function to find if there exists a triplet in the 
+                //array A[] which sums up to X.
+                bool find3Numbers(int A[], int n, int X)
+                {
+                    QuickSort(A, 0, n - 1);
+                    for(int i = 0; i < n - 2;i++){
+                        int rem = X - A[i], l = i + 1, r = n - 1, sum = 0;
+                        if(X <= 0)break;
+                        while(l < r){
+                            sum = A[l] + A[r];
+                            if(sum == rem)return 1;
+                            if(sum > rem) --r;
+                            else ++l;
+                        }
+                    }
+                    return 0;
+                }
+
+            };
+
+            //{ Driver Code Starts.
+
+            int main()
+            {
+                int T;
+                cin>>T;
+                while(T--)
+                {
+                    int n,X;
+                    cin>>n>>X;
+                    int i,A[n];
+                    for(i=0;i<n;i++)
+                        cin>>A[i];
+                    Solution ob;
+                    cout <<  ob.find3Numbers(A, n, X) << endl;
+                }
+            }
+
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Find triplets with zero sum](https://www.geeksforgeeks.org/problems/find-triplets-with-zero-sum/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            #include<stdlib.h>
+            #include<iostream>
+            using namespace std;
+
+            // } Driver Code Ends
+            /* You are required to complete the function below
+            *  arr[]: input array
+            *  n: size of array
+            */
+            class Solution{
+            public:
+            void BubbleSort(int *a, int n){
+                for(int k = 1; k < n;k++){
+                    bool flag = true;
+                    for(int i = 0; i < n - k;i++){
+                        if(a[i] > a[i + 1]){
+                            swap(a[i], a[i + 1]);
+                            flag = false;
+                        }
+                    }
+                    if(flag)break;
+                }
+            }
+                //Function to find triplets with zero sum.
+                bool findTriplets(int arr[], int n)
+                { 
+                    //Your code here
+                    BubbleSort(arr, n);
+                    for(int i = 0; i < n - 2;i++){
+                        int rem = 0 - arr[i], sum = 0, l = i + 1, r = n - 1;
+                        while(l < r){
+                            sum = arr[l] + arr[r];
+                            if(sum == rem)return 1;
+                            if(sum > rem) --r;
+                            else ++l;
+                        }
+                    }
+                    return 0;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main()
+            {
+                int t;
+                cin>>t;
+                while(t--){
+                    int n;
+                    cin>>n;
+                    int arr[n]={0};
+                    for(int i=0;i<n;i++)
+                        cin>>arr[i];
+                    Solution obj;
+                    if(obj.findTriplets(arr, n))
+                        cout<<"1"<<endl;
+                    else 
+                        cout<<"0"<<endl;
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---

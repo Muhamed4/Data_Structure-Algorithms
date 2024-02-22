@@ -33,6 +33,11 @@
 * [Analysis of quicksort(mycodeschool)](https://www.youtube.com/watch?v=3Bbm3Prd5Fo&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=8)
 
 
+### Bubble Sort :
+
+* [Bubble sort algorithm](https://www.youtube.com/watch?v=Jdtq5uKz-w4&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=3)
+
+
 * ### UC Berkeley :
 
     * [CS 61B Lecture 29: Sorting I (video)](https://archive.org/details/ucberkeley_webcast_EiUvYS2DT6I)
