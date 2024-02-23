@@ -33,6 +33,10 @@
 * [Analysis of quicksort(mycodeschool)](https://www.youtube.com/watch?v=3Bbm3Prd5Fo&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=8)
 
 
+### Selection Sort :
+
+* [Selection sort algorithm](https://www.youtube.com/watch?v=GUDLRan2DWM&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=2)
+
 ### Bubble Sort :
 
 * [Bubble sort algorithm](https://www.youtube.com/watch?v=Jdtq5uKz-w4&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=3)
