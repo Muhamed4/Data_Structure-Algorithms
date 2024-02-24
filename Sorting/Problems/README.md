@@ -710,3 +710,173 @@
     </details>
 
 ---
+
+
+* [ ] [Find All Four Sum Numbers](https://www.geeksforgeeks.org/problems/find-all-four-sum-numbers1732/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            // User function template for C++
+
+            class Solution{
+                public:
+                void SelectionSort(vector<int>&arr, int n){
+                    for(int i = 0; i < n - 1;i++){
+                        int idx = i, mn = arr[i];
+                        for(int j = i + 1; j < n;j++){
+                            if(mn > arr[j]){
+                                mn = arr[j];
+                                idx = j;
+                            }
+                        }
+                        int temp = arr[i];
+                        arr[i] = arr[idx];
+                        arr[idx] = temp;
+                    }
+                }
+                int hash(int a, int b, int c, int d){
+                    return a * 1000 + b * 100 + c * 10 + d;
+                }
+                // arr[] : int input array of integers
+                // k : the quadruple sum required
+                vector<vector<int>> fourSum(vector<int> &arr, int k) {
+                    // Your code goes here
+                    int n = arr.size();
+                    SelectionSort(arr, n);
+                    vector<vector<int>>ans;
+                    set<multiset<int>>res;
+                    for(int i = 0; i < n;i++){
+                        for(int j = i + 1; j < n;j++){
+                            int l = j + 1, r = n - 1, sum = 0, cur = k - arr[i] - arr[j];
+                            while(l < r){
+                                sum = arr[l] + arr[r];
+                                if(sum == cur){
+                                    res.insert({arr[i], arr[j], arr[l], arr[r]});
+                                    ++l;
+                                    --r;
+                                }
+                                else if(sum > cur) --r;
+                                else ++l;
+                            }
+                        }
+                    }
+                    for(auto &it: res){
+                        vector<int>cnt;
+                        for(auto &i: it)cnt.push_back(i);
+                        ans.push_back(cnt);
+                    }
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n, k, i;
+                    cin >> n >> k;
+                    vector<int> a(n);
+                    for (i = 0; i < n; i++) {
+                        cin >> a[i];
+                    }
+                    Solution ob;
+                    vector<vector<int> > ans = ob.fourSum(a, k);
+                    for (auto &v : ans) {
+                        for (int &u : v) {
+                            cout << u << " ";
+                        }
+                        cout << "$";
+                    }
+                    if (ans.empty()) {
+                        cout << -1;
+                    }
+                    cout << "\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Quick Sort](https://www.geeksforgeeks.org/problems/quick-sort/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <stdio.h>
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            /* Function to print an array */
+            void printArray(int arr[], int size)
+            {
+                int i;
+                for (i=0; i < size; i++)
+                    printf("%d ", arr[i]);
+                printf("\n");
+            }
+
+            // } Driver Code Ends
+            class Solution
+            {
+                public:
+                //Function to sort an array using quick sort algorithm.
+                void quickSort(int arr[], int low, int high)
+                {
+                    // code here
+                    if(low >= high)return;
+                    int pivot = partition(arr, low, high);
+                    quickSort(arr, low, pivot - 1);
+                    quickSort(arr, pivot + 1, high);
+                }
+                
+                public:
+                int partition (int arr[], int low, int high)
+                {
+                    // Your code here
+                    int pivot = arr[high];
+                    int idx = low;
+                    for(int i = low; i < high;i++){
+                        if(arr[i] <= pivot){
+                            swap(arr[i], arr[idx]);
+                            ++idx;
+                        }
+                    }
+                    swap(arr[idx], arr[high]);
+                    return idx;
+                }
+            };
+
+
+            //{ Driver Code Starts.
+            int main()
+            {
+                int arr[1000],n,T,i;
+                    scanf("%d",&T);
+                while(T--){
+                    scanf("%d",&n);
+                    for(i=0;i<n;i++)
+                        scanf("%d",&arr[i]);
+                    Solution ob;
+                    ob.quickSort(arr, 0, n-1);
+                    printArray(arr, n);
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
