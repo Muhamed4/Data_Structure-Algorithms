@@ -880,3 +880,238 @@
     </details>
 
 ---
+
+
+* [ ] [Bubble Sort](https://www.geeksforgeeks.org/problems/bubble-sort/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial Template for C++
+
+            // C program for implementation of Bubble sort
+            #include <stdio.h>
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // swapping the elements
+            void swap(int *xp, int *yp)
+            {
+                int temp = *xp;
+                *xp = *yp;
+                *yp = temp;
+            }
+
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            class Solution
+            {
+                public:
+                //Function to sort the array using bubble sort algorithm.
+                void bubbleSort(int arr[], int n)
+                {
+                    // Your code here  
+                    for(int i = 0; i < n - 1;i++){
+                        for(int j = 0; j < n - i - 1;j++){
+                            if(arr[j] > arr[j + 1]){
+                                swap(arr[j], arr[j + 1]);
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            //{ Driver Code Starts.
+
+            /* Function to print an array */
+            void printArray(int arr[], int size)
+            {
+                int i;
+                for (i=0; i < size; i++)
+                    printf("%d ", arr[i]);
+                printf("\n");
+            }
+            
+            // Driver program to test above functions
+            int main()
+            {
+                int arr[1000],n,T,i;
+            
+                scanf("%d",&T);
+                
+                while(T--){
+                    
+                scanf("%d",&n);
+                
+                for(i=0;i<n;i++)
+                scanf("%d",&arr[i]);
+                
+                Solution ob;  
+                
+                ob.bubbleSort(arr, n);
+                printArray(arr, n);
+                }
+                return 0;;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Minimum Swaps to Sort](https://www.geeksforgeeks.org/problems/minimum-swaps/1?page=1&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+
+
+            class Solution 
+            {
+                void MergeSort(vector<int>&arr, int low, int mid, int high){
+                    int n1 = mid - low + 1;
+                    int n2 = high - mid;
+                    int *arr1 = new int[n1];
+                    int *arr2 = new int[n2];
+                    for(int i = 0; i < n1;i++)arr1[i] = arr[low + i];
+                    for(int i = 0; i < n2;i++)arr2[i] = arr[mid + i + 1];
+                    int i = 0, j = 0;
+                    for(int k = low; k <= high;k++){
+                        if(i < n1 && j < n2){
+                            if(arr1[i] < arr2[j]) arr[k] = arr1[i++];
+                            else arr[k] = arr2[j++];
+                            continue;
+                        }
+                        else if(i < n1)arr[k] = arr1[i++];
+                        else arr[k] = arr2[j++];
+                    }
+                }
+                void Sort(vector<int>&arr, int low, int high){
+                    if(low >= high)return;
+                    int mid = (low + high) / 2;
+                    Sort(arr, low, mid);
+                    Sort(arr, mid + 1, high);
+                    MergeSort(arr, low, mid, high);
+                }
+                public:
+                //Function to find the minimum number of swaps required to sort the array. 
+                int minSwaps(vector<int>&nums)
+                {
+                    // Code here
+                    int n = nums.size(), ans = 0;
+                    vector<int>cop = nums;
+                    vector<int>before(1000006);
+                    for(int i = 0; i < n;i++){
+                        before[nums[i]] = i;
+                    }
+                    Sort(cop, 0, n - 1);
+                    for(int i = 0; i < n;i++){
+                        int j = before[cop[i]];
+                        if(i != j){
+                            swap(nums[i], nums[j]);
+                            before[nums[j]] = j;
+                            ++ans;
+                        }
+                    }
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main(){
+                int tc;
+                cin >> tc;
+                while(tc--){
+                    int n;
+                    cin >> n;
+                    vector<int>nums(n);
+                    for(int i = 0; i < n; i++)
+                        cin >> nums[i];
+                    Solution obj;
+                    int ans = obj.minSwaps(nums);
+                    cout << ans <<"\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [k largest elements](https://www.geeksforgeeks.org/problems/k-largest-elements4206/1?page=2&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+
+            using namespace std;
+
+
+            // } Driver Code Ends
+            //User function template for C++
+            class Solution{
+            public:	
+                vector<int> kLargest(int arr[], int n, int k) {
+                    // code here
+                    priority_queue<int,vector<int>,greater<int>>b;
+                    for(int i = 0; i < n;i++){
+                        if(b.size() == k){
+                            if(b.top() < arr[i]){
+                                b.pop();
+                                b.push(arr[i]);
+                            }
+                        }
+                        else b.push(arr[i]);
+                    }
+                    vector<int>ans;
+                    while(!b.empty()){
+                        ans.push_back(b.top());
+                        b.pop();
+                    }
+                    reverse(ans.begin(), ans.end());
+                    return ans;
+                }
+
+            };
+
+            //{ Driver Code Starts.
+
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n, k;
+                    cin >> n >> k;
+                    int arr[n];
+                    for (int i = 0; i < n; i++) {
+                        cin >> arr[i];
+                    }
+                    Solution ob;
+                    auto ans = ob.kLargest(arr, n, k);
+                    for (auto x : ans) {
+                        cout << x << " ";
+                    }
+                    cout << "\n";
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+        
+    </details>
+
+---
