@@ -41,6 +41,10 @@
 
 * [Bubble sort algorithm](https://www.youtube.com/watch?v=Jdtq5uKz-w4&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=3)
 
+### Insertion Sort :
+
+* [Insertion sort algorithm](https://www.youtube.com/watch?v=i-SKeOcBwko&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=5)
+
 
 * ### UC Berkeley :
 

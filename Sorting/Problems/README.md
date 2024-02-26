@@ -1115,3 +1115,270 @@
     </details>
 
 ---
+
+
+* [ ] [Sort last M elements](https://www.geeksforgeeks.org/problems/sort-last-m-elements--155156/1?page=8&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            class Solution {
+                void MergeSort(vector<int>&arr, int low, int mid, int high){
+                    int n1 = mid - low + 1;
+                    int n2 = high - mid;
+                    int *arr1 = new int[n1];
+                    int *arr2 = new int[n2];
+                    for(int i = 0; i < n1;i++)arr1[i] = arr[low + i];
+                    for(int i = 0; i < n2;i++)arr2[i] = arr[mid + i + 1];
+                    int i = 0, j = 0;
+                    for(int k = low; k <= high;k++){
+                        if(i < n1 && j < n2){
+                            if(arr1[i] <= arr2[j])arr[k] = arr1[i++];
+                            else arr[k] = arr2[j++];
+                        }
+                        else if(i < n1)arr[k] = arr1[i++];
+                        else arr[k] = arr2[j++];
+                    }
+                    delete[] arr1;
+                    delete[] arr2;
+                }
+                void Sort(vector<int>&arr, int low, int high){
+                    if(low >= high)return;
+                    int mid = (low + high) / 2;
+                    Sort(arr, low, mid);
+                    Sort(arr, mid + 1, high);
+                    MergeSort(arr, low, mid, high);
+                }
+            public:
+                void sortLastMelements(vector<int>&nums, int n, int m) {
+                    // Code here
+                    Sort(nums, n, n + m - 1);
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main(){
+                int tc;
+                cin >> tc;
+                while(tc--){
+                    int n, m;
+                    cin >> n >> m;
+                    vector<int>nums(n+m);
+                    for(auto &i: nums)
+                        cin >> i;
+                    Solution obj;
+                    obj.sortLastMelements(nums, n, m);
+                    for(auto i: nums)
+                        cout << i << " ";
+                    cout << "\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Merge Sort](https://www.geeksforgeeks.org/problems/merge-sort/1?page=2&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <stdio.h>
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+
+            /* Function to print an array */
+            void printArray(int arr[], int size)
+            {
+                int i;
+                for (i=0; i < size; i++)
+                    printf("%d ", arr[i]);
+                printf("\n");
+            }
+
+
+            // } Driver Code Ends
+            class Solution
+            {
+                public:
+                void merge(int arr[], int l, int m, int r)
+                {
+                    // Your code here
+                    int n1 = m - l + 1;
+                    int n2 = r - m;
+                    int *arr1 = new int[n1];
+                    int *arr2 = new int[n2];
+                    for(int i = 0; i < n1;i++)arr1[i] = arr[l + i];
+                    for(int i = 0; i < n2;i++)arr2[i] = arr[m + i + 1];
+                    int i = 0, j = 0;
+                    for(int k = l; k <= r;k++){
+                        if(i < n1 && j < n2){
+                            if(arr1[i] <= arr2[j])arr[k] = arr1[i++];
+                            else arr[k] = arr2[j++];
+                        }
+                        else if(i < n1)arr[k] = arr1[i++];
+                        else arr[k] = arr2[j++];
+                    }
+                    delete[] arr1;
+                    delete[] arr2;
+                }
+                public:
+                void mergeSort(int arr[], int l, int r)
+                {
+                    //code here
+                    if(l >= r)return;
+                    int mid = (l + r) / 2;
+                    mergeSort(arr, l, mid);
+                    mergeSort(arr, mid + 1, r);
+                    merge(arr, l, mid, r);
+                }
+            };
+
+            //{ Driver Code Starts.
+
+
+            int main()
+            {
+                int n,T,i;
+
+                scanf("%d",&T);
+
+                while(T--){
+                
+                scanf("%d",&n);
+                int arr[n+1];
+                for(i=0;i<n;i++)
+                scanf("%d",&arr[i]);
+
+                Solution ob;
+                ob.mergeSort(arr, 0, n-1);
+                printArray(arr, n);
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Alien Dictionary](https://www.geeksforgeeks.org/problems/alien-dictionary/1?page=2&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial Template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            // User function Template for C++
+
+            class Solution{
+                void dfs(int node, vector<vector<int>>&adj, vector<bool>&vis, vector<int>&ans){
+                    vis[node] = 1;
+                    for(auto &child: adj[node]){
+                        if(!vis[child])
+                            dfs(child, adj, vis, ans);
+                    }
+                    ans.push_back(node);
+                }
+                
+                void topological_sort(int K, vector<bool>&vis, vector<vector<int>>&adj, vector<int>&ans){
+                    for(int i = 0; i < K;i++){
+                        if(!vis[i])
+                            dfs(i, adj, vis, ans);
+                    }
+                    reverse(ans.begin(), ans.end());
+                }
+                public:
+                string findOrder(string dict[], int N, int K) {
+                    //code here
+                    vector<vector<int>>adj(K);
+                    vector<bool> vis(K);
+                    vector<int>res;
+                    for(int i = 1; i < N;i++){
+                        int sz = min(dict[i - 1].size(), dict[i].size());
+                        for(int j = 0; j < sz;j++){
+                            if(dict[i - 1][j] != dict[i][j]){
+                                int x = dict[i - 1][j] - 'a';
+                                int y = dict[i][j] - 'a';
+                                adj[x].push_back(y);
+                                break;
+                            }
+                        }
+                    }
+                    topological_sort(K, vis, adj, res);
+                    string ans = "";
+                    for(auto &it: res)ans += (it + 'a');
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+            string order;
+            bool f(string a, string b) {
+                int p1 = 0;
+                int p2 = 0;
+                for (int i = 0; i < min(a.size(), b.size()) and p1 == p2; i++) {
+                    p1 = order.find(a[i]);
+                    p2 = order.find(b[i]);
+                    //	cout<<p1<<" "<<p2<<endl;
+                }
+
+                if (p1 == p2 and a.size() != b.size()) return a.size() < b.size();
+
+                return p1 < p2;
+            }
+
+            // Driver program to test above functions
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int N, K;
+                    cin >> N >> K;
+                    string dict[N];
+                    for (int i = 0; i < N; i++) cin >> dict[i];
+                    
+                    Solution obj;
+                    string ans = obj.findOrder(dict, N, K);
+                    order = "";
+                    for (int i = 0; i < ans.size(); i++) order += ans[i];
+
+                    string temp[N];
+                    std::copy(dict, dict + N, temp);
+                    sort(temp, temp + N, f);
+
+                    bool f = true;
+                    for (int i = 0; i < N; i++)
+                        if (dict[i] != temp[i]) f = false;
+
+                    if(f)cout << 1;
+                    else cout << 0;
+                    cout << endl;
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+                    
+    </details>
+
+---

@@ -95,11 +95,25 @@ void SelectionSort(int *arr, int n)
     }
 }
 
+void InsertionSort(int *arr, int n)
+{
+    for (int i = 1; i < n; i++){        
+        int value = arr[i];
+        int hole = i;
+        while (hole > 0 && arr[hole - 1] > value) {
+            arr[hole] = arr[hole - 1];
+            hole--;
+        } 
+        arr[hole] = value;
+    }
+}
+
 void solve()
 {
     int arr[] = {2, 1, 8, 4, 7, 5, 3, 9, 6};
-    SelectionSort(arr, 9);
-    for(int i = 0; i < 9;i++){
+    InsertionSort(arr, 9);
+    for (int i = 0; i < 9; i++)
+    {
         cout << arr[i] << ' ';
     }
     cout << endl;
