@@ -1383,3 +1383,112 @@
 
 ---
 
+
+* [ ] [Find k-th smallest element in given n ranges](https://www.geeksforgeeks.org/problems/find-k-th-smallest-element-in-given-n-ranges/1?page=4&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            /* Driver program to test above function */
+
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            class Solution{
+                vector<vector<int>> GetLastRanges(vector<vector<int>>&range, int n){
+                    vector<vector<int>>range1;
+                    sort(range.begin(), range.end());
+                    int x = range[0][0], y = range[0][1];
+                    for(int i = 1; i < n;i++){
+                        // 4 8, 5 6
+                        // 4 10, 6 11
+                        if(range[i][0] >= x && range[i][0] <= y){
+                            y = max(y, range[i][1]);
+                        }
+                        else {
+                            range1.push_back({x, y});
+                            x = range[i][0], y = range[i][1];
+                        }
+                    }
+                    range1.push_back({x, y});
+                    return range1;
+                }
+                
+                int Search(int n, int k, vector<long long>&prefix){
+                    int low = 0, high = n - 1, mid = -1, idx = -1;
+                    while(low <= high){
+                        mid = (low + high) / 2;
+                        if(prefix[mid] >= k){
+                            idx = mid;
+                            high = mid - 1;
+                        }
+                        else low = mid + 1;
+                    }
+                    return idx;
+                }
+                public:
+                vector<int>kthSmallestNum(int n, vector<vector<int>>&range, int q, vector<int>queries){
+                    
+                    range = GetLastRanges(range, n);
+                    n = range.size();
+                    vector<long long>prefix(n);
+                    vector<int>ans;
+                    for(int i = 0; i < n;i++){
+                        prefix[i] = range[i][1] - range[i][0] + 1;
+                        prefix[i] = prefix[i] + ((i == 0) ? 0 : prefix[i - 1]);
+                    }
+                    for(int i = 0; i < q;i++){
+                        int k = queries[i];
+                        int idx = Search(n, k, prefix);
+                        if(idx != -1){
+                            int rem = k - ((idx == 0) ? 0 : prefix[idx - 1]);
+                            idx = range[idx][0] + rem - 1;
+                        }
+                        ans.push_back(idx);
+                    }
+                    return ans;
+                } 
+            };
+
+
+            //{ Driver Code Starts.
+            int main()
+            {
+                int t;
+                cin>>t;
+                while(t--)
+                {
+                    int n;
+                    cin >> n;
+                    vector<vector<int>>range(n, vector<int>(2, 0));
+                    for(int i = 0 ; i < n; i++){
+                        cin >> range[i][0] >> range[i][1];
+                    }
+                    int q;
+                    cin >> q;
+                    vector<int>queries;
+                    for(int i = 0 ; i < q; i++){
+                        int x;
+                        cin >> x;
+                        queries.push_back(x);
+                    }
+                    Solution ob;
+                    vector<int>ans = ob.kthSmallestNum(n, range, q, queries);
+                    for(auto it : ans){
+                        cout << it << " ";
+                    }
+                    cout << endl;
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+                    
+    </details>
+
+---
+
