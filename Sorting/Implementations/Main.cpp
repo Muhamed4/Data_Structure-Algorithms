@@ -108,10 +108,50 @@ void InsertionSort(int *arr, int n)
     }
 }
 
+void BubbleUp(int *arr, int idx){
+    if(idx == 0)
+        return;
+    int parentIdx = (idx / 2) - (idx % 2 == 0);
+    if(arr[parentIdx] < arr[idx]){
+        swap(arr[parentIdx], arr[idx]);
+        BubbleUp(arr, parentIdx);
+    }
+}
+
+void BubbleDown(int *arr, int idx, int lastSize){
+
+    int leftChild = idx * 2 + 1;
+    int rightChild = idx * 2 + 2;
+    int rootIdx = idx;
+
+    if(leftChild < lastSize && arr[rootIdx] < arr[leftChild])
+        rootIdx = leftChild;
+    
+    if(rightChild < lastSize && arr[rootIdx] < arr[rightChild])
+        rootIdx = rightChild;
+
+    if(rootIdx != idx){
+        swap(arr[rootIdx], arr[idx]);
+        BubbleDown(arr, rootIdx, lastSize);
+    }
+}
+
+void HeapSort(int *arr, int n){
+
+    for(int i = 0; i < n;i++){
+        BubbleUp(arr, i);
+    }
+
+    for(int i = n - 1; i >= 0;i--){
+        swap(arr[0], arr[i]);
+        BubbleDown(arr, 0, i);
+    }
+}
+
 void solve()
 {
     int arr[] = {2, 1, 8, 4, 7, 5, 3, 9, 6};
-    InsertionSort(arr, 9);
+    HeapSort(arr, 9);
     for (int i = 0; i < 9; i++)
     {
         cout << arr[i] << ' ';

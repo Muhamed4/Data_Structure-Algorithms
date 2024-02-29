@@ -1492,3 +1492,194 @@
 
 ---
 
+
+* [ ] [Minimum sum](https://www.geeksforgeeks.org/problems/minimum-sum4058/1?page=2&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            //User function template for C++
+
+            class Solution{
+                void BubbleUp(int *arr, int idx){
+                    if(idx == 0)
+                        return;
+                    int parentIdx = (idx / 2) - (idx % 2 == 0);
+                    if(arr[parentIdx] < arr[idx]){
+                        swap(arr[parentIdx], arr[idx]);
+                        BubbleUp(arr, parentIdx);
+                    }
+                }
+                
+                void BubbleDown(int *arr, int idx, int lastSize){
+                
+                    int leftChild = idx * 2 + 1;
+                    int rightChild = idx * 2 + 2;
+                    int rootIdx = idx;
+                
+                    if(leftChild < lastSize && arr[rootIdx] < arr[leftChild])
+                        rootIdx = leftChild;
+                    
+                    if(rightChild < lastSize && arr[rootIdx] < arr[rightChild])
+                        rootIdx = rightChild;
+                
+                    if(rootIdx != idx){
+                        swap(arr[rootIdx], arr[idx]);
+                        BubbleDown(arr, rootIdx, lastSize);
+                    }
+                }
+                
+                void HeapSort(int *arr, int n){
+                
+                    for(int i = 0; i < n;i++){
+                        BubbleUp(arr, i);
+                    }
+                
+                    for(int i = n - 1; i >= 0;i--){
+                        swap(arr[0], arr[i]);
+                        BubbleDown(arr, 0, i);
+                    }
+                }
+            public:
+                string solve(int arr[], int n) {
+                    // code here
+                    HeapSort(arr, n);
+                    // sort(arr, arr + n);
+                    // 2 3 4 5 6 7 8
+                    // 2 4 6 8
+                    //   3 5 7
+                    // 2 8 2 5
+                    // 0 4 5 6 7
+                    string ans = "";
+                    int carry = 0;
+                    for(int i = n - 1; i > 0;i-=2){
+                        carry = carry + arr[i] + arr[i - 1];
+                        ans += ((carry % 10) + '0');
+                        carry /= 10;
+                    }
+                    if(n % 2 != 0){
+                        carry += arr[0];
+                        ans += ((carry % 10) + '0');
+                        carry /= 10;
+                        if(carry) ans += (carry + '0');
+                    }
+                    else if(carry) ans += (carry + '0');
+                    while(ans.size() > 1 && ans.back() == '0')ans.pop_back();
+                    reverse(ans.begin(), ans.end());
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n;
+                    cin >> n;
+                    int arr[n];
+                    for (int i = 0; i < n; i++) {
+                        cin >> arr[i];
+                    }
+                    Solution ob;
+                    auto ans = ob.solve(arr, n);
+                    cout << ans << "\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+                    
+    </details>
+
+---
+
+
+* [ ] [Selection Sort](https://www.geeksforgeeks.org/problems/selection-sort/1?page=2&category=Sorting&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+            void swap(int *xp, int *yp)
+            {
+                int temp = *xp;
+                *xp = *yp;
+                *yp = temp;
+            }
+
+
+            // } Driver Code Ends
+            class Solution
+            {
+                public:
+                int select(int arr[], int i, int n)
+                {
+                    // code here such that selectionSort() sorts arr[]
+                    int idx = -1, mn = 1e9;
+                    for(int j = i; j < n;j++){
+                        if(arr[j] < mn){
+                            mn = arr[j];
+                            idx = j;
+                        }
+                    }
+                    return idx;
+                    
+                }
+                
+                void selectionSort(int arr[], int n)
+                {
+                //code here
+                for(int i = 0; i < n - 1;i++){
+                    int idx = select(arr, i, n);
+                    swap(arr[i], arr[idx]);
+                }
+                }
+            };
+
+            //{ Driver Code Starts.
+            
+            /* Function to print an array */
+            void printArray(int arr[], int size)
+            {
+                int i;
+                for (i=0; i < size; i++)
+                    printf("%d ", arr[i]);
+                printf("\n");
+            }
+            
+            // Driver program to test above functions
+            int main()
+            {
+                int arr[1000],n,T,i;
+            
+                scanf("%d",&T);
+                
+                while(T--){
+                    
+                scanf("%d",&n);
+                
+                for(i=0;i<n;i++)
+                scanf("%d",&arr[i]);
+                
+                Solution ob;  
+                ob.selectionSort(arr, n);
+                printArray(arr, n);
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+                    
+    </details>
+
+---
+
