@@ -351,3 +351,222 @@
 
 ---
 
+
+* [ ] [Flood fill Algorithm](https://www.geeksforgeeks.org/problems/flood-fill-algorithm1856/1?page=1&category=DFS,BFS&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            class Solution {
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, -1, 1};
+                
+                bool isValid(int x, int y, int n, int m){
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                
+                void floodFill(int x, int y, int& n, int& m, vector<vector<bool>>&vis, vector<vector<int>>&image, int original, int& newColor){
+                    if(!isValid(x, y, n, m) || vis[x][y] || image[x][y] != original)
+                        return;
+                    vis[x][y] = 1;
+                    image[x][y] = newColor;
+                    for(int i = 0; i < 4;i++){
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        floodFill(newX, newY, n, m, vis, image, original, newColor);
+                    }
+                }
+            public:
+                vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+                    // Code here 
+                    int n = image.size();
+                    int m = image[0].size();
+                    vector<vector<bool>>vis(n, vector<bool>(m));
+                    floodFill(sr, sc, n, m, vis, image, image[sr][sc], newColor);
+                    return image;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main(){
+                int tc;
+                cin >> tc;
+                while(tc--){
+                    int n, m;
+                    cin >> n >> m;
+                    vector<vector<int>>image(n, vector<int>(m,0));
+                    for(int i = 0; i < n; i++){
+                        for(int j = 0; j < m; j++)
+                            cin >> image[i][j];
+                    }
+                    int sr, sc, newColor;
+                    cin >> sr >> sc >> newColor;
+                    Solution obj;
+                    vector<vector<int>> ans = obj.floodFill(image, sr, sc, newColor);
+                    for(auto i: ans){
+                        for(auto j: i)
+                            cout << j << " ";
+                        cout << "\n";
+                    }
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+
+* [ ] [Steps by Knight](https://www.geeksforgeeks.org/problems/steps-by-knight5927/1?page=1&category=DFS,BFS&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            class Solution 
+            {
+                int dx[8] = {-2, -2, 2, 2, -1, 1, -1, 1};
+                int dy[8] = {1, -1, 1, -1, 2, 2, -2, -2};
+                
+                bool isValid(int x, int y, int n){
+                    return (x >= 1 && x <= n && y >= 1 && y <= n);
+                }
+                
+                public:
+                //Function to find out minimum steps Knight needs to reach target position.
+                int minStepToReachTarget(vector<int>&KnightPos,vector<int>&TargetPos,int N)
+                {
+                    // Code here
+                    int srcX = KnightPos[0], srcY = KnightPos[1];
+                    int targX = TargetPos[0], targY = TargetPos[1];
+                    vector<vector<bool>>vis(N + 1, vector<bool>(N + 1));
+                    vector<vector<int>>distance(N + 1, vector<int>(N + 1, -1));
+                    queue<pair<int,int>> bfs;
+                    bfs.push({srcX, srcY});
+                    vis[srcX][srcY] = 1;
+                    distance[srcX][srcY] = 0;
+                    while(!bfs.empty()){
+                        pair<int,int> node = bfs.front();
+                        bfs.pop();
+                        if(node.first == targX && node.second == targY)
+                            break;
+                        for(int i = 0; i < 8;i++){
+                            int newX = node.first + dx[i];
+                            int newY = node.second + dy[i];
+                            if(isValid(newX, newY, N) && !vis[newX][newY]){
+                                vis[newX][newY] = 1;
+                                distance[newX][newY] = distance[node.first][node.second] + 1;
+                                bfs.push({newX, newY});
+                            }
+                        }
+                    }
+                    return distance[targX][targY];
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main(){
+                int tc;
+                cin >> tc;
+                while(tc--){
+                    vector<int>KnightPos(2);
+                    vector<int>TargetPos(2);
+                    int N;
+                    cin >> N;
+                    cin >> KnightPos[0] >> KnightPos[1];
+                    cin >> TargetPos[0] >> TargetPos[1];
+                    Solution obj;
+                    int ans = obj.minStepToReachTarget(KnightPos, TargetPos, N);
+                    cout << ans <<"\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+* [ ] [Number of Provinces](https://www.geeksforgeeks.org/problems/number-of-provinces/1?page=1&category=DFS,BFS&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            class Solution {
+                void dfs(int node, vector<int>&vis, vector<vector<int>>&adj){
+                    vis[node] = 1;
+                    int sz = adj[node].size();
+                    for(int i = 0; i < sz;i++){
+                        if(adj[node][i] && !vis[i]){
+                            dfs(i, vis, adj);
+                        }
+                    }
+                }
+            public:
+                int numProvinces(vector<vector<int>>& adj, int V) {
+                    // code here
+                    int ans = 0;
+                    vector<int>vis(V);
+                    for(int i = 0;i < V;i++){
+                        if(!vis[i]){
+                            dfs(i, vis, adj);
+                            ++ans;
+                        }
+                    }
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int V,x;
+                    cin>>V;
+                    
+                    vector<vector<int>> adj;
+                    
+                    for(int i=0; i<V; i++)
+                    {
+                        vector<int> temp;
+                        for(int j=0; j<V; j++)
+                        {
+                            cin>>x;
+                            temp.push_back(x);
+                        }
+                        adj.push_back(temp);
+                    }
+                    
+
+                    Solution ob;
+                    cout << ob.numProvinces(adj,V) << endl;
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---

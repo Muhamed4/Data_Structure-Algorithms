@@ -45,6 +45,46 @@ void find_comps(int n){
     }
 }
 
+
+
+void dfs(int node, vector<bool>&vis, vector<vector<int>>&adj, vector<int>&ans){
+    vis[node] = 1;
+    for(auto &child: adj[node]){
+        if(!vis[child]){
+            dfs(child, vis, adj, ans);
+        }
+    }
+    ans.push_back(node);
+}
+
+vector<int> topological_sort(int n, vector<vector<int>>&adj){
+    vector<bool>vis(n);
+    vector<int> ans;
+    for(int i = 0; i < n;i++){
+        if(!vis[i]){
+            dfs(i, vis, adj, ans);
+        }
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+
+void Solve3(){
+    int n,m;cin >> n >> m;
+    vector<vector<int>>adj(n, vector<int>());
+    for(int i = 0; i < m;i++){
+        int u, v;cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    vector<int> ans = topological_sort(n, adj);
+    for(auto &it: ans){
+        cout << it << ' ';
+    }
+    cout << '\n';
+}
+
 void Solve2(){
     int n, m;cin >> n >> m;
     used = new bool[n]{0};
@@ -57,6 +97,14 @@ void Solve2(){
     find_comps(n);
     delete[] used;
 }
+
+class Node {
+    public:
+    int val;
+    Node* left;
+    Node* right;
+    Node(int value) : val(value), left(nullptr), right(nullptr) {}
+};
 
 void Solve1(){
     int n;cin >> n;
@@ -80,7 +128,18 @@ void Solve1(){
 
 int main(){
 
-    Solve2();
+    // Solve3();
+
+    Node* head = new Node(2);
+    head->left = new Node(4);
+    head->right = new Node(5);
+
+    Node* test = new Node(10);
+
+    Node* temp = head;
+    temp->left = test;
+    cout << head->left->val;
+
     
     return 0;
 }
