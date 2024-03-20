@@ -238,3 +238,153 @@
     </details>
 
 ---
+
+
+
+* [ ] [Word Boggle](https://www.geeksforgeeks.org/problems/word-boggle4143/1?page=1&category=Trie&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+
+            struct TrieNode {
+                TrieNode* children[60];
+                string Word;
+                bool End;
+                TrieNode() {
+                    Word = "";
+                    End = false;
+                    for(int i = 0; i < 60;i++){
+                        children[i] = nullptr;
+                    }
+                }
+            };
+
+            class Solution {
+                
+                int dx[8] = {1, -1, 0, 0, -1, -1, 1, 1};
+                int dy[8] = {0, 0, 1, -1, -1, 1, -1, 1};
+                
+                void insert(TrieNode* root, string& key){
+                    TrieNode* currentNode = root;
+                    for(auto &ch: key){
+                        if(currentNode->children[ch - 'A'] == nullptr){
+                            currentNode->children[ch - 'A'] = new TrieNode();   
+                        }
+                        currentNode = currentNode->children[ch - 'A'];
+                    }
+                    currentNode->End = true;
+                    currentNode->Word = key;
+                }
+                
+                bool search(TrieNode* root, string& key){
+                    TrieNode* currentNode = root;
+                    for(auto &ch: key){
+                        if(currentNode->children[ch - 'A'] == nullptr){
+                            return false;
+                        }
+                        currentNode = currentNode->children[ch - 'A'];
+                    }
+                    return currentNode != nullptr && currentNode->End > 0;
+                }
+                
+                bool deleteKey(TrieNode* root, string& key){
+                    TrieNode* currentNode = root;
+                    for(auto &ch: key){
+                        if(currentNode->children[ch - 'A'] == nullptr){
+                            return false;
+                        }
+                        currentNode = currentNode->children[ch - 'A'];
+                    }
+                    if(currentNode != nullptr && currentNode->End > 0){
+                        currentNode->End = false;
+                        return true;
+                    }
+                    return false;
+                }
+                
+                bool isValid(int x, int y, int n, int m){
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                
+                void dfs(int x, int y, int& n, int& m, TrieNode* root, vector<vector<char>>& board, vector<string>& ans){
+                    if(!isValid(x, y, n, m) || board[x][y] == '#' || root->children[board[x][y] - 'A'] == nullptr)
+                        return;
+                    if(root->children[board[x][y] - 'A']->End){
+                        ans.push_back(root->children[board[x][y] - 'A']->Word);
+                        root->children[board[x][y] - 'A']->End = false;
+                    }
+                    char ch = board[x][y];
+                    board[x][y] = '#';
+                    for(int i = 0; i < 8;i++){
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        dfs(newX, newY, n, m, root->children[ch - 'A'], board, ans);
+                    }
+                    board[x][y] = ch;
+                }
+            public:
+                vector<string> wordBoggle(vector<vector<char> >& board, vector<string>& dictionary) {
+                    // Code here
+                    int n = board.size();
+                    int m = board[0].size();
+                    vector<string> ans;
+                    TrieNode* root = new TrieNode();
+                    for(auto &str: dictionary){
+                        insert(root, str);
+                    }
+                    for(int i = 0; i < n;i++){
+                        for(int j = 0; j < m;j++){
+                            dfs(i, j, n, m, root, board, ans);
+                        }
+                    }
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int N;
+                    cin >> N;
+                    vector<string> dictionary;
+                    for (int i = 0; i < N; ++i) {
+                        string s;
+                        cin >> s;
+                        dictionary.push_back(s);
+                    }
+                    
+                    int R, C;
+                    cin >> R >> C;
+                    vector<vector<char> > board(R);
+                    for (int i = 0; i < R; i++) {
+                        board[i].resize(C);
+                        for (int j = 0; j < C; j++) cin >> board[i][j];
+                    }
+                    Solution obj;
+                    vector<string> output = obj.wordBoggle(board, dictionary);
+                    if (output.size() == 0)
+                        cout << "-1";
+                    else {
+                        sort(output.begin(), output.end());
+                        for (int i = 0; i < output.size(); i++) cout << output[i] << " ";
+                    }
+                    cout << endl;
+                }
+            }
+
+            // } Driver Code Ends
+        
+    </details>
+
+---
