@@ -388,3 +388,124 @@
     </details>
 
 ---
+
+
+* [ ] [Word Break](https://leetcode.com/problems/word-break/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct TrieNode {
+                bool isWord;
+                unordered_map<char, TrieNode*> children;
+                TrieNode() : isWord(false), children(unordered_map<char, TrieNode*>()) {}
+            };
+
+            class Solution {
+                void insert(TrieNode* root, string& key){
+                    for(auto &ch: key){
+                        if(root->children.find(ch) == root->children.end()){
+                            root->children[ch] = new TrieNode();
+                        }
+                        root = root->children[ch];
+                    }
+                    root->isWord = true;
+                }
+
+                // it's a valid function but take exponential time (time limit).
+                bool isExist(int idx, int& n, string& str, TrieNode* root, TrieNode* cur){
+                    if(idx == n){
+                        return root == cur;
+                    }
+                    bool flag = false;
+                    if(cur->children.find(str[idx]) != cur->children.end()){
+                        flag |= isExist(idx + 1, n, str, root, cur->children[str[idx]]);
+                        if(cur->children[str[idx]]->isWord) flag |= isExist(idx + 1, n, str, root, root);
+                    }
+                    return flag;
+                }
+            public:
+                bool wordBreak(string& s, vector<string>& wordDict) {
+                    int n = s.size();
+                    TrieNode* root = new TrieNode();
+                    for(auto &str: wordDict){
+                        insert(root, str);
+                    }
+                    vector<bool> dp(n);
+                    for(int i = 0; i < n;i++){
+                        if(!i || dp[i - 1]){
+                            TrieNode* currentNode = root;
+                            for(int j = i; j < n;j++){
+                                if(currentNode->children.find(s[j]) == currentNode->children.end()){
+                                    break;
+                                }
+                                if(currentNode->children[s[j]]->isWord) dp[j] = true;
+                                currentNode = currentNode->children[s[j]];
+                            }
+                        }
+                    }
+                    return dp[n - 1];
+                }
+            };
+        
+    </details>
+
+---
+
+
+* [ ] [Word Break II](https://leetcode.com/problems/word-break-ii/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct TrieNode {
+                bool isWord;
+                string Word;
+                unordered_map<char, TrieNode*> children;
+                TrieNode() : isWord(false), Word(""), children(unordered_map<char, TrieNode*>()) {}
+            };
+
+            class Solution {
+                void insert(TrieNode* root, string& key){
+                    for(auto &ch: key){
+                        if(root->children.find(ch) == root->children.end()){
+                            root->children[ch] = new TrieNode();
+                        }
+                        root = root->children[ch];
+                    }
+                    root->isWord = true;
+                    root->Word = key;
+                }
+
+                void isExist(int idx, int& n, string& str,string word, vector<string>& ans, TrieNode* root, TrieNode* cur){
+                    if(idx == n){
+                        if(root == cur && word.size()){
+                            word.pop_back();
+                            ans.push_back(word);
+                        }
+                        return;
+                    }
+                    if(cur->children.find(str[idx]) != cur->children.end()){
+                        isExist(idx + 1, n, str, word, ans, root, cur->children[str[idx]]);
+                        if(cur->children[str[idx]]->isWord) {
+                            word += cur->children[str[idx]]->Word + ' ';
+                            isExist(idx + 1, n, str, word, ans, root, root);
+                        }
+                    }
+                }
+            public:
+                    vector<string> wordBreak(string s, vector<string>& wordDict) {
+                        int n = s.size();
+                        TrieNode* root = new TrieNode();
+                        for(auto &str: wordDict){
+                            insert(root, str);
+                        }
+                        vector<string> ans;
+                        isExist(0, n, s, "", ans, root, root);
+                        return ans;
+                    }
+            };
+        
+    </details>
+
+---
