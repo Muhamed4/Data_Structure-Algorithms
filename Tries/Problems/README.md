@@ -509,3 +509,212 @@
     </details>
 
 ---
+
+
+* [ ] [Word Search II](https://leetcode.com/problems/word-search-ii/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct TrieNode {
+                TrieNode* children[26];
+                bool isWord;
+                string Word;
+                TrieNode() {
+                    isWord = false;
+                    Word = "";
+                    for(int i = 0; i < 26;i++){
+                        children[i] = nullptr;
+                    }
+                }
+            };
+
+            class Solution {
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, 1, -1};
+                void insert(TrieNode* root, string& key){
+                    TrieNode* current = root;
+                    for(auto &ch: key){
+                        if(current->children[ch - 'a'] == nullptr){
+                            current->children[ch - 'a'] = new TrieNode();
+                        }
+                        current = current->children[ch - 'a'];
+                    }
+                    current->isWord = true;
+                    current->Word = key;
+                }
+                bool isValid(int x, int y, int n, int m){
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                void dfs(int x, int y, int n, int m, TrieNode* root, vector<vector<char>>& board, vector<string>& res){
+                    if(!isValid(x, y, n, m) || board[x][y] == '#' || root->children[board[x][y] - 'a'] == nullptr) return;
+                    char ch = board[x][y];
+                    if(root->children[ch - 'a']->isWord){
+                        root->children[ch - 'a']->isWord = false;
+                        res.push_back(root->children[ch - 'a']->Word);
+                    }
+                    board[x][y] = '#';
+                    for(int i = 0; i < 4;i++){
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        dfs(newX, newY, n, m, root->children[ch - 'a'], board, res);
+                    }
+                    board[x][y] = ch;
+                }
+            public:
+                vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+                    int n = board.size();
+                    int m = board[0].size();
+                    vector<string> res;
+                    TrieNode* root = new TrieNode();
+                    for(auto &str: words){
+                        insert(root, str);
+                    }
+                    for(int i = 0; i < n;i++){
+                        for(int j = 0; j < m;j++){
+                            dfs(i, j, n, m, root, board, res);
+                        }
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Word Search](https://leetcode.com/problems/word-search/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct TrieNode {
+                TrieNode* children[60];
+                bool isEnd;
+                TrieNode() {
+                    isEnd = false;
+                    for(int i = 0; i < 60;i++){
+                        children[i] = nullptr;
+                    }
+                }
+            };
+
+            class Solution {
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, 1, -1};
+                void insert(TrieNode* root, string& key){
+                    TrieNode* current = root;
+                    for(auto &ch: key){
+                        if(current->children[ch - 'A'] == nullptr){
+                            current->children[ch - 'A'] = new TrieNode();
+                        }
+                        current = current->children[ch - 'A'];
+                    }
+                    current->isEnd = true;
+                }
+                bool isValid(int x, int y, int n, int m){
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                bool dfs(int x, int y, int n, int m, TrieNode* root, vector<vector<char>>&board) {
+                    if(!isValid(x, y, n, m) || board[x][y] == '#' || root->children[board[x][y] - 'A'] == nullptr) 
+                        return false;
+                    char ch = board[x][y];
+                    board[x][y] = '#';
+                    if(root->children[ch - 'A']->isEnd) return true;
+                    bool flag = false;
+                    for(int i = 0; i < 4;i++){
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        flag |= dfs(newX, newY, n, m, root->children[ch - 'A'], board);
+                    }
+                    board[x][y] = ch;
+                    return flag;
+                }
+            public:
+                bool exist(vector<vector<char>>& board, string word) {
+                    int n = board.size();
+                    int m = board[0].size();
+                    TrieNode* root = new TrieNode();
+                    insert(root, word);
+                    for(int i = 0; i < n;i++){
+                        for(int j = 0; j < m;j++){
+                            if(dfs(i, j, n, m, root, board)) return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct TrieNode {
+                TrieNode* children[26];
+                bool isEnd;
+                TrieNode() {
+                    isEnd = false;
+                    for(int i = 0; i < 26;i++){
+                        children[i] = nullptr;
+                    }
+                }
+            };
+            class Trie {
+                TrieNode* root;
+            public:
+                Trie() {
+                    root = new TrieNode();
+                }
+                
+                void insert(string word) {
+                    TrieNode* currentNode = root;
+                    for(auto &ch: word){
+                        if(currentNode->children[ch - 'a'] == nullptr){
+                            currentNode->children[ch - 'a'] = new TrieNode();
+                        }
+                        currentNode = currentNode->children[ch - 'a'];
+                    }
+                    currentNode->isEnd = true;
+                }
+                
+                bool search(string word) {
+                    TrieNode* currentNode = root;
+                    for(auto &ch: word){
+                        if(currentNode->children[ch - 'a'] == nullptr)
+                            return false;
+                        currentNode = currentNode->children[ch - 'a'];
+                    }
+                    return currentNode->isEnd;
+                }
+                
+                bool startsWith(string prefix) {
+                    TrieNode* currentNode = root;
+                    for(auto &ch: prefix){
+                        if(currentNode->children[ch - 'a'] == nullptr)
+                            return false;
+                        currentNode = currentNode->children[ch - 'a'];
+                    }
+                    return true;
+                }
+            };
+
+            /**
+            * Your Trie object will be instantiated and called as such:
+            * Trie* obj = new Trie();
+            * obj->insert(word);
+            * bool param_2 = obj->search(word);
+            * bool param_3 = obj->startsWith(prefix);
+            */
+        
+    </details>
+
+---
