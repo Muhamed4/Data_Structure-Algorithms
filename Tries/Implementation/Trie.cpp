@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 
@@ -138,7 +138,6 @@ int main(){
     cout << Search_key(root, "sand") << endl;
     cout << Search_key(root, "caty") << endl;
     cout << Search_key(root, "dog") << endl;
-
 
     return 0;
 }

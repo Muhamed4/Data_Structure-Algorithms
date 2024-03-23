@@ -718,3 +718,92 @@
     </details>
 
 ---
+
+
+
+* [ ] [Most frequent word in an array of strings](https://www.geeksforgeeks.org/problems/most-frequent-word-in-an-array-of-strings3528/1?page=1&category=Trie&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            // User function template for C++
+            struct TrieNode {
+                TrieNode* children[26];
+                int End;
+                TrieNode() {
+                    End = 0;
+                    for(int i = 0; i < 26;i++){
+                        children[i] = nullptr;
+                    }
+                }
+            };
+            class Solution
+            {
+                void insert(TrieNode* root, string& key, int& mx){
+                    TrieNode* current = root;
+                    for(auto &ch: key){
+                        if(current->children[ch - 'a'] == nullptr){
+                            current->children[ch - 'a'] = new TrieNode();   
+                        }
+                        current = current->children[ch - 'a'];
+                    }
+                    current->End++;
+                    mx = max(mx, current->End);
+                }
+                void search(TrieNode* root, string& key, int& mx, string& ans){
+                    TrieNode* current = root;
+                    for(auto &ch: key){
+                        current = current->children[ch - 'a'];
+                    }
+                    if(current->End == mx){
+                        ans = key;
+                    }
+                }
+                public:
+                //Function to find most frequent word in an array of strings.
+                string mostFrequentWord(string arr[], int n) 
+                {
+                    // code here
+                    TrieNode* root = new TrieNode();
+                    int mx = 0;
+                    string ans = "";
+                    unordered_map<string, bool> vis;
+                    for(int i = 0; i < n;i++){
+                        insert(root, arr[i], mx);
+                    }
+                    for(int i = 0; i < n;i++){
+                        if(!vis[arr[i]]) search(root, arr[i], mx, ans);
+                        vis[arr[i]] = 1;
+                    }
+                    return ans;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n;
+                    cin >> n;
+
+                    string arr[n];
+                    for (int i = 0; i < n; i++) cin >> arr[i];
+                    Solution obj;
+                    cout << obj.mostFrequentWord(arr, n) << endl;
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+        
+    </details>
+
+---
