@@ -807,3 +807,93 @@
     </details>
 
 ---
+
+
+
+* [ ] [Prefix match with other strings](https://www.geeksforgeeks.org/problems/prefix-match-with-other-strings/1?page=1&category=Trie&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial template for C++
+
+            #include<bits/stdc++.h> 
+            using namespace std; 
+
+            // } Driver Code Ends
+            //User function Template for C++
+            struct TrieNode {
+                TrieNode* children[26];
+                int prefix;
+                TrieNode() {
+                    for(int i = 0; i < 26;i++){
+                        children[i] = nullptr;
+                    }
+                    prefix = 0;
+                }
+            };
+            class Solution{
+                void insert(TrieNode* root, string& key){
+                    TrieNode* current = root;
+                    for(auto &ch: key){
+                        if(current->children[ch - 'a'] == nullptr){
+                            current->children[ch - 'a'] = new TrieNode();   
+                        }
+                        current->children[ch - 'a']->prefix++;
+                        current = current->children[ch - 'a'];
+                    }
+                }
+                int search(TrieNode* root, string& key, int k){
+                    if(k > key.size()) return 0;
+                    TrieNode* current = root;
+                    for(int i = 0; i < k;i++){
+                        if(current->children[key[i] - 'a'] == nullptr) {
+                            return 0;
+                        }   
+                        current = current->children[key[i] - 'a'];
+                    }
+                    return current->prefix;
+                }
+            public:
+                int klengthpref(string arr[], int n, int k, string str){    
+                    TrieNode* root = new TrieNode();
+                    for(int i = 0; i < n;i++){
+                        insert(root, arr[i]);
+                    }
+                    return search(root, str, k);
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main() 
+            { 
+                int t;
+                cin>>t;
+                while(t--)
+                {
+                    int n;
+                    cin>>n;
+                    string arr[n];
+                    for(int i=0;i<n;i++)
+                    {
+                        string s;
+                        cin>>arr[i];
+                        
+                    }
+                    int k;
+                    cin>>k;
+                    string str;
+                    cin>>str;
+                    
+                    Solution ob;
+                    cout << ob.klengthpref(arr, n, k, str) << endl;
+                }
+                return 0; 
+            } 
+
+            // } Driver Code Ends
+        
+    </details>
+
+---

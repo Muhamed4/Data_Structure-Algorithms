@@ -139,5 +139,8 @@ int main(){
     cout << Search_key(root, "caty") << endl;
     cout << Search_key(root, "dog") << endl;
 
+    string n = to_string(2147483647);
+    cout << n << endl;
+
     return 0;
 }
