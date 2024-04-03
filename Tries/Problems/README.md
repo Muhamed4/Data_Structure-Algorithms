@@ -897,3 +897,56 @@
     </details>
 
 ---
+
+
+
+* [ ] [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[26];
+                int prefix;
+                Trie() {
+                    for(int i = 0; i < 26;i++) {
+                        children[i] = nullptr;
+                    }
+                    prefix = 0;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, string& key) {
+                    Trie* current = root;
+                    for(auto &ch: key) {
+                        if(current->children[ch - 'a'] == nullptr) {
+                            current->children[ch - 'a'] = new Trie();
+                        }
+                        current->children[ch - 'a']->prefix++;
+                        current = current->children[ch - 'a'];
+                    }
+                }
+                void getLongestPrefix(Trie* root, int& mx, string& res) {
+                    for(int i = 0; i < 26; i++){
+                        if(root->children[i] != nullptr && root->children[i]->prefix == mx) {
+                            res += char(i + 'a');
+                            return getLongestPrefix(root->children[i], mx, res);
+                        }
+                    }
+                }
+            public:
+                string longestCommonPrefix(vector<string>& strs) {
+                    Trie* root = new Trie();
+                    int mx = strs.size();
+                    string res = "";
+                    for(auto &str: strs) {
+                        insert(root, str);
+                    }
+                    getLongestPrefix(root, mx, res);
+                    return res;
+                }
+            };
+        
+    </details>
+
+---

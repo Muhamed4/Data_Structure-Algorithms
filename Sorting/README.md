@@ -32,6 +32,8 @@
 
 * [Analysis of quicksort(mycodeschool)](https://www.youtube.com/watch?v=3Bbm3Prd5Fo&list=PL2_aWCzGMAwKedT2KfDMB9YA5DgASZb3U&index=8)
 
+* [Quick Sort and Quick Select](https://www.youtube.com/watch?v=v-1EGgaTFuw)
+
 
 ### Selection Sort :
 

@@ -148,6 +148,28 @@ void HeapSort(int *arr, int n){
     }
 }
 
+
+int Partition(vector<int>& arr, int start, int end) {
+    int pivot = arr[end];
+    int index = start;
+    for(int i = start; i < end;i++){
+        if(arr[i] <= pivot) {
+            swap(arr[i], arr[index]);
+            ++index;
+        }
+    }
+    swap(arr[end], arr[index]);
+    return index;
+}
+
+int quickSelect(vector<int>&arr, int start, int end, int rank) {
+    if(start == end) return arr[start];
+    int pivotIndex = Partition(arr, start, end);
+    if(pivotIndex > rank) return quickSelect(arr, start, pivotIndex - 1, rank);
+    if(pivotIndex < rank) return quickSelect(arr, pivotIndex + 1, end, rank);
+    return arr[rank];
+}
+
 void solve()
 {
     int arr[] = {2, 1, 8, 4, 7, 5, 3, 9, 6};
