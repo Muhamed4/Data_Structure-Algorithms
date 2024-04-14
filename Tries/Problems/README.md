@@ -950,3 +950,72 @@
     </details>
 
 ---
+
+
+
+* [ ] [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[26];
+                bool isLeaf;
+                Trie() {
+                    isLeaf = false;
+                    memset(children, 0, sizeof(children));
+                }
+            };
+
+            class WordDictionary {
+                Trie* root;
+                void insert(Trie* root, string& key) {
+                    Trie* cur = root;
+                    for(auto &ch: key) {
+                        if(cur->children[ch - 'a'] == nullptr) {
+                            cur->children[ch - 'a'] = new Trie();
+                        }
+                        cur = cur->children[ch - 'a'];
+                    }
+                    cur->isLeaf = true;
+                }
+
+                bool search(int idx, int n, Trie* root, string& key) {
+                    if(idx == n) return root->isLeaf;
+                    bool flag = false;
+                    if(key[idx] == '.') {
+                        for(int i = 0; i < 26;i++) {
+                            if(root->children[i] != nullptr) {
+                                flag |= search(idx + 1, n, root->children[i], key);
+                            }
+                        }
+                    }
+                    else {
+                        if(root->children[key[idx] - 'a'] != nullptr) flag |= search(idx + 1, n, root->children[key[idx] - 'a'], key);
+                    }
+                    return flag;
+                }
+            public:
+                WordDictionary() {
+                    root = new Trie();
+                }
+                
+                void addWord(string word) {
+                    insert(root, word);
+                }
+                
+                bool search(string word) {
+                    return search(0, word.size(), root, word);
+                }
+            };
+
+            /**
+            * Your WordDictionary object will be instantiated and called as such:
+            * WordDictionary* obj = new WordDictionary();
+            * obj->addWord(word);
+            * bool param_2 = obj->search(word);
+            */
+        
+    </details>
+
+---
