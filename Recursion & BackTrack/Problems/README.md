@@ -322,3 +322,263 @@
 
 
 
+
+* [ ] [Pascal Triangle](https://www.geeksforgeeks.org/problems/pascal-triangle0652/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            // #define ll long long
+            #define MOD 1000000007
+
+            class Solution{
+            public:
+                vector<long long> nthRowOfPascalTriangle(int n) {
+                    // code here
+                    if(n == 1) {
+                        vector<long long> pascal {1};
+                        return pascal;
+                    }
+                    vector<long long> pascal = nthRowOfPascalTriangle(n - 1);
+                    vector<long long> nextPascal {1};
+                    for(int i = 1; i < pascal.size(); i++) {
+                        long long result = ((pascal[i] % MOD) + (pascal[i - 1] % MOD)) % MOD;
+                        nextPascal.push_back(result);
+                    }
+                    nextPascal.push_back(1);
+                    return nextPascal;
+                }
+            };
+
+
+            //{ Driver Code Starts.
+
+
+            void printAns(vector<long long> &ans) {
+                for (auto &x : ans) {
+                    cout << x << " ";
+                }
+                cout << "\n";
+            }
+
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n;
+                    cin >> n;
+                    Solution ob;
+                    auto ans = ob.nthRowOfPascalTriangle(n);
+                    printAns(ans);
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
+* [ ] [Josephus problem](https://www.geeksforgeeks.org/problems/josephus-problem/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+
+            // } Driver Code Ends
+            /*You are required to complete this method */
+
+            class Solution
+            {
+                public:
+                int josephus(int n, int k)
+                {
+                    if(n == 1) return 1;
+                    return (josephus(n - 1, k) + k - 1) % n + 1;
+                }
+            };
+
+
+
+            //{ Driver Code Starts.
+
+            int main() {
+                
+                int t;
+                cin>>t;//testcases
+                while(t--)
+                {
+                    int n,k;
+                    cin>>n>>k;//taking input n and k
+                    
+                    //calling josephus() function
+                    Solution ob;
+                    cout<<ob.josephus(n,k)<<endl;
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Print Pattern](https://www.geeksforgeeks.org/problems/print-pattern3549/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial Template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            // User function Template for C++
+
+            class Solution{
+                void pattern(int N, vector<int> &res) {
+                    if(N <= 0) {
+                        res.push_back(N);
+                        return;
+                    }
+                    res.push_back(N);
+                    pattern(N - 5, res);
+                    res.push_back(N);
+                }
+            public:
+                vector<int> pattern(int N){
+                    // code here
+                    vector<int> res;
+                    pattern(N, res);
+                    return res;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main(){
+                int t;
+                cin>>t;
+                while(t--){
+                    int N;
+                    cin>>N;
+                    
+                    Solution ob;
+                    vector<int> ans = ob.pattern(N);
+                    for(int u: ans)
+                        cout<<u<<" ";
+                    cout<<"\n";
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
+* [ ] [Find the string in grid](https://www.geeksforgeeks.org/problems/find-the-string-in-grid0111/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            class Solution {
+                int dx[8] {1, -1, 0, 0, 1, 1, -1, -1};
+                int dy[8] {0, 0, 1, -1, 1, -1, 1, -1};
+                bool isValid(int x, int y, int n, int m) {
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                bool search(int x, int y, int& n, int& m, int& dir, int idx, string& word, vector<vector<char>>& grid) {
+                    if(idx == word.size()) return true;
+                    if(!isValid(x, y, n, m) || grid[x][y] != word[idx]) return false;
+                    bool flag = false;
+                    int newX = dx[dir] + x;
+                    int newY = dy[dir] + y;
+                    flag |= search(newX, newY, n, m, dir, idx + 1, word, grid);
+                    return flag;
+                }
+            public:
+                vector<vector<int>>searchWord(vector<vector<char>>grid, string word){
+                    int n = grid.size();
+                    int m = grid[0].size();
+                    vector<vector<int>> res;
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < m;j++) {
+                            for(int dir = 0; dir < 8;dir++) {
+                                if(search(i, j, n, m, dir, 0, word, grid) == true) {
+                                    res.push_back(vector<int>{i, j});
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return res;
+                }
+            };
+
+            //{ Driver Code Starts.
+            int main(){
+                int tc;
+                cin >> tc;
+                while(tc--){
+                    int n, m;
+                    cin >> n >> m;
+                    vector<vector<char>>grid(n, vector<char>(m,'x'));
+                    for(int i = 0; i < n; i++){
+                        for(int j = 0; j < m; j++)
+                            cin >> grid[i][j];
+                    }
+                    string word;
+                    cin >> word;
+                    Solution obj;
+                    vector<vector<int>>ans = obj.searchWord(grid, word);
+                    if(ans.size() == 0)
+                    {
+                        cout<<"-1\n";
+                    }
+                    else
+                    {
+                        for(auto i: ans){
+                        for(auto j: i)
+                            cout << j << " ";
+                        cout << "\n";
+                        }
+                    }
+                    
+                    
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
