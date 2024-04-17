@@ -582,3 +582,315 @@
 
 
 
+* [ ] [Count Number of SubTrees having given Sum](https://www.geeksforgeeks.org/problems/count-number-of-subtrees-having-given-sum/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial Template for C++
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // Tree Node
+            struct Node
+            {
+                int data;
+                Node* left;
+                Node* right;
+            };
+
+            // Utility function to create a new Tree Node
+            Node* newNode(int val)
+            {
+                Node* temp = new Node;
+                temp->data = val;
+                temp->left = NULL;
+                temp->right = NULL;
+                
+                return temp;
+            }
+
+            // Function to Build Tree
+            Node* buildTree(string str)
+            {   
+                // Corner Case
+                if(str.length() == 0 || str[0] == 'N')
+                        return NULL;
+                
+                // Creating vector of strings from input 
+                // string after spliting by space
+                vector<string> ip;
+                
+                istringstream iss(str);
+                for(string str; iss >> str; )
+                    ip.push_back(str);
+                    
+                // Create the root of the tree
+                Node* root = newNode(stoi(ip[0]));
+                    
+                // Push the root to the queue
+                queue<Node*> queue;
+                queue.push(root);
+                    
+                // Starting from the second element
+                int i = 1;
+                while(!queue.empty() && i < ip.size()) {
+                        
+                    // Get and remove the front of the queue
+                    Node* currNode = queue.front();
+                    queue.pop();
+                        
+                    // Get the current node's value from the string
+                    string currVal = ip[i];
+                        
+                    // If the left child is not null
+                    if(currVal != "N") {
+                            
+                        // Create the left child for the current node
+                        currNode->left = newNode(stoi(currVal));
+                            
+                        // Push it to the queue
+                        queue.push(currNode->left);
+                    }
+                        
+                    // For the right child
+                    i++;
+                    if(i >= ip.size())
+                        break;
+                    currVal = ip[i];
+                        
+                    // If the right child is not null
+                    if(currVal != "N") {
+                            
+                        // Create the right child for the current node
+                        currNode->right = newNode(stoi(currVal));
+                            
+                        // Push it to the queue
+                        queue.push(currNode->right);
+                    }
+                    i++;
+                }
+                
+                return root;
+            }
+
+            // Your are required to complete this function
+            int countSubtreesWithSumX(Node* root, int x);
+
+            int main()
+            {
+                int t;
+                cin>>t;
+                getchar();
+                while (t--)
+                {
+                    string s;
+                    getline(cin,s);
+                    Node* root = buildTree(s);
+                    
+                    int x;
+                    cin>>x;
+                    getchar();
+                    cout << countSubtreesWithSumX(root, x)<<endl;
+                }
+                return 0;
+            }
+
+
+            // } Driver Code Ends
+
+
+            //User function Template for C++
+            /*
+            Structure of the node of the binary tree is as
+            struct Node
+            {
+                int data;
+                struct Node* left;
+                struct Node* right;
+            };
+            */
+
+            int countSubtreesWithSumX(Node* root, int X, int& res) {
+                if(root == nullptr) return 0;
+                int sum = root->data;
+                sum += countSubtreesWithSumX(root->left, X, res);
+                sum += countSubtreesWithSumX(root->right, X, res);
+                if(sum == X) ++res;
+                return sum;
+            }
+            //Function to count number of subtrees having sum equal to given sum.
+            int countSubtreesWithSumX(Node* root, int X)
+            {
+                // Code here
+                int res = 0;
+                countSubtreesWithSumX(root, X, res);
+                return res;
+            }
+
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Generate Parentheses](https://www.geeksforgeeks.org/problems/generate-all-possible-parentheses/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial Template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+            vector<string> AllParenthesis(int n) ;
+
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            // N is the number of pairs of parentheses
+            // Return list of all combinations of balanced parantheses
+            class Solution
+            {
+                void generate(int idx, int& n, int open, string& cur, vector<string>& res) {
+                    if(idx == n) {
+                        if(open == 0) res.push_back(cur);
+                        return;
+                    }
+                    cur += '(';
+                    generate(idx + 1, n, open + 1, cur, res);
+                    cur.pop_back();
+                    if(open) {
+                        cur += ')';
+                        generate(idx + 1, n, open - 1, cur, res);
+                        cur.pop_back();
+                    }
+                }
+                public:
+                vector<string> AllParenthesis(int n) 
+                {
+                    // Your code goes here 
+                    vector<string> res;
+                    string cur = "";
+                    n *= 2;
+                    generate(0, n, 0, cur, res);
+                    return res;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+
+            int main() 
+            { 
+                int t;
+                cin>>t;
+                while(t--)
+                {
+                    int n;
+                    cin>>n;
+                    Solution ob;
+                    vector<string> result = ob.AllParenthesis(n); 
+                    sort(result.begin(),result.end());
+                    for (int i = 0; i < result.size(); ++i)
+                        cout<<result[i]<<"\n";
+                }
+                return 0; 
+            } 
+
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+* [ ] [Subsets](https://www.geeksforgeeks.org/problems/subsets-1613027340/1?page=1&category=Recursion&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial Template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            //User function Template for C++
+
+            class Solution
+            {
+                void sets(int idx, int& n, vector<int>& v, vector<int>& cur, vector<vector<int>>& res) {
+                    if(idx == n) {
+                        res.push_back(cur);
+                        return;
+                    }
+                    sets(idx + 1, n, v, cur, res);
+                    cur.push_back(v[idx]);
+                    sets(idx + 1, n, v, cur, res);
+                    cur.pop_back();
+                }
+                public:
+                vector<vector<int>> subsets(vector<int>& A)
+                {
+                    //code here
+                    int n = A.size();
+                    vector<vector<int>> res;
+                    vector<int> cur;
+                    sets(0, n, A, cur, res);
+                    sort(res.begin(), res.end());
+                    //cout << res.size() << endl;
+                    return res;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main()
+            {
+                int t;
+                cin >> t;
+
+                while (t--)
+                {
+                    int n, x;
+                    cin >> n;
+
+                    vector<int> array;
+                    for (int i = 0; i < n; i++)
+                    {
+                        cin >> x;
+                        array.push_back(x);
+                    }
+                    
+                    
+                    Solution ob;
+                    vector<vector<int> > res = ob.subsets(array);
+
+                    // Print result
+                    for (int i = 0; i < res.size(); i++) {
+                        for (int j = 0; j < res[i].size(); j++)
+                            cout << res[i][j] << " ";
+                        cout << endl;
+                    }
+
+                    
+                }
+
+                return 0;
+            }
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
