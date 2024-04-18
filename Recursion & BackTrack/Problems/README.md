@@ -894,3 +894,162 @@
 
 
 
+
+
+# BackTracking :
+
+
+* [ ] [Permutations of a given string](https://www.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1?page=1&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            // } Driver Code Ends
+            class Solution
+            {
+                void permutation(int idx, int& n, string& s, string& cur, vector<string>& res, unordered_map<string, bool>& vis) {
+                    if(idx == n) {
+                        if(vis.count(cur) == 0) res.push_back(cur);
+                        vis[cur] = true;
+                        return;
+                    }
+                    for(int i = 0; i < n;i++) {
+                        if(s[i] != '#') {
+                            char ch = s[i];
+                            cur += ch;
+                            s[i] = '#';
+                            permutation(idx + 1, n, s, cur, res, vis);
+                            cur.pop_back();
+                            s[i] = ch;
+                        }
+                    }
+                }
+                public:
+                    vector<string>find_permutation(string S)
+                    {
+                        // Code here there
+                        int n = S.size();
+                        string cur = "";
+                        vector<string> res;
+                        unordered_map<string, bool> vis;
+                        permutation(0, n, S, cur, res, vis);
+                        return res;
+                    }
+            };
+
+
+
+            //{ Driver Code Starts.
+            int main(){
+                int t;
+                cin >> t;
+                while(t--)
+                {
+                    string S;
+                    cin >> S;
+                    Solution ob;
+                    vector<string> ans = ob.find_permutation(S);
+                    sort(ans.begin(),ans.end());
+                    for(auto i: ans)
+                    {
+                        cout<<i<<" ";
+                    }
+                    cout<<"\n";
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+* [ ] [Rat in a Maze Problem - I](https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1?page=1&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            // User function template for C++
+
+            class Solution{
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, -1, 1};
+                bool isValid(int x, int y, int n) {
+                    return (x >= 0 && x < n && y >= 0 && y < n);
+                }
+                void dfs(int x, int y, int& n, string& cur, vector<string>& paths, vector<vector<int>>& grid) {
+                    if(!isValid(x, y, n) || grid[x][y] == -1 || grid[x][y] == 0) return;
+                    if(x == n - 1 && y == n - 1) {
+                        paths.push_back(cur);
+                        return;
+                    }
+                    grid[x][y] = -1;
+                    for(int i = 0; i < 4;i++) {
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        if(newX > x) cur += 'D';
+                        else if(newX < x) cur += 'U';
+                        else if(newY > y) cur += 'R';
+                        else cur += 'L';
+                        dfs(newX, newY, n, cur, paths, grid);
+                        cur.pop_back();
+                    }
+                    grid[x][y] = 1;
+                }
+                public:
+                vector<string> findPath(vector<vector<int>> &m, int n) {
+                    // Your code goes here
+                    vector<string> paths;
+                    string cur = "";
+                    dfs(0, 0, n, cur, paths, m);
+                    return paths;
+                }
+            };
+
+                
+
+
+            //{ Driver Code Starts.
+
+            int main() {
+                int t;
+                cin >> t;
+                while (t--) {
+                    int n;
+                    cin >> n;
+                    vector<vector<int>> m(n, vector<int> (n,0));
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                            cin >> m[i][j];
+                        }
+                    }
+                    Solution obj;
+                    vector<string> result = obj.findPath(m, n);
+                    sort(result.begin(), result.end());
+                    if (result.size() == 0)
+                        cout << -1;
+                    else
+                        for (int i = 0; i < result.size(); i++) cout << result[i] << " ";
+                    cout << endl;
+                }
+                return 0;
+            }
+            // } Driver Code Ends
+
+    </details>
+
+---
