@@ -1053,3 +1053,114 @@
     </details>
 
 ---
+
+
+
+* [ ] [Rat in a Maze Problem - I](https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1?page=1&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            //Initial template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            //User function template for C++
+
+            class Solution {
+                int MOD = 1000000007;
+                int fpow(int n, int x) {
+                    if (x == 0) {
+                        return 1;
+                    }
+                    if (x == 1) {
+                        return n % MOD;
+                    }
+                    int ans = fpow(n, x / 2) % MOD;
+                    ans = (ans % MOD) * (ans % MOD) % MOD;
+                    if (x & 1) {
+                        ans = (ans % MOD) * (n % MOD) % MOD;
+                    }
+                    return ans;
+                }
+                void Combination(int idx, int n, int target, vector<int>& A, vector<int> cur, vector<vector<int>>& res,
+                                unordered_map<int, bool>& vis, int hashed) {
+                    if(idx == n) {
+                        if(target == 0 && vis.count(hashed) == false) {
+                            vis[hashed] = true;
+                            res.push_back(cur);
+                        }
+                        return;
+                    }
+                    int temp = target;
+                    Combination(idx + 1, n, target, A, cur, res, vis, hashed);
+                    while(temp >= A[idx]) {
+                        temp -= A[idx];
+                        cur.push_back(A[idx]);
+                        // Hashing here is useless because we get the different elements but in case there is a duplication, hashing will be useful :)
+                        int pos = cur.size() - 1;
+                        hashed = ((hashed % MOD) + ((A[idx] * fpow(10, pos)) % MOD) % MOD);
+                        Combination(idx + 1, n, temp, A, cur, res, vis, hashed);
+                    }
+                }
+            public:
+                //Function to return a list of indexes denoting the required 
+                //combinations whose sum is equal to given number.
+                vector<vector<int>> combinationSum(vector<int> &A, int B) {
+                    // Your code here
+                    vector<vector<int>> res;
+                    unordered_map<int, bool> vis;
+                    sort(A.begin(), A.end());
+                    vector<int> cur, newA {A[0]};
+                    for(int i = 1; i < A.size();i++) {
+                        if(A[i] != A[i - 1]) newA.push_back(A[i]);
+                    }
+                    int n = newA.size();
+                    Combination(0, n, B, newA, cur, res, vis, 0);
+                    sort(res.begin(), res.end());
+                    return res;
+                }
+            };
+
+
+            //{ Driver Code Starts.
+            int main(){
+                int t;
+                cin>>t;
+                while(t--){
+                    int n;
+                    cin>>n;
+                    vector<int> A;
+                    for(int i=0;i<n;i++){
+                        int x;
+                        cin>>x;
+                        A.push_back(x);
+                    }   
+                    int sum;
+                    cin>>sum;
+                    Solution ob;
+                    vector<vector<int>> result = ob.combinationSum(A, sum);
+                    if(result.size()==0){
+                        cout<<"Empty";
+                    }
+                    for(int i=0;i<result.size();i++){
+                        cout<<'(';
+                        for(int j=0;j<result[i].size();j++){
+                            cout<<result[i][j];
+                            if(j<result[i].size()-1)
+                                cout<<" ";
+                        }
+                        cout<<")";
+                    }
+                    cout<<"\n";
+                }
+            }	
+            // } Driver Code Ends
+
+    </details>
+
+---
