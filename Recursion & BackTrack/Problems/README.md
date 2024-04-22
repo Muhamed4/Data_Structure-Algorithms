@@ -1164,3 +1164,224 @@
     </details>
 
 ---
+
+
+
+* [ ] [Tower Of Hanoi](https://www.geeksforgeeks.org/problems/tower-of-hanoi-1587115621/1?page=1&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+
+            using namespace std;
+
+
+            // } Driver Code Ends
+            class Solution{
+                public:
+                // You need to complete this function
+                void TowerHanoi(int n, int from, int aux, int to) {
+                    if(n == 0) return;
+                    TowerHanoi(n - 1, from, to, aux);
+                    cout << "move disk " << n << " from rod " << from << " to rod " << to << endl;
+                    TowerHanoi(n - 1, aux, from, to);
+                }
+
+                // avoid space at the starting of the string in "move disk....."
+                long long toh(int N, int from, int to, int aux) {
+                    // Your code here
+                    TowerHanoi(N, from, aux, to);
+                    return (1 << N) - 1;
+                }
+
+            };
+
+            //{ Driver Code Starts.
+
+            int main() {
+
+                int T;
+                cin >> T;//testcases
+                while (T--) {
+                    
+                    int N;
+                    cin >> N;//taking input N
+                    
+                    //calling toh() function
+                    Solution ob;
+                    
+                    cout << ob.toh(N, 1, 3, 2) << endl;
+                }
+                return 0;
+            }
+
+
+
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
+* [ ] [Largest number in K swaps](https://www.geeksforgeeks.org/problems/largest-number-in-k-swaps-1587115620/1?page=1&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+
+
+            class Solution
+            {
+                void swapStr(int idx, int& n, string& str, int k, string& result) {
+                    if(idx == n || k == 0) {
+                        result = max(result, str);
+                        return;
+                    }
+                    char c = str[idx];
+                    for(int i = idx; i < n;i++) {
+                        c = max(c, str[i]);
+                    }
+                    for(int i = idx; i < n;i++) {
+                        if(str[i] == c) {
+                            swap(str[idx], str[i]);
+                            swapStr(idx + 1, n, str, k - (i != idx), result);
+                            swap(str[idx], str[i]);
+                        }
+                    }
+                }
+                public:
+                //Function to find the largest number after k swaps.
+                string findMaximumNum(string str, int k)
+                {
+                    // code here.
+                    int n = str.size();
+                    string result = "";
+                    swapStr(0, n, str, k, result);
+                    return result;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main()
+            {
+                int t, k;
+                string str;
+
+                cin >> t;
+                while (t--)
+                {
+                    cin >> k >> str;
+                    Solution ob;
+                    cout<< ob.findMaximumNum(str, k) << endl;
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+
+    </details>
+
+---
+
+
+
+* [ ] [Unique Subsets](https://www.geeksforgeeks.org/problems/subsets-1587115621/1?page=2&category=Recursion,Backtracking&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            class Solution
+            {
+                int MOD = 1000000007;
+                int fpow(int n, int x) {
+                    if(x == 0) return 1;
+                    if(x == 1) return n;
+                    int ans = fpow(n, x / 2) % MOD;
+                    ans = (ans % MOD) * (ans % MOD);
+                    if(x & 1) ans = ((ans % MOD) * n) % MOD;
+                    return ans;
+                }
+                void Subsets(int idx, int n, int hash, vector<int>& v, vector<int>& cur, vector<vector<int>>& result, unordered_map<int, int>&hashed) {
+                    if(idx == n) {
+                        if(hashed.count(hash) == false) {
+                            hashed[hash] = true;
+                            result.push_back(cur);
+                        }
+                        return;
+                    }
+                    Subsets(idx + 1, n, hash, v, cur, result, hashed);
+                    cur.push_back(v[idx]);
+                    int pos = cur.size();
+                    hash = ((hash % MOD) + (v[idx] * fpow(10, pos) % MOD)) % MOD;
+                    Subsets(idx + 1, n, hash, v, cur, result, hashed);
+                    cur.pop_back();
+                }
+                public:
+                //Function to find all possible unique subsets.
+                vector<vector<int> > AllSubsets(vector<int> arr, int n)
+                {
+                    // code here 
+                    vector<int> cur;
+                    vector<vector<int>>result;
+                    unordered_map<int, int> hashed;
+                    sort(arr.begin(), arr.end());
+                    Subsets(0, n, 0, arr, cur, result, hashed);
+                    sort(result.begin(), result.end());
+                    return result;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main(){
+                int t;
+                cin>>t;
+                while(t--){
+                    int n;
+                    cin>>n;
+                    vector<int> A;
+                    int x;
+                    for(int i=0;i<n;i++){
+                        cin>>x;
+                        A.push_back(x);
+                    }
+                    Solution obj;
+                    vector<vector<int> > result = obj.AllSubsets(A,n);
+                    // printing the output
+                    for(int i=0;i<result.size();i++){
+                        cout<<'(';
+                        for(int j=0;j<result[i].size();j++){
+                            cout<<result[i][j];
+                            if(j<result[i].size()-1)
+                                cout<<" ";
+                        }
+                        cout<<")";
+                    }
+                    cout<<"\n";
+                }
+            }   
+
+
+
+            // } Driver Code Ends
+
+    </details>
+
+---

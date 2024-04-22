@@ -16,6 +16,8 @@
 
 * [Sum Of Subsets Problem - Backtracking](https://www.youtube.com/watch?v=kyLxTdsT8ws&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&index=65)
 
+* [Tower of Hanoi Problem](https://www.youtube.com/watch?v=3aag8Wpv8XM)
+
 ## Articles :
 
 * [what is tail recursion? Why is it so bad?](https://www.quora.com/What-is-tail-recursion-Why-is-it-so-bad)
