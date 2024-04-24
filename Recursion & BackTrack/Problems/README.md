@@ -1385,3 +1385,239 @@
     </details>
 
 ---
+
+
+
+* [ ] [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                bool Solve(int row, int col, int n, vector<vector<char>>& board,
+                        map<pair<int, char>, bool>& rows,
+                        map<pair<int, char>, bool>& cols,
+                        map<pair<int, char>, bool>& boxes) {
+                    if (row == n - 1 && col == n)
+                        return true;
+                    if (col == n) {
+                        return Solve(row + 1, 0, n, board, rows, cols, boxes);
+                    }
+                    if (board[row][col] != '.') {
+                        return Solve(row, col + 1, n, board, rows, cols, boxes);
+                    }
+                    bool flag = false;
+                    int box = row / 3 * 3 + col / 3;
+                    for (char i = '1'; i <= '9'; i++) {
+                        if (rows[{row, i}] == false && cols[{col, i}] == false &&
+                            boxes[{box, i}] == false) {
+                            board[row][col] = i;
+                            rows[{row, i}] = true;
+                            cols[{col, i}] = true;
+                            boxes[{box, i}] = true;
+                            flag |= Solve(row, col + 1, n, board, rows, cols, boxes);
+                            if (flag == true)
+                                break;
+                            board[row][col] = '.';
+                            rows[{row, i}] = false;
+                            cols[{col, i}] = false;
+                            boxes[{box, i}] = false;
+                        }
+                    }
+                    return flag;
+                }
+
+            public:
+                void solveSudoku(vector<vector<char>>& board) {
+                    map<pair<int, char>, bool> rows, cols, boxes;
+                    for (int i = 0; i < 9; i++) {
+                        for (int j = 0; j < 9; j++) {
+                            int box = i / 3 * 3 + j / 3;
+                            if (board[i][j] != '.') {
+                                rows[{i, board[i][j]}] = true;
+                                cols[{j, board[i][j]}] = true;
+                                boxes[{box, board[i][j]}] = true;
+                            }
+                        }
+                    }
+                    Solve(0, 0, 9, board, rows, cols, boxes);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Combination Sum](https://leetcode.com/problems/combination-sum/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void backTrack(int idx, int& n, int rem, vector<int>& cand, vector<int>& cur, vector<vector<int>>& res) {
+                    if(idx == n || rem == 0) {
+                        if(rem == 0) res.push_back(cur);
+                        return;
+                    }
+                    if(rem >= cand[idx]) {
+                        cur.push_back(cand[idx]);
+                        backTrack(idx, n, rem - cand[idx], cand, cur, res);
+                        cur.pop_back();
+                    }
+                    backTrack(idx + 1, n, rem, cand, cur, res);
+                }
+            public:
+                vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+                    int n = candidates.size();
+                    vector<int> cur;
+                    vector<vector<int>> res;
+                    backTrack(0, n, target, candidates, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Combination Sum II](https://leetcode.com/problems/combination-sum-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void backTrack(int idx, int& n, int rem, vector<int>& cand,
+                            vector<int>& cur, vector<vector<int>>& res,
+                            unordered_map<int, int>& frq) {
+                    if (idx == n || rem == 0) {
+                        if (rem == 0) {
+                            res.push_back(cur);
+                        }
+                        return;
+                    }
+                    if(frq[cand[idx]] > 0 && rem >= cand[idx]) {
+                        cur.push_back(cand[idx]);
+                        frq[cand[idx]]--;
+                        backTrack(idx, n, rem - cand[idx], cand, cur, res, frq);
+                        frq[cand[idx]]++;
+                        cur.pop_back();
+                    }
+                    backTrack(idx + 1, n, rem, cand, cur, res, frq);
+                }
+
+            public:
+                vector<vector<int>> combinationSum2(vector<int>& cand, int target) {
+                    int n = cand.size(), newN = 0;
+                    unordered_map<int, int> frq;
+                    vector<int> newCand, cur;
+                    vector<vector<int>> res;
+                    sort(cand.begin(), cand.end());
+                    for (int i = 0; i < n; i++) {
+                        if (newCand.empty() || newCand.back() != cand[i]) {
+                            newCand.push_back(cand[i]);
+                            ++newN;
+                        }
+                        frq[cand[i]]++;
+                    }
+                    backTrack(0, newN, target, newCand, cur, res, frq);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+* [ ] [N-Queens II](https://leetcode.com/problems/n-queens-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int backTrack(int idx, int n, unordered_map<int,int>&rows, unordered_map<int,int>& cols,
+                            unordered_map<int,int>&dig1, unordered_map<int,int>&dig2) {
+                    if(idx == n)
+                        return 1;
+                    
+                    int ret = 0;
+                    for(int i = 0; i < n;i++) {
+                        if(!rows[idx] && !cols[i] && !dig1[idx + i] && !dig2[idx - i]) {
+                            rows[idx] = true;
+                            cols[i] = true;
+                            dig1[idx + i] = true;
+                            dig2[idx - i] = true;
+                            ret += backTrack(idx + 1, n, rows, cols, dig1, dig2);
+                            rows[idx] = false;
+                            cols[i] = false;
+                            dig1[idx + i] = false;
+                            dig2[idx - i] = false;
+                        }
+                    }
+                    return ret;
+                }
+            public:
+                int totalNQueens(int n) {
+                    unordered_map<int, int> rows, cols, dig1, dig2;
+                    return backTrack(0, n, rows, cols, dig1, dig2);
+                }
+            };
+
+    </details>
+
+---
+
+
+* [ ] [N-Queens](https://leetcode.com/problems/n-queens/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void backTrack(int idx, int n, string& emptyQueen,
+                            unordered_map<int, int>& cols, unordered_map<int, int>& dig1,
+                            unordered_map<int, int>& dig2, vector<string>& cur,
+                            vector<vector<string>>& res) {
+                    if (idx == n) {
+                        res.push_back(cur);
+                        return;
+                    }
+
+                    cur.push_back(emptyQueen);
+                    for (int i = 0; i < n; i++) {
+                        if (!cols[i] && !dig1[idx + i] && !dig2[idx - i]) {
+                            cols[i] = true;
+                            dig1[idx + i] = true;
+                            dig2[idx - i] = true;
+                            cur.back()[i] = 'Q';
+                            backTrack(idx + 1, n, emptyQueen, cols, dig1, dig2, cur,
+                                    res);
+                            cur.back()[i] = '.';
+                            cols[i] = false;
+                            dig1[idx + i] = false;
+                            dig2[idx - i] = false;
+                        }
+                    }
+                    cur.pop_back();
+                }
+
+            public:
+                vector<vector<string>> solveNQueens(int n) {
+                    vector<string> cur;
+                    vector<vector<string>> res;
+                    unordered_map<int, int> cols, dig1, dig2;
+                    string emptyQueen = "";
+                    for (int i = 0; i < n; i++)
+                        emptyQueen += '.';
+                    backTrack(0, n, emptyQueen, cols, dig1, dig2, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
