@@ -1621,3 +1621,207 @@
     </details>
 
 ---
+
+
+* [ ] [Combinations](https://leetcode.com/problems/combinations/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void combination(int idx, int&n , int k, vector<int>&cur, vector<vector<int>>& res) {
+                    if(k == 0) {
+                        res.push_back(cur);
+                        return;
+                    }
+                    for(int i = idx; i <= n;i++) {
+                        cur.push_back(i);
+                        combination(i + 1, n, k - 1, cur, res);
+                        cur.pop_back();
+                    }
+                }
+            public:
+                vector<vector<int>> combine(int n, int k) {
+                    vector<int> cur;
+                    vector<vector<int>> res;
+                    combination(1, n, k, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Subsets](https://leetcode.com/problems/subsets/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void subsets(int idx, int n, vector<int>& v, vector<int>& cur, vector<vector<int>>& res) {
+                    if(idx == n) {
+                        res.push_back(cur);
+                        return;
+                    }
+                    subsets(idx + 1, n, v, cur, res);
+                    cur.push_back(v[idx]);
+                    subsets(idx + 1, n, v, cur, res);
+                    cur.pop_back();
+                }
+            public:
+                vector<vector<int>> subsets(vector<int>& nums) {
+                    int n = nums.size();
+                    vector<int> cur;
+                    vector<vector<int>> res;
+                    subsets(0, n, nums, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Subsets II](https://leetcode.com/problems/subsets-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void subset(int idx, int& n, const vector<int>& v, vector<int>& cur,
+                            vector<vector<int>>& res, unordered_map<int, int>& frq) {
+                    if(idx == n) {
+                        res.push_back(cur);
+                        return;
+                    }
+                    subset(idx + 1, n, v, cur, res, frq);
+                    if(frq[v[idx]] > 0) {
+                        cur.push_back(v[idx]);
+                        frq[v[idx]] -= 1;
+                        subset(idx, n, v, cur, res, frq);
+                        cur.pop_back();
+                        frq[v[idx]] += 1;
+                    }
+                }
+
+            public:
+                vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+                    int n = nums.size(), len = 0;
+                    vector<int> v, cur;
+                    vector<vector<int>> res;
+                    unordered_map<int, int> frq;
+                    sort(nums.begin(), nums.end());
+                    for (int i = 0; i < n; i++) {
+                        if (v.empty() || v.back() != nums[i]) {
+                            v.push_back(nums[i]);
+                            len += 1;
+                        }
+                        frq[nums[i]] += 1;
+                    }
+                    subset(0, len, v, cur, res, frq);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Gray Code](https://leetcode.com/problems/gray-code/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                bool grayCode(int idx, int n, vector<int>& res, unordered_map<int, bool>& vis) {
+                    if(idx == n) {
+                        int last = res.back();
+                        if(!(last & (last - 1))) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    bool flag = false;
+                    bitset<20> bits(res.back());
+                    for(int i = 0; i < 20;i++) {
+                        bits[i] = (bits[i] ^ 1);
+                        int cnt = bits.to_ulong();
+                        if(!vis[cnt] && cnt < n) {
+                            vis[cnt] = true;
+                            res.push_back(cnt);
+                            flag |= grayCode(idx + 1, n, res, vis);
+                            if(flag == true) break;
+                            res.pop_back();
+                            vis[cnt] = false;
+                        }
+                        bits[i] = (bits[i] ^ 1);
+                    }
+                    return flag;
+                }
+            public:
+                vector<int> grayCode(int n) {
+                    vector<int> res = {0};
+                    unordered_map<int, bool> vis;
+                    vis[0] = true;
+                    grayCode(1, 1 << n, res, vis);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Path Sum II](https://leetcode.com/problems/path-sum-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                void backTrack(TreeNode* root, int targetSum, int sum, vector<int>& cur, vector<vector<int>>& res) {
+                    if(root == nullptr) return;
+                    sum += root->val;
+                    cur.push_back(root->val);
+                    if(root->left == nullptr && root->right == nullptr) {
+                        if(sum == targetSum) res.push_back(cur);
+                        cur.pop_back();
+                        return;
+                    }
+                    if(root->left != nullptr)
+                        backTrack(root->left, targetSum, sum, cur, res);
+                    if(root->right != nullptr)
+                        backTrack(root->right, targetSum, sum, cur, res);
+                    cur.pop_back();
+                }
+            public:
+                vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+                    vector<int> cur;
+                    vector<vector<int>> res;
+                    backTrack(root, targetSum, 0, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
