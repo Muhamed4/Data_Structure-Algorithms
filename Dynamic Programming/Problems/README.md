@@ -45,3 +45,43 @@
     </details>
 
 ---
+
+
+
+* [ ] [Unique Paths](https://leetcode.com/problems/unique-paths/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[101][101];
+                bool isValid(int i, int j, int n, int m) {
+                    return (i >= 0 && i < n && j >= 0 && j < m);
+                }
+                // Memoization
+                int Paths(int i, int j, int n, int m) {
+                    if(!isValid(i, j, n, m)) return 0;
+                    if(i == n - 1 && j == m - 1) return 1;
+                    int &ret = dp[i][j];
+                    if(~ret) return ret;
+                    ret = Paths(i + 1, j, n, m);
+                    ret += Paths(i, j + 1, n, m);
+                    return ret;
+                }
+            public:
+                int uniquePaths(int m, int n) {
+                    // Iterative dp
+                    dp[m - 1][n - 1] = 1;
+                    for(int i = m - 1; i >= 0;i--) {
+                        for(int j = n - 1; j >= 0;j--) {
+                            if(isValid(i + 1, j, m, n)) dp[i][j] += dp[i + 1][j];
+                            if(isValid(i, j + 1, m, n)) dp[i][j] += dp[i][j + 1];
+                        }
+                    }
+                    return dp[0][0];
+                }
+            };
+
+    </details>
+
+---
