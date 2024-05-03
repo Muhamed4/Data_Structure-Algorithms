@@ -85,3 +85,218 @@
     </details>
 
 ---
+
+
+
+* [ ] [Decode Ways](https://leetcode.com/problems/decode-ways/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[101];
+                int DecodeWays(int idx, int& n, string& str) {
+                    if(idx == n)
+                        return 1;
+                    int& ret = dp[idx];
+                    if(~ret)
+                        return ret;
+                    ret = 0;
+                    if(str[idx] != '0') 
+                        ret = DecodeWays(idx + 1, n, str);
+                    if(idx + 1 < n && str[idx] != '0' && str[idx] < '3'){
+                        if((str[idx] == '2' && str[idx + 1] <= '6') || str[idx] == '1') {
+                            ret += DecodeWays(idx + 2, n, str);
+                        }
+                    }
+                    return ret;
+                }
+            public:
+                int numDecodings(string s) {
+                    int n = s.size();
+                    memset(dp, -1, sizeof(dp));
+                    return DecodeWays(0, n, s);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[20][20];
+                int BST(int left, int right) {
+                    if(left == right) return 1;
+                    int &ret = dp[left][right];
+                    if(~ret) return ret;
+                    ret = 0;
+                    for(int i = left; i <= right;i++) {
+                        if(i == left) ret += BST(left + 1, right);
+                        else if(i == right) ret += BST(left, right - 1);
+                        else ret += (BST(left, i - 1) * BST(i + 1, right));
+                    }
+                    return ret;
+                }
+            public:
+                int numTrees(int n) {
+                    memset(dp, -1, sizeof(dp));
+                    return BST(1, n);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<vector<int>> generate(int numRows) {
+                    vector<vector<int>> pascal(numRows);
+                    for(int i = 0; i < numRows; i++) {
+                        pascal[i] = vector<int>(i + 1);
+                        pascal[i][0] = pascal[i][i] = 1;
+                    }
+                    for(int i = 1; i < numRows;i++) {
+                        for(int j = 1; j < pascal[i].size() - 1;j++) {
+                            pascal[i][j] += pascal[i - 1][j - 1] + pascal[i - 1][j];
+                        }
+                    }
+                    return pascal;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+* [ ] [Pascal's Triangle II](https://leetcode.com/problems/pascals-triangle-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<int> getRow(int rowIndex) {
+                    vector<int> res(rowIndex + 1, 1);
+                    for(int i = 1; i < rowIndex;i++) {
+                        for(int j = i; j > 0;j--) {
+                            res[j] += res[j - 1];
+                        }
+                    }
+                    return res;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void getAllPal(string& s, vector<vector<bool>>& pal, int& n) {
+                    for(int i = 0; i < n;i++) {
+                        int left = i, right = i;
+                        while(left >= 0 && right < n && s[left] == s[right]) {
+                            pal[left][right] = true;
+                            left -= 1;
+                            right += 1;
+                        }
+                    }
+                    for(int i = 0; i < n - 1;i++) {
+                        int left = i, right = i + 1;
+                        while(left >= 0 && right < n && s[left] == s[right]) {
+                            pal[left][right] = true;
+                            left -= 1;
+                            right += 1;
+                        }
+                    }
+                }
+                // Memoization
+                int minPal(int idx, int& n, vector<vector<bool>>& pal, vector<int>& dp) {
+                    if(idx == n)
+                        return 0;
+                    int& ret = dp[idx];
+                    if(~ret)
+                        return ret;
+                    ret = 1e9;
+                    for(int i = idx; i < n;i++) {
+                        if(pal[idx][i]) ret = min(ret, minPal(i + 1, n, pal, dp) + 1);
+                    }
+                    return ret;
+                }
+            public:
+                int minCut(string s) {
+                    int n = s.size();
+                    vector<int> dp(n, 1e9);
+                    vector<vector<bool>> pal(n, vector<bool>(n));
+                    getAllPal(s, pal, n);
+                    // Iterative
+                    for(int i = 0; i < n;i++) {
+                        for(int j = i; j >= 0;j--) {
+                            if(pal[j][i]) dp[i] = min(dp[i], (j == 0 ? 0 : dp[j - 1]) + 1);
+                        }
+                    }
+                    return dp[n - 1] - 1;
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maxProduct(vector<int>& nums) {
+                    int n = nums.size();
+                    int maxProduct = INT_MIN;
+                    int mn = 1, mx = 1;
+                    for(int i = 0; i < n;i++) {
+                        if(nums[i] == 0) {
+                            maxProduct = max(maxProduct, nums[i]);
+                            mn = mx = 1;
+                        }
+                        else {
+                            int temp = mn * nums[i];
+                            mn = min({mn * nums[i], mx * nums[i], nums[i]});
+                            mx = max({temp, mx * nums[i], nums[i]});
+                            maxProduct = max(maxProduct, mx);
+                        }
+                    }
+                    return maxProduct;
+                }
+            };
+
+    </details>
+
+---
