@@ -878,3 +878,140 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+            public:
+                ListNode* oddEvenList(ListNode* head) {
+                    int index = 1;
+                    ListNode* oddRoot = nullptr, *oddTemp = nullptr;
+                    ListNode* evenRoot = nullptr, *evenTemp = nullptr;
+                    while(head != nullptr) {
+                        if(index & 1) {
+                            if(oddRoot == nullptr)
+                                oddRoot = oddTemp = head;
+                            else
+                                oddTemp->next = head;
+                            if(oddRoot != head) oddTemp = oddTemp->next;
+                        }
+                        else {
+                            if(evenRoot == nullptr)
+                                evenRoot = evenTemp = head;
+                            else
+                                evenTemp->next = head;
+                            if(evenRoot != head) evenTemp = evenTemp->next;
+                        }
+                        head = head->next;
+                        index += 1;
+                    }
+                    if(oddTemp != nullptr)
+                        oddTemp->next = evenRoot;
+                    if(evenTemp != nullptr)
+                        evenTemp->next = nullptr;
+                    return oddRoot;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Design Twitter](https://leetcode.com/problems/design-twitter/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Node {
+                int time;
+                int tweetId;
+                Node* next;
+                Node(int _time, int _tweetId) : time(_time), tweetId(_tweetId), next(nullptr) {}
+                bool operator<(const Node& oth) {
+                    return time < oth.time;
+                }
+            };
+            class Twitter {
+                int _time;
+                unordered_map<int, Node*> _posts;
+                unordered_map<int, unordered_set<int>> _followers;
+            public:
+                Twitter() {
+                    _time = 1;
+                    for(int i = 1; i <= 500;i++) {
+                        _followers[i].insert(i);
+                    }
+                }
+                
+                void postTweet(int userId, int tweetId) {
+                    Node* newPost = new Node(_time, tweetId);
+                    if(_posts[userId] == nullptr) {
+                        _posts[userId] = newPost;
+                    }
+                    else {
+                        Node* lastPost = _posts[userId];
+                        newPost->next = lastPost;
+                        _posts[userId] = newPost;
+                    }
+                    _time += 1;
+                }
+                
+                vector<int> getNewsFeed(int userId) {
+                    vector<int> result;
+                    priority_queue<Node*> _recentPosts;
+                    for(auto &user: _followers[userId]) {
+                        Node* post = _posts[user];
+                        if(post != nullptr) _recentPosts.push(post);
+                    }
+                    while(!_recentPosts.empty() && result.size() != 10) {
+                        Node* recentPost = _recentPosts.top();
+                        _recentPosts.pop();
+                        result.push_back(recentPost->tweetId);
+                        recentPost = recentPost->next;
+                        if(recentPost != nullptr)
+                            _recentPosts.push(recentPost);
+                    }
+                    return result;
+                }
+                
+                void follow(int followerId, int followeeId) {
+                    _followers[followerId].insert(followeeId);
+                }
+                
+                void unfollow(int followerId, int followeeId) {
+                    _followers[followerId].erase(followeeId);
+                }
+            };
+
+            /**
+            * Your Twitter object will be instantiated and called as such:
+            * Twitter* obj = new Twitter();
+            * obj->postTweet(userId,tweetId);
+            * vector<int> param_2 = obj->getNewsFeed(userId);
+            * obj->follow(followerId,followeeId);
+            * obj->unfollow(followerId,followeeId);
+            */
+        
+    </details>
+
+---

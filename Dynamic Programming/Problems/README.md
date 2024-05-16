@@ -300,3 +300,70 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [House Robber II](https://leetcode.com/problems/house-robber-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int Robber(int idx, int n, vector<int>& v, vector<int>& dp) {
+                    if(idx >= n)
+                        return 0;
+                    int& ret = dp[idx];
+                    if(~ret)
+                        return ret;
+                    ret = Robber(idx + 1, n, v, dp);
+                    ret = max(ret, Robber(idx + 2, n, v, dp) + v[idx]);
+                    return ret;
+                }
+            public:
+                int rob(vector<int>& nums) {
+                    int n = nums.size();
+                    vector<int> dp1(n, -1), dp2(n, -1);
+                    if(n == 1) return nums[0];
+                    return max(Robber(0, n - 1, nums, dp1), Robber(1, n, nums, dp2));
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[5005][2];
+                int BestTime(int idx, bool action, int& n, vector<int>& prices) {
+                    if(idx >= n)
+                        return 0;
+                    int &ret = dp[idx][action];
+                    if(~ret)
+                        return ret;
+                    ret = BestTime(idx + 1, action, n, prices);
+                    if(action == false)
+                        ret = max(ret, BestTime(idx + 1, true, n, prices) - prices[idx]);
+                    else
+                        ret = max(ret, BestTime(idx + 2, false, n, prices) + prices[idx]);
+                    return ret;
+                }
+            public:
+                int maxProfit(vector<int>& prices) {
+                    int n = prices.size();
+                    memset(dp, -1, sizeof(dp));
+                    return BestTime(0, false, n, prices);
+                }
+            };
+
+    </details>
+
+---
