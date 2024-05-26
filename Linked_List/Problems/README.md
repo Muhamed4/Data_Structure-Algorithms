@@ -1015,3 +1015,33 @@
     </details>
 
 ---
+
+
+* [ ] [Intersection of Two Linked Lists](https://leetcode.com/problems/intersection-of-two-linked-lists/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode(int x) : val(x), next(NULL) {}
+            * };
+            */
+            class Solution {
+            public:
+                ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+                    ListNode* temp1 = headA, *temp2 = headB;
+                    while(temp1 != temp2) {
+                        temp1 = (temp1 == nullptr) ? temp1 = headB : temp1 = temp1->next;;
+                        temp2 = (temp2 == nullptr) ? temp2 = headA : temp2 = temp2->next;
+                    }
+                    return temp1;
+                }
+            };
+        
+    </details>
+
+---
