@@ -589,3 +589,52 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Create Binary Tree From Descriptions](https://leetcode.com/problems/create-binary-tree-from-descriptions/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+                    unordered_map<int, TreeNode*> relation, parent;
+                    TreeNode* root = nullptr, *ch = nullptr;
+                    for(auto &edge: descriptions) {
+                        int par = edge[0], child = edge[1], isLeft = edge[2];
+                        TreeNode* p = relation[par];
+                        TreeNode* c = relation[child];
+                        if(p == nullptr) p = new TreeNode(par);
+                        if(c == nullptr) c = new TreeNode(child);
+                        if(isLeft == true) p->left = c;
+                        else p->right = c;
+                        relation[par] = p;
+                        relation[child] = c;
+                        parent[child] = p;
+                        ch = c;
+                    }
+                    while(ch != nullptr) {
+                        root = ch;
+                        ch = parent[ch->val];
+                    }
+                    return root;
+                }
+            };
+        
+    </details>
+
+---
