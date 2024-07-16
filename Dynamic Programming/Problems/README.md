@@ -399,3 +399,73 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[100001][101][2];
+                int maxProfit(int idx, int&n, int rem, bool sell, vector<int>& prices) {
+                    if(idx == n || rem == 0)
+                        return 0;
+                    int &ret = dp[idx][rem][sell];
+                    if(~ret)
+                        return ret;
+                    ret = maxProfit(idx + 1, n, rem, sell, prices);
+                    if(sell == false)
+                        ret = max(ret, maxProfit(idx + 1, n, rem, true, prices) - prices[idx]);
+                    else 
+                        ret = max(ret, maxProfit(idx + 1, n, rem - 1, false, prices) + prices[idx]);
+                    return ret;
+                }
+            public:
+                int maxProfit(vector<int>& prices) {
+                    int n = prices.size();
+                    memset(dp, -1, sizeof(dp));
+                    return maxProfit(0, n, 2, false, prices);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1001][101][2];
+                int maxProfit(int idx, int&n, int rem, bool sell, vector<int>& prices) {
+                    if(idx == n || rem == 0)
+                        return 0;
+                    int &ret = dp[idx][rem][sell];
+                    if(~ret)
+                        return ret;
+                    ret = maxProfit(idx + 1, n, rem, sell, prices);
+                    if(sell == false)
+                        ret = max(ret, maxProfit(idx + 1, n, rem, true, prices) - prices[idx]);
+                    else 
+                        ret = max(ret, maxProfit(idx + 1, n, rem - 1, false, prices) + prices[idx]);
+                    return ret;
+                }
+            public:
+                int maxProfit(int k, vector<int>& prices) {
+                    int n = prices.size();
+                    memset(dp, -1, sizeof(dp));
+                    return maxProfit(0, n, k, false, prices);
+                }
+            };
+
+    </details>
+
+---
