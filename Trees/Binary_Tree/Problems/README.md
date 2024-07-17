@@ -638,3 +638,54 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                TreeNode* toDelete(TreeNode*& root, unordered_map<int, bool>& mark, vector<TreeNode*>& res) {
+                    if(root == nullptr) return nullptr;
+                    root->left = toDelete(root->left, mark, res);
+                    root->right = toDelete(root->right, mark, res);
+                    if(mark[root->val] == true) {
+                        if(root->left != nullptr)
+                            res.push_back(root->left);
+                        if(root->right != nullptr)
+                            res.push_back(root->right);
+                        root = nullptr;
+                    }
+                    return root;
+                }
+            public:
+                vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+                    vector<TreeNode*> res;
+                    unordered_map<int, bool> mark;
+                    for(auto &deleted: to_delete)
+                        mark[deleted] = true;
+                    toDelete(root, mark, res);
+                    if(root != nullptr)
+                        res.push_back(root);
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
