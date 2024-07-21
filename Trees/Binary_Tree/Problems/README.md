@@ -689,3 +689,64 @@
     </details>
 
 ---
+
+
+
+* [ ] [All Possible Full Binary Trees](https://leetcode.com/problems/all-possible-full-binary-trees/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                unordered_map<int, vector<TreeNode*>> memo;
+                vector<TreeNode*> buildFullBinaryTree(int n) {
+                    if(!(n & 1))
+                        return {};
+                    if(n == 1) {
+                        return {new TreeNode()};
+                    }
+                    if(memo.find(n) != memo.end())
+                        return memo[n];
+                    vector<TreeNode*> Final;
+                    for(int left = 1; left < n;++left) {
+                        int right = n - left - 1;
+                        if((left & 1) && (right & 1)) {
+                            vector<TreeNode*> retLeft = buildFullBinaryTree(left);
+                            vector<TreeNode*> retRight = buildFullBinaryTree(right);
+                            
+                            
+                            int n = retLeft.size();
+                            int m = retRight.size();
+                            for(int i = 0; i < n;i++) {
+                                for(int j = 0; j < m;j++) {
+                                    TreeNode* root = new TreeNode();
+                                    root->left = retLeft[i];
+                                    root->right = retRight[j];
+                                    Final.push_back(root);
+                                }
+                            }
+                        }
+                    }
+                    memo[n] = Final;
+                    return Final;
+                }
+            public:
+                vector<TreeNode*> allPossibleFBT(int n) {
+                    return buildFullBinaryTree(n);        
+                }
+            };
+        
+    </details>
+
+---

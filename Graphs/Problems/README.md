@@ -570,3 +570,92 @@
     </details>
 
 ---
+
+
+
+* [ ] [Build a Matrix With Conditions](https://leetcode.com/problems/build-a-matrix-with-conditions/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                bool CheckCycle(int node, vector<char>& vis, vector<vector<int>>& adj) {
+                    bool flag = true;
+                    vis[node] = 1;
+                    for(auto &child: adj[node]) {
+                        if(vis[child] == 0) {
+                            flag &= CheckCycle(child, vis, adj);
+                        }
+                        else if(vis[child] == 1)
+                            return false;
+                    }
+                    vis[node] = 2;
+                    return flag;
+                }
+                
+                void buildGraph(vector<vector<int>>& conditions, vector<vector<int>>& adj) {
+                    for(auto &edge: conditions) {
+                        int x = edge[0], y = edge[1];
+                        adj[x].push_back(y);
+                    }
+                }
+
+                bool CheckCycle(vector<vector<int>>& adj, int k) {
+                    vector<char> vis(k + 1);
+                    bool flag = true;
+                    for(int i = 1; i <= k;i++) {
+                        if(vis[i] == 0) {
+                            flag &= CheckCycle(i, vis, adj);
+                            if(flag == false)
+                                break;
+                        }
+                    }
+                    return flag;
+                }
+
+                void dfs(int node, vector<bool>& vis, vector<int>& ans, vector<vector<int>>& adj) {
+                    vis[node] = true;
+                    for(auto &child: adj[node]) {
+                        if(vis[child] == false)
+                            dfs(child, vis, ans, adj);
+                    }
+                    ans.push_back(node);
+                }
+
+                vector<int> TopologicalSort(vector<vector<int>>& adj, int k) {
+                    vector<bool> vis(k + 1);
+                    vector<int> ans;
+                    for(int i = 1; i <= k;i++) {
+                        if(vis[i] == false) {
+                            dfs(i, vis, ans, adj);
+                        }
+                    }
+                    reverse(ans.begin(), ans.end());
+                    return ans;
+                }
+            public:
+                vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
+                    int n = rowConditions.size();
+                    int m = colConditions.size();
+                    vector<vector<int>> rowAdj(k + 1), colAdj(k + 1), result(k, vector<int>(k));
+                    buildGraph(rowConditions, rowAdj);
+                    buildGraph(colConditions, colAdj);
+                    bool cycle = (CheckCycle(rowAdj, k) & CheckCycle(colAdj, k));
+                    if(cycle == false)
+                        return {};
+                    vector<int> rowOrder = TopologicalSort(rowAdj, k);
+                    vector<int> colOrder = TopologicalSort(colAdj, k);
+                    for(int i = 0; i < k;++i) {
+                        for(int j = 0; j < k;++j) {
+                            if(rowOrder[i] == colOrder[j]) {
+                                result[i][j] = rowOrder[i];
+                            }
+                        }
+                    }
+                    return result;
+                }
+            };
+        
+    </details>
+
+---
