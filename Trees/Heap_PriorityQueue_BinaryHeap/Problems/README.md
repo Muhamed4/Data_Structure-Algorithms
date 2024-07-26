@@ -213,3 +213,419 @@
 
 ---
 
+
+
+
+* [ ] [Heap Sort](https://www.geeksforgeeks.org/problems/heap-sort/1?page=1&category=Heap&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // C++ program for implementation of Heap Sort
+            #include <bits/stdc++.h>
+            using namespace std;
+
+
+            // } Driver Code Ends
+            // The functions should be written in a way that array become sorted 
+            // in increasing order when heapSort() is called.
+
+            class Solution
+            {
+                public:
+                //Heapify function to maintain heap property.
+                void heapify(int arr[], int n, int i)  
+                {
+                    // Your Code Here
+                    int idx = i;
+                    int left = 2 * i + 1;
+                    int right = 2 * i + 2;
+                    if(left < n && arr[i] < arr[left])
+                        i = left;
+                    if(right < n && arr[i] < arr[right])
+                        i = right;
+                    if(i != idx) {
+                        swap(arr[i], arr[idx]);
+                        heapify(arr, n, i);
+                    }
+                
+                }
+
+                public:
+                //Function to build a Heap from array.
+                void buildHeap(int arr[], int n)  
+                { 
+                    // Your Code Here
+                    for(int i = n - 1; i >= 0;i--)
+                        heapify(arr, n, i);
+                }
+
+                
+                public:
+                //Function to sort an array using Heap Sort.
+                void heapSort(int arr[], int n)
+                {
+                    //code here
+                    buildHeap(arr, n);
+                    for(int i = 0; i < n;i++) {
+                        swap(arr[0], arr[n - i - 1]);
+                        heapify(arr, n - i - 1, 0);
+                    }
+                    
+                }
+            };
+
+
+
+
+            //{ Driver Code Starts.
+
+            /* Function to print an array */
+            void printArray(int arr[], int size)
+            {
+                int i;
+                for (i=0; i < size; i++)
+                    printf("%d ", arr[i]);
+                printf("\n");
+            }
+
+            // Driver program to test above functions
+            int main()
+            {
+                int arr[1000000],n,T,i;
+                scanf("%d",&T);
+                while(T--){
+                scanf("%d",&n);
+                for(i=0;i<n;i++)
+                scanf("%d",&arr[i]);
+                Solution ob;
+                ob.heapSort(arr, n);
+                printArray(arr, n);
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+
+* [ ] [Is Binary Tree Heap](https://www.geeksforgeeks.org/problems/is-binary-tree-heap/1?page=1&category=Heap&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            #include <bits/stdc++.h>
+            using namespace std;
+
+            // Tree Node
+            struct Node {
+                int data;
+                Node *left;
+                Node *right;
+
+                Node(int val) {
+                    data = val;
+                    left = right = NULL;
+                }
+            };
+
+            // Function to Build Tree
+            Node *buildTree(string str) {
+                // Corner Case
+                if (str.length() == 0 || str[0] == 'N') return NULL;
+
+                // Creating vector of strings from input
+                // string after spliting by space
+                vector<string> ip;
+
+                istringstream iss(str);
+                for (string str; iss >> str;) ip.push_back(str);
+
+                // Create the root of the tree
+                Node *root = new Node(stoi(ip[0]));
+
+                // Push the root to the queue
+                queue<Node *> queue;
+                queue.push(root);
+
+                // Starting from the second element
+                int i = 1;
+                while (!queue.empty() && i < ip.size()) {
+
+                    // Get and remove the front of the queue
+                    Node *currNode = queue.front();
+                    queue.pop();
+
+                    // Get the current Node's value from the string
+                    string currVal = ip[i];
+
+                    // If the left child is not null
+                    if (currVal != "N") {
+
+                        // Create the left child for the current Node
+                        currNode->left = new Node(stoi(currVal));
+
+                        // Push it to the queue
+                        queue.push(currNode->left);
+                    }
+
+                    // For the right child
+                    i++;
+                    if (i >= ip.size()) break;
+                    currVal = ip[i];
+
+                    // If the right child is not null
+                    if (currVal != "N") {
+
+                        // Create the right child for the current Node
+                        currNode->right = new Node(stoi(currVal));
+
+                        // Push it to the queue
+                        queue.push(currNode->right);
+                    }
+                    i++;
+                }
+
+                return root;
+            }
+
+
+            // } Driver Code Ends
+            // User Function template for C++
+
+            // Structure of node
+            /*struct Node {
+                int data;
+                Node *left;
+                Node *right;
+
+                Node(int val) {
+                    data = val;
+                    left = right = NULL;
+                }
+            };*/
+
+            class Solution {
+                bool isComplete(Node* tree, vector<int>& arr) {
+                    queue<Node*> levelOrder;
+                    levelOrder.push(tree);
+                    while(levelOrder.front() != nullptr) {
+                        Node* temp = levelOrder.front();
+                        levelOrder.push(temp->left);
+                        levelOrder.push(temp->right);
+                        arr.push_back(temp->data);
+                        levelOrder.pop();
+                    }
+                    while(!levelOrder.empty() && levelOrder.front() == nullptr)
+                        levelOrder.pop();
+                    return levelOrder.empty();
+                }
+            public:
+                bool isHeap(struct Node* tree) {
+                    // code here
+                    vector<int> arr;
+                    bool isBinaryHeap = isComplete(tree, arr);
+                    int n = arr.size();
+                    for(int i = 0; i < n;i++) {
+                        int left = 2 * i + 1;
+                        int right = 2 * i + 2;
+                        if(left < n && arr[i] < arr[left])
+                            isBinaryHeap = false;
+                        if(right < n && arr[i] < arr[right])
+                            isBinaryHeap = false;
+                    }
+                    return isBinaryHeap;
+                }
+            };
+
+            //{ Driver Code Starts.
+
+            int main() {
+                int tc;
+                scanf("%d ", &tc);
+                while (tc--) {
+                    string treeString;
+                    getline(cin, treeString);
+                    Solution ob;
+                    Node *root = buildTree(treeString);
+                    if (ob.isHeap(root))
+                        cout << 1 << endl;
+                    else
+                        cout << 0 << endl;
+                }
+
+                return 0;
+            }
+            // } Driver Code Ends
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Binary Heap Operations](https://www.geeksforgeeks.org/problems/operations-on-binary-min-heap/1?page=1&category=Heap&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            //{ Driver Code Starts
+            // Initial Template for C++
+
+            #include <bits/stdc++.h>
+            using namespace std;
+            typedef long long int ll;
+
+            // Structure for Min Heap
+            struct MinHeap {
+                int *harr;
+                int capacity;
+                int heap_size;
+
+                // Constructor for Min Heap
+                MinHeap(int c) {
+                    heap_size = 0;
+                    capacity = c;
+                    harr = new int[c];
+                }
+
+                ~MinHeap() { delete[] harr; }
+
+                int parent(int i) { return (i - 1) / 2; }
+
+                int left(int i) { return (2 * i + 1); }
+
+                int right(int i) { return (2 * i + 2); }
+
+                void MinHeapify(int); // Implemented in user editor
+                int extractMin();
+                void decreaseKey(int i, int new_val);
+                void deleteKey(int i);
+                void insertKey(int k);
+            };
+
+            // Position this line where user code will be pasted.
+
+            // Driver code
+            int main() {
+                int t;
+                cin >> t;
+
+                while (t--) {
+                    ll a;
+                    cin >> a;
+                    MinHeap h(a);
+                    for (ll i = 0; i < a; i++) {
+                        int c;
+                        int n;
+                        cin >> c;
+                        if (c == 1) {
+                            cin >> n;
+
+                            h.insertKey(n);
+                        }
+                        if (c == 2) {
+                            cin >> n;
+                            h.deleteKey(n);
+                        }
+                        if (c == 3) {
+                            cout << h.extractMin() << " ";
+                        }
+                    }
+                    cout << endl;
+                    // delete h.harr;
+                    h.harr = NULL;
+                }
+                return 0;
+            }
+
+            // } Driver Code Ends
+
+
+            /*The structure of the class is
+            struct MinHeap
+            {
+                int *harr;
+                int capacity, heap_size;
+                MinHeap(int cap) {heap_size = 0; capacity = cap; harr = new int[cap];}
+                int extractMin();
+                void deleteKey(int i);
+                void insertKey(int k);
+                int parent(int i);
+                int left(int i);
+                int right(int i);
+            };*/
+
+
+
+            //Function to extract minimum value in heap and then to store 
+            //next minimum value at first index.
+            int MinHeap::extractMin() 
+            {
+                // Your code here
+                if(heap_size == 0)
+                    return -1;
+                swap(harr[0], harr[heap_size - 1]);
+                this->heap_size -= 1;
+                this->MinHeapify(0);
+                return harr[heap_size];
+            }
+
+            //Function to delete a key at ith index.
+            void MinHeap::deleteKey(int i)
+            {
+                // Your code here
+                if(i >= heap_size)
+                    return;
+                swap(harr[i], harr[heap_size - 1]);
+                this->heap_size -= 1;
+                this->MinHeapify(i);
+                this->decreaseKey(i, harr[i]);
+                
+            }
+
+            //Function to insert a value in Heap.
+            void MinHeap::insertKey(int k) 
+            {
+                // Your code here
+                this->heap_size += 1;
+                this->decreaseKey(heap_size - 1, k);
+            }
+
+            //Function to change value at ith index and store that value at first index.
+            void MinHeap::decreaseKey(int i, int new_val) 
+            {
+                harr[i] = new_val;
+                while (i != 0 && harr[parent(i)] > harr[i]) {
+                    swap(harr[i], harr[parent(i)]);
+                    i = parent(i);
+                }
+            }
+
+            /* You may call below MinHeapify function in
+            above codes. Please do not delete this code
+            if you are not writing your own MinHeapify */
+            void MinHeap::MinHeapify(int i) 
+            {
+                int l = left(i);
+                int r = right(i);
+                int smallest = i;
+                if (l < heap_size && harr[l] < harr[i]) smallest = l;
+                if (r < heap_size && harr[r] < harr[smallest]) smallest = r;
+                if (smallest != i) {
+                    swap(harr[i], harr[smallest]);
+                    MinHeapify(smallest);
+                }
+            }
+        
+    </details>
+
+---
