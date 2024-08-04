@@ -69,7 +69,7 @@ namespace DSA
 
         inline bool isBinarySearchTree(const Node* _root, const int& mn, const int& mx) const;
 
-        inline void deleteValue(const Node* _root, const T& _value);
+        inline Node* deleteValue(Node* _root, const T& _value);
 
     };
 
@@ -250,15 +250,41 @@ namespace DSA
         return (*this).isBinarySearchTree((*this).root, INT_MIN, INT_MAX);
     }
 
+    // This function is not tested
     template<typename T>
-    inline void MultiSet<T>::deleteValue(const Node* _root, const T& _value){
+    inline Node* MultiSet<T>::deleteValue(Node* _root, const T& _value){
+        if(_root == nullptr)
+            return _root;
+        if(_root->item == _value) {
+            Node* successor = nullptr;
+            if(_root->left != nullptr && _root->right != nullptr) {
+                Node* nextPlace = _root->left;
+                while(nextPlace->right != nullptr)
+                    nextPlace = nextPlace->right;
+                swap(root->data, nextPlace->data);
+                _root->left = deleteNode(root->left, _value);
+                
+                successor = root;
+            }
+            else if(_root->left != nullptr)
+                successor = _root->left;
+            else if(_root->right != nullptr)
+                successor = _root->right;
+            
+            return successor;
+        }
         
+        if(_root->item > X)
+            _root->left = deleteNode(_root->left, _value);
+        else 
+            _root->right = deleteNode(_root->right, _value);
+        return root;
     }
 
     template<typename T>
     inline void MultiSet<T>::erase(const T& _value){
         
-        (*this).deleteValue((*this).root, _value);
+        this->root = (*this).deleteValue((*this).root, _value);
     }
 }
 
