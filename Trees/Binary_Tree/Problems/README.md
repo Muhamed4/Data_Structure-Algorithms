@@ -1624,3 +1624,216 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                void inorder(TreeNode* root, TreeNode*& first, TreeNode*& second, TreeNode*& last) {
+                    if(root == nullptr)
+                        return;
+                    inorder(root->left, first, second, last);
+                    if(root->val < last->val) {
+                        if(first == nullptr)
+                            first = last;
+                        second = root;
+                    }
+                    last = root;
+                    inorder(root->right, first, second, last);
+                }
+            public:
+                void recoverTree(TreeNode* root) {
+                    TreeNode* first = nullptr, *second = nullptr, *last = new TreeNode(INT_MIN);
+                    inorder(root, first, second, last);
+                    swap(first->val, second->val);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+            * };
+            */
+
+            class Solution {
+                int lowestAncestor(TreeNode* root, TreeNode* p, TreeNode* q, TreeNode*& res) {
+                    if(root == nullptr)
+                        return 0;
+                    int ret = ((root->val == p->val) || (root->val == q->val));
+                    ret += lowestAncestor(root->left, p, q, res);
+                    ret += lowestAncestor(root->right, p, q, res);
+                    if(ret == 2 && res == nullptr)
+                        res = root;
+                    return ret;
+                }
+            public:
+                TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+                    TreeNode* res = nullptr;
+                    lowestAncestor(root, p, q, res);
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Serialize and Deserialize BST](https://leetcode.com/problems/serialize-and-deserialize-bst/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+            * };
+            */
+            class Codec {
+                void serialize(TreeNode* root, string& res) {
+                    if(!res.empty())
+                        res += '-';
+                    if(root == nullptr) {
+                        res += 'N';
+                        return;
+                    }
+                    res += to_string(root->val);
+                    serialize(root->left, res);
+                    serialize(root->right, res);
+                }
+
+                TreeNode* deserialize(int& idx, int n, string& data) {
+                    if(idx >= n )
+                        return nullptr;
+                    if(data[idx] == 'N') {
+                        idx += 2;
+                        return nullptr;
+                    }
+                    string num = "";
+                    while(isdigit(data[idx])) {
+                        num += data[idx];
+                        idx += 1;
+                    }
+                    idx += 1;
+                    TreeNode* root = new TreeNode(stoi(num));
+                    root->left = deserialize(idx, n, data);
+                    root->right = deserialize(idx, n, data);
+                    return root;
+                }
+            public:
+
+                // Encodes a tree to a single string.
+                string serialize(TreeNode* root) {
+                    string res = "";
+                    serialize(root, res);
+                    return res;
+                }
+
+                // Decodes your encoded data to tree.
+                TreeNode* deserialize(string data) {
+                    // 2-1-N-N-3-N-N
+                    int n = data.size(), idx = 0;
+                    return deserialize(idx, n, data);
+                }
+            };
+
+            // Your Codec object will be instantiated and called as such:
+            // Codec* ser = new Codec();
+            // Codec* deser = new Codec();
+            // string tree = ser->serialize(root);
+            // TreeNode* ans = deser->deserialize(tree);
+            // return ans;
+        
+    </details>
+
+---
+
+
+
+
+
+
+* [ ] [Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                TreeNode* deleteNode(TreeNode* root, int key) {
+                    if(root == nullptr)
+                        return root;
+                    if(root->val == key) {
+                        if(root->left != nullptr && root->right != nullptr) {
+                            TreeNode* temp = root->left;
+                            while(temp->right != nullptr)
+                                temp = temp->right;
+                            swap(root->val, temp->val);
+                            root->left = deleteNode(root->left, key);
+                        }
+                        else if(root->left != nullptr)
+                            root = root->left;
+                        else
+                            root = root->right;
+                    }
+                    else if(root->val > key)
+                        root->left = deleteNode(root->left, key);
+                    else
+                        root->right = deleteNode(root->right, key);
+                    return root;
+                }
+            };
+        
+    </details>
+
+---
