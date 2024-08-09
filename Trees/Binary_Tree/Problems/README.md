@@ -1837,3 +1837,282 @@
     </details>
 
 ---
+
+
+
+
+
+
+* [ ] [Convert BST to Greater Tree](https://leetcode.com/problems/convert-bst-to-greater-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                void convertBST(TreeNode* root, int& sum) {
+                    if(root == nullptr)
+                        return;
+                    convertBST(root->right, sum);
+                    sum += root->val;
+                    root->val = sum;
+                    convertBST(root->left, sum);
+                }
+            public:
+                TreeNode* convertBST(TreeNode* root) {
+                    int sum = 0;
+                    convertBST(root, sum);
+                    return root;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                bool findTarget(TreeNode* root, int target, unordered_map<int, bool>& vis) {
+                    if (root == nullptr)
+                        return false;
+                    if (vis[target - root->val] == true)
+                        return true;
+                    bool find = false;
+                    vis[root->val] = true;
+                    find |= findTarget(root->left, target, vis);
+                    find |= findTarget(root->right, target, vis);
+                    return find;
+                }
+            public:
+                bool findTarget(TreeNode* root, int k) {
+                    unordered_map<int, bool> vis;
+                    return findTarget(root, k, vis);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                TreeNode* trimBST(TreeNode* root, int low, int high) {
+                    if(root == nullptr)
+                        return root;
+                    if(root->val >= low && root->val <= high) {
+                        root->left = trimBST(root->left, low, high);
+                        root->right = trimBST(root->right, low, high);
+                    }
+                    else if(root->val < low)
+                        root = trimBST(root->right, low, high);
+                    else
+                        root = trimBST(root->left, low, high);
+                    return root;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class KthLargest {
+                struct Node {
+                    int val;
+                    Node* left;
+                    Node* right;
+                    Node(int _val) : val(_val), left(nullptr), right(nullptr) {}
+                };
+
+                Node* root;
+                int kthElement;
+
+                void search(Node* _root, int& index, int& kth) {
+                    if(_root == nullptr)
+                        return;
+                    search(_root->right, index, kth);
+                    index += 1;
+                    if(index == kthElement) {
+                        kth = _root->val;
+                        return;
+                    }
+                    search(_root->left, index, kth);
+                }
+
+                Node* add(Node* _root, int _val) {
+                    if(_root == nullptr) {
+                        return new Node(_val);
+                    }
+                    if(_root->val >= _val)
+                        _root->left = add(_root->left, _val);
+                    else
+                        _root->right = add(_root->right, _val);
+                    return _root;
+                }
+            public:
+                KthLargest(int k, vector<int>& nums) {
+                    root = nullptr;
+                    kthElement = k;
+                    for(auto &_val: nums)
+                        root = add(root, _val);
+                }
+                
+                int add(int val) {
+                    int index = 0, kth = -1;
+                    root = add(root, val);
+                    search(root, index, kth);
+                    return kth;
+                }
+            };
+
+            /**
+            * Your KthLargest object will be instantiated and called as such:
+            * KthLargest* obj = new KthLargest(k, nums);
+            * int param_1 = obj->add(val);
+            */
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Minimum Distance Between BST Nodes](https://leetcode.com/problems/minimum-distance-between-bst-nodes/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                int minDiffInBST(TreeNode* root) {
+                    if(root == nullptr)
+                        return INT_MAX;
+                    int ret = INT_MAX;
+                    ret = minDiffInBST(root->left);
+                    ret = ret = min(ret, minDiffInBST(root->right));
+                    TreeNode* tempLeft = root->left, *tempRight = root->right;
+                    while(tempLeft != nullptr && tempLeft->right != nullptr)
+                        tempLeft = tempLeft->right;
+                    while(tempRight != nullptr && tempRight->left != nullptr)
+                        tempRight = tempRight->left;
+                    if(tempLeft != nullptr)
+                        ret = min(ret, root->val - tempLeft->val);
+                    if(tempRight != nullptr)
+                        ret = min(ret, tempRight->val - root->val);
+                    return ret;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Increasing Order Search Tree](https://leetcode.com/problems/increasing-order-search-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                void inOrder(TreeNode* root, TreeNode*& newRoot, TreeNode*& temp) {
+                    if(root == nullptr)
+                        return;
+                    inOrder(root->left, newRoot, temp);
+                    if(newRoot == nullptr)
+                        newRoot = temp = new TreeNode(root->val);
+                    else {
+                        temp->right = new TreeNode(root->val);
+                        temp = temp->right;
+                    }
+                    inOrder(root->right, newRoot, temp);
+                }
+            public:
+                TreeNode* increasingBST(TreeNode* root) {
+                    TreeNode* newRoot = nullptr, *temp = nullptr;
+                    inOrder(root, newRoot, temp);
+                    return newRoot;
+                }
+            };
+        
+    </details>
+
+---
