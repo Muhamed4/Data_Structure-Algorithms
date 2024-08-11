@@ -66,30 +66,3 @@
 * [Interactive Tutorial: Hash tables](https://leetcode.com/explore/learn/card/hash-table/)
 
 * [CSC2100B Tutorial 6 Hashing (Tom Chao Zhou) (pdf)](https://www.cse.cuhk.edu.hk/irwin.king/_media/teaching/csc2100b/tu6.pdf)
-
-
-# Problems :
-
-1. [Two Sum](https://leetcode.com/problems/two-sum/description/ "LeetCode")
-
-2. [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/ "LeetCode")
-
-3. [Buddy Strings](https://leetcode.com/problems/buddy-strings/description/ "LeetCode")
-
-4. [Unique Number of Occurrences](https://leetcode.com/problems/unique-number-of-occurrences/ "LeetCode")
-
-5. [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/description/ "LeetCode")
-
-6. [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/ "LeetCode")
-
-7. [Missing Number](https://leetcode.com/problems/missing-number/description/ "LeetCode")
-
-8. [Group Anagrams](https://leetcode.com/problems/group-anagrams/ "LeetCode")
-
-9. [Hand of Straights](https://leetcode.com/problems/hand-of-straights/ "LeetCode")
-
-10. [Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/ "LeetCode")
-
-11. [Integer to Roman](https://leetcode.com/problems/integer-to-roman/ "LeetCode")
-
-12. [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/ "LeetCode")
