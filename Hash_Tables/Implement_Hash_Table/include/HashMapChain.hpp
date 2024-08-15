@@ -104,7 +104,7 @@ namespace DSA
         }
 
 
-        // Any hash funcion that have these properties :'
+        // Any hash function that have these properties :'
         // 1- Efficiently Computable.
         // 2- Should uniformly distribute the keys.
         // 3- Should minimize collisions.
@@ -125,9 +125,8 @@ namespace DSA
 
         void add(K key, V value){
 
-             while(this->getLoadFactor() > 0.5f){
-                 this->rehashing();
-             }
+            while(this->getLoadFactor() > 0.5f)
+                this->rehashing();
 
             int hashIndex = hashFunction(key);
             // std::cout << hashIndex << ' '<< this->_capacity << std::endl;
@@ -214,7 +213,14 @@ namespace DSA
 
         ~Unordered_map(){
             for(int i = 0; i < this->_capacity;i++){
-                delete table[i];
+                Node* head = table[i];
+                while(head != nullptr) {
+                    Node* temp = head;
+                    head = head->getNext();
+                    delete temp;
+                    temp = nullptr;
+                }
+                // delete table[i];
             }
             delete[] table;
         }
