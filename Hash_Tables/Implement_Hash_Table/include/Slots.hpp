@@ -14,7 +14,7 @@ namespace OTHERS
     
 
     template<typename K, typename V>
-    class Slots{
+    class Slots {
         
     private:
 

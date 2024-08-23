@@ -32,7 +32,7 @@ namespace DSA
             (*this).__size = _size;
         }
 
-        // Any hash funcion that have these properties :'
+        // Any hash function that have these properties :'
         // 1- Efficiently Computable.
         // 2- Should uniformly distribute the keys.
         // 3- Should minimize collisions.

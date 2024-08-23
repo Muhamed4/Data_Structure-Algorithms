@@ -469,3 +469,155 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [2 Keys Keyboard](https://leetcode.com/problems/2-keys-keyboard/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1001][1001];
+                int minSteps(int idx, int copy, int n) {
+                    if(idx >= n)
+                        return idx == n ? 0 : 1e8;
+                    int &ret = dp[idx][copy];
+                    if(~ret)
+                        return ret;
+                    if(copy == 0)
+                        ret = minSteps(idx + 1, 1, n) + 2;
+                    else {
+                        ret = minSteps(idx + copy, copy, n) + 1;
+                        ret = min(ret, minSteps(idx + idx, idx, n) + 2);
+                    }
+                    return ret;
+                }
+            public:
+                int minSteps(int n) {
+                    memset(dp, -1, sizeof(dp));
+                    return minSteps(1, 0, n);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Stone Game II](https://leetcode.com/problems/stone-game-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[101][101][2];
+                int maxStones(int idx, int m, int n, bool flag, vector<int>& piles) {
+                    if(idx >= n)
+                        return 0;
+                    int &ret = dp[idx][m][flag];
+                    if(~ret)
+                        return ret;
+                    int sum = 0;
+                    ret = (flag == 1 ? INT_MAX : 0);
+                    for(int i = 0; i < 2 * m;++i) {
+                        if(idx + i >= n)
+                            break;
+                        sum += piles[idx + i];
+                        if(flag == 0)
+                            ret = max(ret, maxStones(idx + i + 1, max(i + 1, m), n, flag ^ 1, piles) + sum);
+                        else
+                            ret = min(ret, maxStones(idx + i + 1, max(i + 1, m), n, flag ^ 1, piles));
+                    }
+                    return ret;
+                }
+            public:
+                int stoneGameII(vector<int>& piles) {
+                    int n = piles.size();
+                    memset(dp, -1, sizeof(dp));
+                    return maxStones(0, 1, n, 0, piles);
+                }
+            };
+
+    </details>
+
+---
+
+
+
+
+* [ ] [Shortest Common Supersequence ](https://leetcode.com/problems/shortest-common-supersequence/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1001][1001];
+                int shortestStr(int i, int j, int& n, int& m, string& s, string& t) {
+                    if(i == n && j == m)
+                        return 0;
+                    if(i == n || j == m)
+                        return (n - i) + (m - j);
+                    int& ret = dp[i][j];
+                    if(~ret)
+                        return ret;
+                    ret = shortestStr(i + 1, j + 1, n, m, s, t) + (s[i] == t[j] ? 1 : 2);
+                    ret = min(ret, shortestStr(i + 1, j, n, m, s, t) + 1);
+                    ret = min(ret, shortestStr(i, j + 1, n, m, s, t) + 1);
+                    return ret;
+                }
+                
+                void buildStr(int i, int j, int& n, int& m, string& s, string& t, string& res) {
+                    if(i == n && j == m)
+                        return;
+                    if(i == n || j == m) {
+                        for(int k = i; k < n;++k)
+                            res += s[k];
+                        for(int k = j; k < m;++k)
+                            res += t[k];
+                        return;
+                    }
+                    int ret = shortestStr(i, j, n, m, s, t);
+                    int choice1 = shortestStr(i + 1, j + 1, n, m, s, t) + (s[i] == t[j] ? 1 : 2);
+                    int choice2 = shortestStr(i + 1, j, n, m, s, t) + 1;
+                    if(ret == choice1) {
+                        // res += (s[i] == t[j] ? s[i] : s[i] + t[j]);
+                        if(s[i] == t[j]) res += s[i];
+                        else {
+                            res += s[i];
+                            res += t[j];
+                        }
+                        return buildStr(i + 1, j + 1, n, m, s, t, res);
+                    }
+                    else if(ret == choice2) {
+                        res += s[i];
+                        return buildStr(i + 1, j, n, m, s, t, res);
+                    }
+                    else {
+                        res += t[j];
+                        return buildStr(i, j + 1, n, m, s, t, res);
+                    }
+                }
+            public:
+                string shortestCommonSupersequence(string str1, string str2) {
+                    int n = str1.size();
+                    int m = str2.size();
+                    string res = "";
+                    memset(dp, -1, sizeof(dp));
+                    // cout << shortestStr(0, 0, n, m, str1, str2) << endl;
+                    buildStr(0, 0, n, m, str1, str2, res);
+                    return res;
+                }
+            };
+
+            /*
+            "bbbaaaba"
+            "bbababbb"
+            */
+
+    </details>
+
+---
