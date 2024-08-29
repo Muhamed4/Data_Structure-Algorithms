@@ -659,3 +659,143 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Path with Maximum Probability](https://leetcode.com/problems/path-with-maximum-probability/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                double BFS(int n, int st, int ed, vector<vector<pair<int, double>>>& adj) {
+                    queue<pair<int, double>> bfs;
+                    vector<double> dist(n, 0.00000);
+                    bfs.push({st, 1.00000});
+                    while(!bfs.empty()) {
+                        auto node = bfs.front();
+                        bfs.pop();
+                        if(node.first == ed)
+                            continue;
+                        for(auto &child: adj[node.first]) {
+                            if(dist[child.first] < node.second * child.second) {
+                                dist[child.first] = node.second * child.second;
+                                bfs.push({child.first, dist[child.first]});
+                            }
+                        }
+                    }
+                    return dist[ed];
+                }
+            public:
+                double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start_node, int end_node) {
+                    int m = edges.size();
+                    vector<vector<pair<int, double>>> adj(n);
+                    for(int i = 0; i < m;++i) {
+                        int x = edges[i][0], y = edges[i][1];
+                        double z = succProb[i];
+                        adj[x].push_back({y, z});
+                        adj[y].push_back({x, z});
+                    }
+                    return BFS(n, start_node, end_node, adj);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Count Sub Islands](https://leetcode.com/problems/count-sub-islands/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, 1, -1};
+                bool isValid(int x, int y, int n, int m) {
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+                bool DFS(int x, int y, int n, int m, vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+                    if(!isValid(x, y, n, m) || grid2[x][y] == 0)
+                        return true;
+                    if( grid1[x][y] == 0 )
+                        return false;
+                    bool ret = true;
+                    grid2[x][y] = 0; // instead of using extra space for visiting the cell, mark it with zero :)
+                    for(int i = 0; i < 4;i++) {
+                        int newX = x + dx[i];
+                        int newY = y + dy[i];
+                        ret &= DFS(newX, newY, n, m, grid1, grid2);
+                    }
+                    return ret;
+                }
+            public:
+                int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+                    int n = grid1.size();
+                    int m = grid1[0].size();
+                    int totalIslands = 0;
+                    for(int i = 0; i < n;++i) {
+                        for(int j = 0; j < m;++j) {
+                            if(grid1[i][j] == 1 && grid2[i][j] == 1) {
+                                bool ret = DFS(i, j, n, m, grid1, grid2);
+                                totalIslands += ret;
+                            }
+                        }
+                    }
+                    return totalIslands;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int DFS(int x, int y, unordered_map<int, vector<int>>& rows, 
+                        unordered_map<int, vector<int>>& columns, 
+                        map<pair<int, int>, bool>& vis) {
+                    if(vis[{x, y}] == true)
+                        return 0;
+                    vis[{x, y}] = true;
+                    int ret = 1;
+                    for(auto &child: rows[x]) 
+                        ret += DFS(x, child, rows, columns, vis);
+                    for(auto &child: columns[y])
+                        ret += DFS(child, y, rows, columns, vis);
+                    return ret;
+                }
+            public:
+                int removeStones(vector<vector<int>>& stones) {
+                    int n = stones.size();
+                    unordered_map<int, vector<int>> rows, columns;
+                    map<pair<int, int>, bool> vis;
+                    int maxStones = 0;
+                    for(int i = 0; i < n;i++) {
+                        int x = stones[i][0], y = stones[i][1];
+                        rows[x].push_back(y);
+                        columns[y].push_back(x);
+                    }
+                    for(int i = 0; i < n;i++) {
+                        int cnt = DFS(stones[i][0], stones[i][1], rows, columns, vis);
+                        if(cnt > 0)
+                            maxStones += (cnt - 1);
+                    }
+                    return maxStones;
+                }
+            };
+        
+    </details>
+
+---
