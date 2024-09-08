@@ -437,72 +437,258 @@
 ---
 
 
-* [ ] []() 
+* [ ] [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+            public:
+                int findMin(vector<int>& nums) {
+                    int n = nums.size();
+                    int low = 0, high = n - 1, mid = 0, index = -1;
+                    while(low <= high){
+                        mid = (low + high) / 2;
+                        int nextPos = (mid + 1) % n;
+                        int prevPos = (mid - 1 + n) % n;
+                        if(nums[mid] > nums[nextPos] && nums[mid] > nums[prevPos]){
+                            index = mid;
+                            break;
+                        }
+                        else if(nums[mid] < nums[0]) high = mid - 1;
+                        else low = mid + 1;
+                    }
+                    return nums[(index + 1) % n];
+                }
+            };
         
     </details>
 
 ---
 
 
-* [ ] []() 
+* [ ] [Find Minimum in Rotated Sorted Array II](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+            public:
+                int findMin(vector<int>& v) {
+                    int n = v.size();
+                    int left = 0, right = n - 1, res = -1;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        if(left == right) {
+                            if(res == -1 || v[mid] < v[res])
+                                res = mid;
+                            break;
+                        }
+                        if(v[left] == v[right]) {
+                            left += 1;
+                            continue;
+                        }
+                        if(v[mid] <= v[right] && v[mid] <= v[left]) {
+                            if(res == -1 || v[mid] < v[res])
+                                res = mid;
+                            right = mid - 1;
+                        }
+                        else if (v[mid] >= v[left] && v[mid] <= v[right]) {
+                            if(res == -1 || v[mid] < v[res])
+                                res = mid;
+                            right = mid - 1;
+                        }
+                        else if(v[mid] >= v[left] && v[mid] >= v[right]) {
+                            left = mid + 1;
+                        }
+                    }
+                    return v[res];
+                }
+            };
         
     </details>
 
 ---
 
 
-* [ ] []() 
+* [ ] [Find Peak Element](https://leetcode.com/problems/find-peak-element/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+                long long N = -1e10;
+            public:
+                int findPeakElement(vector<int>& arr) {
+                    int n = arr.size();
+                    int low = 0, high = n - 1, mid = 0, ans = -1;
+                    while(low <= high){
+                        mid = (low + high) / 2;
+                        if((arr[mid] > (mid == 0 ? N : arr[mid - 1])) && 
+                            (arr[mid] > (mid == (n - 1) ? N : arr[mid + 1]))){
+                                ans = mid;
+                                break;
+                            }
+                        else if(arr[mid] < arr[mid + 1]) low = mid + 1;
+                        else high = mid - 1;
+                    }
+                    return ans;
+                }
+            };
+
+            /*
+
+                5 1 2 6 4 5 4 3 2 1
+
+                1- if arr[mid] < ar[mid + 1] && arr[mid] > arr[mid - 1];
+                    bin(mid + 1, high);
+
+                2- if arr[mid] < arr[mid + 1] && arr[mid] < arr[mid - 1]
+                    bin(mid + 1, high);
+
+                3- if arr[mid] > arr[mid + 1] && arr[mid] > arr[mid - 1];
+                    return mid;
+
+
+                time complexity ---> O(log N);
+                space complexity ---> O(1);
+            */
         
     </details>
 
 ---
 
 
-* [ ] []() 
+* [ ] [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+            public:
+                vector<int> twoSum(vector<int>& numbers, int target) {
+                    int low = 0, high = numbers.size() - 1, sum = 0;
+                    vector<int> ans;
+                    while(low < high){
+                        sum = numbers[low] + numbers[high];
+                        if(sum == target){
+                            ans = { low + 1, high + 1 };
+                            break;
+                        }
+                        else if(sum > target) high--;
+                        else low++;
+                    }
+                    return ans;
+                }
+            };
         
     </details>
 
 ---
 
 
-* [ ] []() 
+* [ ] [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+                bool Check(vector<int>& v, int slide, int target){
+                    int sum = 0, n = v.size(), idx = 0;
+                    for(int i = 0; i < n;i++){
+                        sum += v[i];
+                        if(i >= (slide - 1)){
+                            if(i >= slide) {
+                                sum -= v[idx];
+                                ++idx;
+                            }
+                            if(sum >= target) return true;
+                        }
+                    }
+                    return false;
+                }
+            public:
+                int minSubArrayLen(int target, vector<int>& nums) {
+                    int low = 1, high = nums.size(), n = nums.size(), ans = 0;
+                    while(low <= high){
+                        int mid = (low + high) / 2;
+                        bool can = Check(nums, mid, target);
+                        if(can) {
+                            ans = mid;
+                            high = mid - 1;
+                        }
+                        else low = mid + 1;
+                    }
+                    return ans;
+                }
+            };
         
     </details>
 
 ---
 
 
-* [ ] []() 
+* [ ] [Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                int getLevel(TreeNode* root){
+                    if(root == nullptr)
+                        return 0;
+                    int ret = getLevel(root->left) + 1;
+                    return ret;
+                }
+
+                vector<int> direction(int n){
+                    vector<int>dir;
+                    while(n > 1){
+                        dir.push_back(n % 2);
+                        n /= 2;
+                    }
+                    reverse(dir.begin(), dir.end());
+                    return dir;
+                }
+
+                bool Check(TreeNode* root, int idx, int n, vector<int>& dir){
+                    if(root == nullptr) return false;
+                    if(idx == n) return true;
+                    bool flag = false;
+                    if(dir[idx] == 0) flag |= Check(root->left, idx + 1, n, dir);
+                    else flag |= Check(root->right, idx + 1, n, dir);
+                    return flag;
+                }
+            public:
+                int countNodes(TreeNode* root) {
+                    if(root == nullptr) return 0;
+                    int level = getLevel(root);
+                    int low = 1, high = (1 << level) - 1, ans = 0;
+                    int st = (1 << (level - 1)), end = (1 << level) - 1;
+                    while(st <= end){
+                        int mid = (st + end) / 2;
+                        vector<int> dir = direction(mid);
+                        bool flag = Check(root, 0, dir.size(), dir);
+                        if(flag) {
+                            ans = mid;
+                            st = mid + 1;
+                        }
+                        else end = mid - 1;
+                    }
+                    return ans;
+                }
+            };
         
     </details>
 

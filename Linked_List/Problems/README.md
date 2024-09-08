@@ -1045,3 +1045,56 @@
     </details>
 
 ---
+
+
+
+* [ ] [Split Linked List in Parts](https://leetcode.com/problems/split-linked-list-in-parts/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+                int getSize(ListNode* head) {
+                    int sz = 0;
+                    while(head != nullptr) {
+                        sz += 1;
+                        head = head->next;
+                    }
+                    return sz;
+                }
+            public:
+                vector<ListNode*> splitListToParts(ListNode* head, int k) {
+                    int n = getSize(head);
+                    int part = n / k;
+                    int rem = n % k;
+                    vector<ListNode*> res;
+                    while(k--) {
+                        int sz = part + (rem > 0);
+                        ListNode* start = head;
+                        ListNode* prev = nullptr;
+                        while(head != nullptr && sz--) {
+                            prev = head;
+                            head = head->next;
+                        }
+                        if(prev != nullptr)
+                            prev->next = nullptr;
+                        rem = (rem > 0 ? rem - 1 : rem);
+                        res.push_back(start);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
