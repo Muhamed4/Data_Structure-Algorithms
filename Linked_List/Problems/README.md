@@ -1098,3 +1098,50 @@
     </details>
 
 ---
+
+
+
+* [ ] [Spiral Matrix IV](https://leetcode.com/problems/spiral-matrix-iv/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+                int dx[4] = {0, 1, 0, -1};
+                int dy[4] = {1, 0, -1, 0};
+                bool isValid(int row, int col, int n, int m) {
+                    return (row >= 0 && row < n && col >= 0 && col < m);
+                }
+            public:
+                vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+                    vector<vector<int>> res(m, vector<int>(n, -1));
+                    int row = 0, col = -1, k = 0;
+                    while(head != nullptr) {
+                        int newRow = row + dx[k];
+                        int newCol = col + dy[k];
+                        if(!isValid(newRow, newCol, m, n) || res[newRow][newCol] != -1) {
+                            k = (k + 1) % 4;
+                            continue;
+                        }
+                        res[newRow][newCol] = head->val;
+                        row = newRow;
+                        col = newCol;
+                        head = head->next;
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
