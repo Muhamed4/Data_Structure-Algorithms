@@ -1145,3 +1145,43 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Insert Greatest Common Divisors in Linked List](https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+             * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+                int gcd(int a, int b) {
+                    return b == 0 ? a : gcd(b, a % b);
+                }
+            public:
+                ListNode* insertGreatestCommonDivisors(ListNode* head) {
+                    ListNode* root = head;
+                    while(head != nullptr && head->next != nullptr) {
+                        ListNode* temp = head->next;
+                        ListNode* newNode = new ListNode(gcd(head->val, head->next->val));
+                        head->next = newNode;
+                        newNode->next = temp;
+                        head = temp;
+                    }
+                    return root;
+                }
+            };
+        
+    </details>
+
+---
