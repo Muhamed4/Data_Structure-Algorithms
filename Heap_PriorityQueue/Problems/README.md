@@ -686,3 +686,40 @@
     </details>
 
 ---
+
+
+
+* [ ] [Maximum Subsequence Score](https://leetcode.com/problems/maximum-subsequence-score/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
+                    int n = nums1.size();
+                    long long res = 0, sum = 0;
+                    vector<pair<int, int>> v;
+                    priority_queue<int, vector<int>, greater<int>> pq;
+                    for(int i = 0; i < n;i++) 
+                        v.push_back({nums2[i], nums1[i]});
+                    sort(v.rbegin(), v.rend());
+                    for(int i = 0; i < k;i++) {
+                        sum += v[i].second;
+                        pq.push(v[i].second);
+                    }
+                    res = 1ll*v[k - 1].first * sum;
+                    for(int i = k; i < n;i++) {
+                        sum -= pq.top();
+                        sum += v[i].second;
+                        pq.pop();
+                        pq.push(v[i].second);
+                        res = max(res, 1ll*v[i].first * sum);
+                    }
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---
