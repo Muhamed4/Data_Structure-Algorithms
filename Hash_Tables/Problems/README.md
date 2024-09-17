@@ -369,3 +369,55 @@
     </details>
 
 ---
+
+
+
+* [ ] [Equal Row and Column Pairs](https://leetcode.com/problems/equal-row-and-column-pairs/description/?envType=study-plan-v2&envId=leetcode-75)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int mod = 1e9 + 7;
+                int fpow(int n, int x) {
+                    if(x == 0) return 1;
+                    if(x == 1) return n;
+                    int ans = fpow(n, x / 2) % mod;
+                    ans = 1ll*(ans % mod) * (ans % mod);
+                    if(x & 1) ans = 1ll*(ans % mod) * (n % mod);
+                    return ans % mod;
+                }
+                int hashable(vector<int>& v) {
+                    int n = v.size();
+                    int hashed = 0;
+                    for(int i = 0; i < n;i++) {
+                        hashed = (hashed % mod) + (1ll*v[i] * (fpow(10, i) % mod));
+                        hashed %= mod;
+                    }
+                    return hashed % mod;
+                }
+            public:
+                int equalPairs(vector<vector<int>>& grid) {
+                    int n = grid.size();
+                    int m = grid[0].size();
+                    int res = 0;
+                    unordered_map<int, int> hash;
+                    for(int i = 0; i < n;i++) {
+                        int hashed = hashable(grid[i]);
+                        hash[hashed] += 1;
+                    }
+                    for(int i = 0; i < m;i++) {
+                        vector<int> col;
+                        for(int j = 0; j < n;j++)
+                            col.push_back(grid[j][i]);
+                        int hashed = hashable(col);
+                        if(hash.count(hashed) == true)
+                            res += hash[hashed];
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
