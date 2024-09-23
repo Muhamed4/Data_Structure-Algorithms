@@ -1019,3 +1019,62 @@
     </details>
 
 ---
+
+
+
+* [ ] [Extra Characters in a String](https://leetcode.com/problems/extra-characters-in-a-string/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[26];
+                bool isEndOfWord;
+                Trie() {
+                    isEndOfWord = false;
+                    for(int i = 0; i < 26;i++)
+                        children[i] = nullptr;
+                }
+            };
+            class Solution {
+                int dp[55];
+                void insert(Trie* root, string& str) {
+                    int n = str.size();
+                    for(int i = 0; i < n;i++) {
+                        if(root->children[str[i] - 'a'] == nullptr) {
+                            root->children[str[i] - 'a'] = new Trie();
+                        }
+                        root = root->children[str[i] - 'a'];
+                    }
+                    root->isEndOfWord = true;
+                }
+                int extraChar(int idx, int n, string& str, Trie* root) {
+                    if(idx == n) return 0;
+                    int &ret = dp[idx];
+                    if(~ret) return ret;
+                    ret = extraChar(idx + 1, n, str, root) + 1;
+                    Trie* cur = root;
+                    for(int i = idx; i < n;i++) {
+                        if(cur->children[str[i] - 'a'] == nullptr)
+                            break;
+                        cur = cur->children[str[i] - 'a'];
+                        if(cur->isEndOfWord)
+                            ret = min(ret, extraChar(i + 1, n, str, root));
+                    }
+                    return ret;
+                }
+            public:
+                int minExtraChar(string s, vector<string>& dictionary) {
+                    int n = s.size();
+                    int m = dictionary.size();
+                    Trie* root = new Trie();
+                    for(auto &str: dictionary)
+                        insert(root, str);
+                    memset(dp, -1, sizeof(dp));
+                    return extraChar(0, n, s, root);
+                }
+            };
+        
+    </details>
+
+---

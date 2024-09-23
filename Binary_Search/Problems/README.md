@@ -695,12 +695,38 @@
 ---
 
 
-* [ ] []() 
+* [ ] [1493. Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+                bool can(int mid, int n, vector<int>& v) {
+                    int sum = v[mid - 1];
+                    if(sum >= mid - 1) return true;
+                    for(int i = mid; i < n;i++) {
+                        sum = v[i] - v[i - mid];
+                        if(sum >= mid - 1) return true;
+                    }
+                    return false;
+                }
+            public:
+                int longestSubarray(vector<int>& nums) {
+                    int n = nums.size();
+                    for(int i = 1; i < n;i++) nums[i] += nums[i - 1];
+                    int left = 1, right = n, res = 0;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        bool flag = can(mid, n, nums);
+                        if(flag == true) {
+                            res = mid - 1;
+                            left = mid + 1;
+                        }
+                        else right = mid - 1;
+                    }
+                    return res;
+                }
+            };
         
     </details>
 
