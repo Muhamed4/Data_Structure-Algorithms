@@ -1,0 +1,4 @@
+﻿  Prim Algorithm.cpp
+D:\DataStructure_Algorithms\Data_Structure-Algorithms\Union Find\Implementation\Prim Algorithm\Prim Algorithm\Prim Algorithm.cpp(20,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\DataStructure_Algorithms\Data_Structure-Algorithms\Union Find\Implementation\Prim Algorithm\Prim Algorithm\Prim Algorithm.cpp(47,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Prim Algorithm.vcxproj -> D:\DataStructure_Algorithms\Data_Structure-Algorithms\Union Find\Implementation\Prim Algorithm\x64\Debug\Prim Algorithm.exe

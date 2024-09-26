@@ -1078,3 +1078,175 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Find the Length of the Longest Common Prefix](https://leetcode.com/problems/find-the-length-of-the-longest-common-prefix/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[10];
+                bool isEnd;
+                Trie() {
+                    isEnd = false;
+                    for(int i = 0; i < 10;i++)
+                        children[i] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, string& str) {
+                    for(auto &ch: str) {
+                        if(root->children[ch - '0'] == nullptr)
+                            root->children[ch - '0'] = new Trie();
+                        root = root->children[ch - '0'];
+                    }
+                    root->isEnd = true;
+                }
+                int commonPrefix(Trie* root, string& str) {
+                    int cnt = 0;
+                    for(auto &ch: str) {
+                        if(root->children[ch - '0'] == nullptr)
+                            break;
+                        root = root->children[ch - '0'];
+                        cnt += 1;
+                    }
+                    return cnt;
+                }
+            public:
+                int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+                    Trie* root = new Trie();
+                    int longestCommonPrefix = 0;
+                    for(auto &it: arr1) {
+                        string str = to_string(it);
+                        insert(root, str);
+                    }
+                    for(auto &it: arr2) {
+                        string str = to_string(it);
+                        int cnt = commonPrefix(root, str);
+                        longestCommonPrefix = max(longestCommonPrefix, cnt);
+                    }
+                    return longestCommonPrefix;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Sum of Prefix Scores of Strings](https://leetcode.com/problems/sum-of-prefix-scores-of-strings/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[26];
+                int cntWords;
+                Trie() : cntWords(0) {
+                    for(int i = 0; i < 26;i++)
+                        children[i] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, string& key) {
+                    for(auto &ch: key) {
+                        if(root->children[ch - 'a'] == nullptr)
+                            root->children[ch - 'a'] = new Trie();
+                        root = root->children[ch - 'a'];
+                        root->cntWords += 1;
+                    }
+                }
+                int countPrefixes(Trie* root, string& key) {
+                    int cnt = 0;
+                    for(auto &ch: key) {
+                        if(root->children[ch - 'a'] == nullptr)
+                            break;
+                        root = root->children[ch - 'a'];
+                        cnt += root->cntWords;
+                    }
+                    return cnt;
+                }
+            public:
+                vector<int> sumPrefixScores(vector<string>& words) {
+                    int n = words.size();
+                    Trie* root = new Trie();
+                    vector<int> res;
+                    for(auto &word: words)
+                        insert(root, word);
+                    for(auto &word: words) {
+                        int cur = countPrefixes(root, word);
+                        res.push_back(cur);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[26];
+                bool isEnd;
+                string word;
+                Trie() : isEnd(false), word("") {
+                    for(int i = 0; i < 26;i++)
+                        children[i] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, string& str) {
+                    for(auto &ch: str) {
+                        if(root->children[ch - 'a'] == nullptr)
+                            root->children[ch - 'a'] = new Trie();
+                        root = root->children[ch - 'a'];
+                    }
+                    root->isEnd = true;
+                    root->word = str;
+                }
+
+                void suggestedWords(int idx, Trie* root, string& str, vector<string>& res) {
+                    if(root == nullptr || res.size() == 3) return;
+                    if(idx < str.size() && root->children[str[idx] - 'a'] == nullptr) return;
+                    if(root->isEnd == true && idx >= str.size())
+                        res.push_back(root->word);
+                    if(idx < str.size())
+                        suggestedWords(idx + 1, root->children[str[idx] - 'a'], str, res);
+                    else {
+                        for(int i = 0; i < 26;i++) {
+                            if(root->children[i] != nullptr)
+                                suggestedWords(idx + 1, root->children[i], str, res);
+                        }
+                    }
+                }
+            public:
+                vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+                    Trie* root = new Trie();
+                    string word = "";
+                    vector<vector<string>> res;
+                    for(auto &str: products)
+                        insert(root, str);
+                    for(auto &ch: searchWord) {
+                        word += ch;
+                        vector<string> cur;
+                        suggestedWords(0, root, word, cur);
+                        res.push_back(cur);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
