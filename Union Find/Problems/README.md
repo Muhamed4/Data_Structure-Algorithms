@@ -57,3 +57,81 @@
     </details>
 
 ---
+
+
+
+* [ ] [Number of Islands](https://leetcode.com/problems/number-of-islands/description/?envType=problem-list-v2&envId=union-find) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    parent = vector<int>(n);
+                    rank = vector<int>(n, 1);
+                    for(int i = 0; i < n;i++)
+                        parent[i] = i;
+                }
+
+                int findParent(int node) {
+                    if(parent[node] == node)
+                        return node;
+                    return parent[node] = findParent(parent[node]);
+                }
+
+                void link(int x, int y) {
+                    // if(rank[x] > rank[y]) 
+                    //     swap(x, y);
+                    parent[y] = x;
+                    if(rank[x] == rank[y])
+                        rank[y] += 1;
+                }
+
+                void unionSets(int x, int y) {
+                    int parentX = findParent(x);
+                    int parentY = findParent(y);
+                    if(parentX != parentY)
+                        link(parentX, parentY);
+                }
+            };
+            class Solution {
+                int dx[4] = {-1, 0, 0, 1};
+                int dy[4] = {0, -1, 1, 0};
+                bool isValid(int x, int y, int n, int m) {
+                    return (x >= 0 && x < n && y >= 0 && y < m);
+                }
+            public:
+                int numIslands(vector<vector<char>>& grid) {
+                    int n = grid.size();
+                    int m = grid[0].size();
+                    int res = 0;
+                    UnionFind DSU(n * m);
+                    unordered_map<int, bool> vis;
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < m;j++) {
+                            if(grid[i][j] == '0') continue;
+                            for(int k = 0; k < 4;k++) {
+                                int newI = dx[k] + i;
+                                int newJ = dy[k] + j;
+                                if(isValid(newI, newJ, n, m) && grid[newI][newJ] != '0')
+                                    DSU.unionSets(i * m + j, newI * m + newJ);
+                            }
+                        }
+                    }
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < m;j++) {
+                            int parent = DSU.findParent(i * m + j);
+                            if(vis.count(parent) == false && grid[i][j] == '1') {
+                                res += 1;
+                                vis[parent] = true;
+                            }
+                        }
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
