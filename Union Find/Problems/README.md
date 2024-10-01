@@ -135,3 +135,120 @@
     </details>
 
 ---
+
+
+
+* [ ] [Number of Provinces](https://leetcode.com/problems/number-of-provinces/description/?envType=problem-list-v2&envId=union-find) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                int forests;
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    forests = n;
+                    parent = rank = vector<int>(n);
+                    for(int i = 0; i < n;i++) {
+                        rank[i] = 1;
+                        parent[i] = i;
+                    }
+                }
+
+                int findParent(int x) {
+                    if(x == parent[x]) return x;
+                    return parent[x] = findParent(parent[x]);
+                }
+
+                void link(int x, int y) {
+                    if(rank[x] > rank[y]) swap(x, y);
+                    parent[x] = y;
+                    if(rank[x] == rank[y]) rank[y] += 1;
+                }
+
+                void unionSet(int x, int y) {
+                    int parentX = findParent(x);
+                    int parentY = findParent(y);
+                    if(parentX != parentY) {
+                        forests -= 1;
+                        link(parentX, parentY);
+                    }
+                }
+            };
+            class Solution {
+            public:
+                int findCircleNum(vector<vector<int>>& isConnected) {
+                    int n = isConnected.size();
+                    UnionFind DSU(n);
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < n;j++) {
+                            if(isConnected[i][j] == 1)
+                                DSU.unionSet(i, j);
+                        }
+                    }
+                    return DSU.forests;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Redundant Connection](https://leetcode.com/problems/redundant-connection/description/?envType=problem-list-v2&envId=union-find) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    parent = rank = vector<int>(n);
+                    for(int i = 0; i < n;i++) {
+                        rank[i] = 1;
+                        parent[i] = i;
+                    }
+                }
+
+                int findParent(int x) {
+                    if(x == parent[x]) return x;
+                    return parent[x] = findParent(parent[x]);
+                }
+
+                void link(int x, int y) {
+                    if(rank[x] > rank[y]) swap(x, y);
+                    parent[x] = y;
+                    if(rank[x] == rank[y]) rank[y] += 1;
+                }
+
+                void unionSet(int x, int y) {
+                    int parentX = findParent(x);
+                    int parentY = findParent(y);
+                    if(parentX != parentY)
+                        link(parentX, parentY);
+                }
+            };
+            class Solution {
+            public:
+                vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+                    int n = edges.size();
+                    vector<int> res;
+                    UnionFind DSU(n + 1);
+                    for(auto &edge: edges) {
+                        int parentX = DSU.findParent(edge[0]);
+                        int parentY = DSU.findParent(edge[1]);
+                        if(parentX == parentY) {
+                            res = edge;
+                            break;
+                        }
+                        DSU.unionSet(parentX, parentY);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
