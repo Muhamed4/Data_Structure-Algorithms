@@ -680,3 +680,65 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[50005][2];
+                int solve(int idx, bool take, int n, int fee, vector<int>& prices) {
+                    if(idx == n) return take == false ? 0 : -1E9;
+                    int& ret = dp[idx][take];
+                    if(~ret) return ret;
+                    ret = solve(idx + 1, take, n, fee, prices);
+                    if(take == false) ret = max(ret, solve(idx + 1, take ^ 1, n, fee, prices) - prices[idx] - fee);
+                    else ret = max(ret, solve(idx + 1, take ^ 1, n, fee, prices) + prices[idx]);
+                    return ret;
+                }
+            public:
+                int maxProfit(vector<int>& prices, int fee) {
+                    int n = prices.size();
+                    memset(dp, -1, sizeof(dp));
+                    return solve(0, false, n, fee, prices);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1001][1001];
+                int solve(int i, int j, int n, int m, string& s, string& t) {
+                    if(i == n || j == m) return 0;
+                    int& ret = dp[i][j];
+                    if(~ret) return ret;
+                    if(s[i] == t[j]) return ret = solve(i + 1, j + 1, n, m, s, t) + 1;
+                    ret = max(solve(i + 1, j, n, m, s, t), solve(i, j + 1, n, m, s, t));
+                    return ret;
+                }
+            public:
+                int longestCommonSubsequence(string text1, string text2) {
+                    int n = text1.size();
+                    int m = text2.size();
+                    memset(dp, -1, sizeof(dp));
+                    return solve(0, 0, n, m, text1, text2);
+                }
+            };
+                
+        
+    </details>
+
+---

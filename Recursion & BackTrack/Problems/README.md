@@ -1825,3 +1825,38 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Combination Sum III](https://leetcode.com/problems/combination-sum-iii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void combinationSum(int idx, int lastDig, int n, int curSum, int sum, vector<int>&cur, vector<vector<int>>& res) {
+                    if(curSum > sum) return;
+                    if(idx == n) {
+                        if(curSum == sum)
+                            res.push_back(cur);
+                        return;
+                    }
+                    for(int dig = lastDig + 1; dig <= 9;dig++) {
+                        cur.push_back(dig);
+                        combinationSum(idx + 1, dig, n, curSum + dig, sum, cur, res);
+                        cur.pop_back();
+                    }
+                }
+            public:
+                vector<vector<int>> combinationSum3(int k, int n) {
+                    vector<int> cur;
+                    vector<vector<int>> res;
+                    combinationSum(0, 0, k, 0, n, cur, res);
+                    return res;
+                }
+            };
+
+    </details>
+
+---
