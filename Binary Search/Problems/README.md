@@ -830,12 +830,56 @@
 ---
 
 
-* [ ] []() 
+* [ ] [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/description/) 
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+                int dx[4] = {0, 1, 0, -1};
+                int dy[4] = {1, 0, -1, 0};
+                bool isValid(int i, int j, int n, int m) {
+                    return (i >= 0 && i < n && j >= 0 && j < m);
+                }
+
+                bool dfs(int i, int j, int n, int m, vector<vector<bool>>& grid, vector<vector<int>>& dp) {
+                    if(isValid(i, j, n, m) == false || grid[i][j] == true) return false;
+                    if(i == n - 1) return true;
+                    int& ret = dp[i][j];
+                    if(~ret) return ret;
+                    ret = false;
+                    for(int k = 0; k < 4;k++) {
+                        int newI = i + dx[k];
+                        int newJ = j + dy[k];
+                        ret |= dfs(newI, newJ, n, m, grid, dp);
+                    }
+                    return ret;
+                }
+            public:
+                int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
+                    int n = cells.size();
+                    vector<vector<bool>> grid(row, vector<bool>(col, false));
+                    int left = 0, right = n - 1, res = -1;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        for(int i = 0; i <= mid;i++)
+                            grid[cells[i][0] - 1][cells[i][1] - 1] = true;
+                        bool canReach = false;
+                        vector<vector<int>> dp(row, vector<int>(col, -1));
+                        for(int i = 0; i < col;i++)
+                            canReach |= dfs(0, i, row, col, grid, dp);
+                        if(mid == 2) cout << canReach << endl;
+                        if(canReach == true) {
+                            res = mid;
+                            left = mid + 1;
+                        }
+                        else right = mid - 1;
+                        for(int i = 0; i <= mid;i++)
+                            grid[cells[i][0] - 1][cells[i][1] - 1] = false;
+                    }
+                    return res + 1;
+                }
+            };
         
     </details>
 

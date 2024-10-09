@@ -250,3 +250,85 @@
             };
         
     </details>
+
+---
+
+* [ ] [Last Day Where You Can Still Cross](https://leetcode.com/problems/last-day-where-you-can-still-cross/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    parent = rank = vector<int>(n + 2, 1);
+                    for(int i = 1; i <= n + 1;i++)
+                        parent[i] = i;
+                }
+
+                int findParent(int x) {
+                    if(x == parent[x]) return x;
+                    return parent[x] = findParent(parent[x]);
+                }
+
+                void link(int x, int y) {
+                    if(rank[x] > rank[y]) swap(x, y);
+                    parent[x] = y;
+                    if(rank[x] == rank[y]) rank[y] += 1;
+                }
+
+                void unionFind(int x, int y) {
+                    int parentX = findParent(x);
+                    int parentY = findParent(y);
+                    if(parentX != parentY)
+                        link(parentX, parentY);
+                }
+            };
+            class Solution {
+                int dx[4] = {1, -1, 0, 0};
+                int dy[4] = {0, 0, 1, -1};
+                bool isValid(int x, int y, int n, int m) {
+                    return (x >= 1 && x <= n && y >= 1 && y <= m);
+                }
+            public:
+                int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
+                    int start = 0, end = row * col + 1, m = cells.size(), Day = 1;
+                    UnionFind DSU(row * col);
+                    vector<vector<int>> grid(row + 1, vector<int>(col + 1, 1));
+                    for(int j = 1; j <= col;j++) {
+                        DSU.unionFind(j, start);
+                        DSU.unionFind((row - 1) * col + j, end);
+                    }
+                    for(int i = m - 1; i >= 0;i--) {
+                        int x = cells[i][0], y = cells[i][1];
+                        grid[x][y] = 0;
+                        int parent = (x - 1) * col + y;
+                        for(int k = 0; k < 4;k++) {
+                            int newX = x + dx[k];
+                            int newY = y + dy[k];
+                            if(isValid(newX, newY, row, col) && grid[newX][newY] == 0) {
+                                int othParent = (newX - 1) * col + newY;
+                                DSU.unionFind(parent, othParent);
+                            }
+                        }
+                        if(DSU.findParent(start) == DSU.findParent(end)) {
+                            Day = i;
+                            break;
+                        }
+                    }
+                    return Day;
+                }
+            };
+
+            /*
+                roots = {1}
+                [0][1][0]
+                [1][0][0]
+                [0][0][1]
+
+
+            */
+        
+    </details>
+
+---
