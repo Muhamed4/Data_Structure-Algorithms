@@ -742,3 +742,39 @@
     </details>
 
 ---
+
+
+* [ ] [Restore The Array](https://leetcode.com/problems/restore-the-array/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[100005], mod = 1000000007;
+                int cntArray(int idx, int n, int k, string& s) {
+                    if(idx == n) return 1;
+                    if((s[idx] - '0') == 0) return 0;
+                    int& ret = dp[idx];
+                    if(~ret) return ret;
+                    ret = 0;
+                    long long num = 0;
+                    while(num <= k && idx < n) {
+                        num *= 10;
+                        num += (s[idx] - '0');
+                        idx += 1;
+                        if(num <= k) 
+                            ret = (ret % mod) + (cntArray(idx, n, k, s) % mod);
+                    }
+                    return ret;
+                }
+            public:
+                int numberOfArrays(string s, int k) {
+                    int n = s.size();
+                    memset(dp, -1, sizeof(dp));
+                    return cntArray(0, n, k, s) % mod;
+                }
+            };
+        
+    </details>
+
+---

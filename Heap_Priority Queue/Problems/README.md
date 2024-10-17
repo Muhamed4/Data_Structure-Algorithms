@@ -723,3 +723,70 @@
     </details>
 
 ---
+
+
+* [ ] [Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<int> smallestRange(vector<vector<int>>& nums) {
+                    int n = nums.size(), mx = INT_MIN;
+                    int left = 0, right = INT_MAX, smallestLen = INT_MAX;
+                    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, 
+                                        greater<pair<int, pair<int, int>>>> pq;
+                    for(int i = 0; i < n;i++) {
+                        mx = max(mx, nums[i][0]);
+                        pq.push({nums[i][0], {i, 0}});
+                    }
+                    while(!pq.empty()) {
+                        auto smallest = pq.top();
+                        pq.pop();
+                        int len = mx - smallest.first;
+                        if(len < smallestLen) {
+                            smallestLen = len;
+                            left = smallest.first;
+                            right = mx;
+                        }
+                        if(smallest.second.second == (nums[smallest.second.first].size() - 1)) break;
+                        int val = nums[smallest.second.first][smallest.second.second + 1];
+                        pq.push({val, {smallest.second.first, smallest.second.second + 1}});
+                        mx = max(mx, val);
+                    }
+                    return {left, right};
+                }
+            };
+                    
+    </details>
+
+---
+
+
+
+* [ ] [Maximal Score After Applying K Operations](https://leetcode.com/problems/maximal-score-after-applying-k-operations/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                long long maxKelements(vector<int>& nums, int k) {
+                    long long res = 0;
+                    priority_queue<int> pq;
+                    for(auto &it: nums) pq.push(it);
+                    while(!pq.empty() && k > 0) {
+                        int val = pq.top();
+                        pq.pop();
+                        res += val;
+                        pq.push((val / 3) + (val % 3 != 0));
+                        k -= 1;
+                    }
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---

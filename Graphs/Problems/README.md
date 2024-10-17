@@ -856,3 +856,59 @@
     </details>
 
 ---
+
+
+
+* [ ] [Minimize Malware Spread II](https://leetcode.com/problems/minimize-malware-spread-ii/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void dfs(int node, int orig, vector<vector<int>>& adj, unordered_map<int, bool>& malware, 
+                            unordered_map<int, vector<int>>& reachable, unordered_map<int, bool>& vis) {
+                    if(vis[node] == true || (malware[node] == true && node != orig)) return;
+                    vis[node] = true;
+                    reachable[node].push_back(orig);
+                    for(auto &child: adj[node]) {
+                        if(vis[child] == false)
+                            dfs(child, orig, adj, malware, reachable, vis);
+                    }
+                }
+            public:
+                int minMalwareSpread(vector<vector<int>>& graph, vector<int>& initial) {
+                    int n = graph.size(), mx = 0, res = 0;
+                    vector<vector<int>>adj(n);
+                    unordered_map<int, bool> malware;
+                    unordered_map<int, vector<int>> reachableNodes;
+                    unordered_map<int, int> count;
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < n;j++) {
+                            if(graph[i][j] == 1 && i != j)
+                                adj[i].push_back(j);
+                        }
+                    }
+                    for(auto &node: initial)
+                        malware[node] = true;
+                    for(auto &node: initial) {
+                        unordered_map<int, bool> vis;
+                        dfs(node, node, adj, malware, reachableNodes, vis);
+                    }
+                    for(int i = 0; i < n;i++) {
+                        if(reachableNodes[i].size() == 1)
+                            count[reachableNodes[i][0]] += 1;
+                    }
+                    for(auto &it: count) {
+                        if(it.second > mx) {
+                            mx = it.second;
+                            res = it.first;
+                        }
+                        else if(it.second == mx) res = min(res, it.first);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---

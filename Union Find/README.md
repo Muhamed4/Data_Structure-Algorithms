@@ -12,14 +12,8 @@
 
 * [Union Find Code](https://www.youtube.com/watch?v=KbFlZYCpONw&list=PLDV1Zeh2NRsB6SWUrDFW2RmDotAfPbeHu&index=23)
 
-* [Prim Algorithm](https://www.youtube.com/watch?v=cplfcGZmX7I)
-
 ## Articles :
 
 * [Disjoint Set Union](https://cp-algorithms.com/data_structures/disjoint_set_union.html)
 
-* [Minimum spanning tree - Kruskal with Disjoint Set Union](https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html)
-
-* [Minimum spanning tree - Kruskal's algorithm](https://cp-algorithms.com/graph/mst_kruskal.html)
-
-* [Minimum spanning tree - Prim's algorithm](https://cp-algorithms.com/graph/mst_prim.html)
+* [Disjoint-set Data Structures](https://csacademy.com/lesson/disjoint_data_sets)
