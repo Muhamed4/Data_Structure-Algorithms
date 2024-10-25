@@ -2207,3 +2207,41 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+            public:
+                bool flipEquiv(TreeNode* root1, TreeNode* root2) {
+                    if(root1 == nullptr && root2 == nullptr) return true;
+                    if(root1 == nullptr || root2 == nullptr) return false;
+                    if(root1->val != root2->val) return false;
+                    bool ret1 = true, ret2 = true;
+                    ret1 &= flipEquiv(root1->left, root2->left);
+                    ret1 &= flipEquiv(root1->right, root2->right);
+                    ret2 &= flipEquiv(root1->left, root2->right);
+                    ret2 &= flipEquiv(root1->right, root2->left);
+                    return ret1 | ret2;
+                }
+            };
+        
+    </details>
+
+---

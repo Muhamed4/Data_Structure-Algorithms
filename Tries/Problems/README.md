@@ -1250,3 +1250,135 @@
     </details>
 
 ---
+
+
+
+* [ ] [Remove Sub-Folders from the Filesystem](https://leetcode.com/problems/remove-sub-folders-from-the-filesystem/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                string word;
+                bool isWord;
+                unordered_map<string, Trie*> children;
+                Trie(string _word) : word(_word), isWord(false), children(unordered_map<string, Trie*>()) {}
+            };
+            class Solution {
+                void insert(Trie* root, vector<string>& key) {
+                    for(auto &str: key) {
+                        if(root->children.find(str) == root->children.end()) {
+                            root->children[str] = new Trie(str);
+                        }
+                        root = root->children[str]; 
+                    }
+                    root->isWord = true;
+                }
+                void search(Trie* root, string word, vector<string>& res) {
+                    for(auto &child: root->children) {
+                        string othWord = word + '/' + child.second->word;
+                        if(child.second->isWord == false)
+                            search(child.second, othWord, res);
+                        else res.push_back(othWord);
+                    }
+                }
+
+                vector<string> getWords(string& path) {
+                    vector<string> words;
+                    string word = "";
+                    for(auto &ch: path) {
+                        if(ch == '/') {
+                            if(!word.empty()) words.push_back(word);
+                            word = "";
+                        }
+                        else word += ch;
+                    }
+                    words.push_back(word);
+                    return words;
+                }
+            public:
+                vector<string> removeSubfolders(vector<string>& folder) {
+                    string word = "";
+                    Trie* root = new Trie("");
+                    vector<string> res;
+                    for(auto &str: folder) {
+                        vector<string> words = getWords(str);
+                        insert(root, words);
+                    }
+                    search(root, word, res);
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Maximum XOR of Two Numbers in an Array](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[2];
+                Trie() {
+                    children[0] = children[1] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, int n) {
+                    for(int i = 31; i >= 0; i--) {
+                        int bit = (n >> i) & 1;
+                        if(root->children[bit] == nullptr) {
+                            root->children[bit] = new Trie();
+                        }
+                        root = root->children[bit];
+                    }
+                }
+
+                void getMaxXor(Trie* root, int n, int& maxXor) {
+                    for(int i = 31; i >= 0; i--) {
+                        int bit = (n >> i) & 1;
+                        bool flip = !bit;
+                        if(root->children[flip] != nullptr) {
+                            maxXor |= (1 << i);
+                            root = root->children[flip];
+                        }
+                        else root = root->children[bit];
+                    }
+                }
+            public:
+                int findMaximumXOR(vector<int>& nums) {
+                    int _xor = 0;
+                    Trie* root = new Trie();
+                    for(auto &n: nums) {
+                        int maxXor = 0;
+                        insert(root, n);
+                        getMaxXor(root, n, maxXor);
+                        _xor = max(_xor, maxXor);
+                    }
+                    return _xor;
+                }
+            };
+
+
+            /*
+                3 10 5 25 2 8
+                (3 ^ x) = y
+                11000
+                01010
+                10100
+                10011
+                01000
+                00010
+
+
+
+            */
+        
+    </details>
+
+---

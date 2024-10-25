@@ -778,3 +778,32 @@
     </details>
 
 ---
+
+
+
+* [ ] [Visit Array Positions to Maximize Score](https://leetcode.com/problems/visit-array-positions-to-maximize-score/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                long long dp[100005][2];
+                long long maxTotalScore(int idx, bool parity, int n, int x, vector<int>& arr) {
+                    if(idx == n) return 0;
+                    long long& ret = dp[idx][parity];
+                    if(~ret) return ret;
+                    ret = maxTotalScore(idx + 1, parity, n, x, arr);
+                    ret = max(ret, maxTotalScore(idx + 1, arr[idx] & 1, n, x, arr) + arr[idx] - ((arr[idx] & 1) != parity ? x : 0));
+                    return ret;
+                }
+            public:
+                long long maxScore(vector<int>& nums, int x) {
+                    int n = nums.size();
+                    memset(dp, -1, sizeof(dp));
+                    return maxTotalScore(1, nums[0] & 1, n, x, nums) + nums[0];
+                }
+            };
+        
+    </details>
+
+---
