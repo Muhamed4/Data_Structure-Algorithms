@@ -1382,3 +1382,135 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Maximum Strong Pair XOR I](https://leetcode.com/problems/maximum-strong-pair-xor-i/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                int numBits;
+                Trie* children[2];
+                Trie() : numBits(0) {
+                    children[0] = children[1] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, int n) {
+                    for(int i = 10; i >= 0;i--) {
+                        int bit = (n >> i) & 1;
+                        if(root->children[bit] == nullptr)
+                            root->children[bit] = new Trie();
+                        root = root->children[bit];
+                        root->numBits += 1;
+                    }
+                }
+                int getMaxXor(Trie* root, int n) {
+                    int res = 0;
+                    for(int i = 10; i >= 0;i--) {
+                        int bit = (n >> i) & 1;
+                        if(root->children[!bit] != nullptr && root->children[!bit]->numBits >= 1) {
+                            res |= (1 << i);
+                            root = root->children[!bit];
+                        }
+                        else root = root->children[bit];
+                    }
+                    return res;
+                }
+
+                void removeBits(Trie* root, int n) {
+                    for(int i = 10; i >= 0;i--) {
+                        root->children[(n >> i) & 1]->numBits -= 1;
+                        root = root->children[(n >> i) & 1];
+                    }
+                }
+            public:
+                int maximumStrongPairXor(vector<int>& nums) {
+                    int _xor = 0, n = nums.size();
+                    Trie* root = new Trie();
+                    sort(nums.begin(), nums.end());
+                    for(int end = 0, start = 0; end < n; end++) {
+                        while(start < end && (nums[end] - nums[start]) > nums[start]) {
+                            removeBits(root, nums[start]);
+                            start += 1;
+                        }
+                        insert(root, nums[end]);
+                        int maxXor = getMaxXor(root, nums[end]);
+                        _xor = max(_xor, maxXor);
+                    }
+                    return _xor;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Maximum Strong Pair XOR II](https://leetcode.com/problems/maximum-strong-pair-xor-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                int numBits;
+                Trie* children[2];
+                Trie() : numBits(0) {
+                    children[0] = children[1] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, int n) {
+                    for(int i = 21; i >= 0;i--) {
+                        int bit = (n >> i) & 1;
+                        if(root->children[bit] == nullptr)
+                            root->children[bit] = new Trie();
+                        root = root->children[bit];
+                        root->numBits += 1;
+                    }
+                }
+                int getMaxXor(Trie* root, int n) {
+                    int res = 0;
+                    for(int i = 21; i >= 0;i--) {
+                        int bit = (n >> i) & 1;
+                        if(root->children[!bit] != nullptr && root->children[!bit]->numBits >= 1) {
+                            res |= (1 << i);
+                            root = root->children[!bit];
+                        }
+                        else root = root->children[bit];
+                    }
+                    return res;
+                }
+
+                void removeBits(Trie* root, int n) {
+                    for(int i = 21; i >= 0;i--) {
+                        root->children[(n >> i) & 1]->numBits -= 1;
+                        root = root->children[(n >> i) & 1];
+                    }
+                }
+            public:
+                int maximumStrongPairXor(vector<int>& nums) {
+                    int _xor = 0, n = nums.size();
+                    Trie* root = new Trie();
+                    sort(nums.begin(), nums.end());
+                    for(int end = 0, start = 0; end < n; end++) {
+                        while(start < end && (nums[end] - nums[start]) > nums[start]) {
+                            removeBits(root, nums[start]);
+                            start += 1;
+                        }
+                        insert(root, nums[end]);
+                        int maxXor = getMaxXor(root, nums[end]);
+                        _xor = max(_xor, maxXor);
+                    }
+                    return _xor;
+                }
+            };
+        
+    </details>
+
+---

@@ -807,3 +807,44 @@
     </details>
 
 ---
+
+
+
+* [ ] [Count Square Submatrices with All Ones](https://leetcode.com/problems/count-square-submatrices-with-all-ones/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[303][303];
+                bool isValid(int i, int j, int n, int m) {
+                    return (i >= 0 && i < n && j >= 0 && j < m);
+                }
+                int countSquares(int i, int j, int n, int m, vector<vector<int>>& matrix) {
+                    if(!isValid(i, j, n, m) || matrix[i][j] == 0) return 0;
+                    int &ret = dp[i][j];
+                    if(~ret) return ret;
+                    int left = countSquares(i, j + 1, n, m, matrix);
+                    int down = countSquares(i + 1, j, n, m, matrix);
+                    int diag = countSquares(i + 1, j + 1, n, m, matrix);
+                    ret = 1 + min({left, down, diag});
+                    return ret;
+                }
+            public:
+                int countSquares(vector<vector<int>>& matrix) {
+                    int n = matrix.size();
+                    int m = matrix[0].size();
+                    int res = 0;
+                    memset(dp, -1, sizeof(dp));
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 0; j < m;j++) {
+                            res += countSquares(i, j, n, m, matrix);
+                        }
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
