@@ -206,3 +206,139 @@
     </details>
 
 ---
+
+
+
+* [ ] [Minimize XOR](https://leetcode.com/problems/minimize-xor/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int countBits(int n) {
+                    int cnt = 0;
+                    while(n > 0) {
+                        n &= (n - 1);
+                        cnt += 1;
+                    }
+                    return cnt;
+                }
+            public:
+                int minimizeXor(int num1, int num2) {
+                    int cnt = countBits(num2), res = 0;
+                    for(int i = 31; i >= 0 && cnt > 0;i--) {
+                        int bit = (num1 >> i) & 1;
+                        if(bit & 1) {
+                            res |= (1 << i);
+                            cnt -= 1;
+                        }
+                    }
+                    for(int i = 0; i <= 31 && cnt > 0;i++) {
+                        int bit = (res >> i) & 1;
+                        if(!(bit & 1)) {
+                            res |= (1 << i);
+                            cnt -= 1;
+                        }
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Maximum XOR After Operations](https://leetcode.com/problems/maximum-xor-after-operations/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maximumXOR(vector<int>& nums) {
+                    int n = nums.size(), totalXor = 0;
+                    for(auto &it: nums) totalXor ^= it;
+                    for(int i = 0; i < n;i++) {
+                        int rem = totalXor ^ nums[i];
+                        rem |= (rem ^ nums[i]);
+                        totalXor = max(totalXor, rem);
+                    }
+                    return totalXor;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Maximum XOR With an Element From Array](https://leetcode.com/problems/maximum-xor-with-an-element-from-array/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct Trie {
+                Trie* children[2];
+                Trie() {
+                    children[0] = children[1] = nullptr;
+                }
+            };
+            class Solution {
+                void insert(Trie* root, int n) {
+                    for(int i = 31; i >= 0;i--) {
+                        bool bit = (n >> i) & 1;
+                        if(root->children[bit] == nullptr)
+                            root->children[bit] = new Trie();
+                        root = root->children[bit];
+                    }
+                }
+
+                int getMaxXor(Trie* root, int n) {
+                    int res = 0;
+                    bool flag = true;
+                    for(int i = 31; i >= 0;i--) {
+                        bool bit = (n >> i) & 1;
+                        if(root->children[!bit] != nullptr) {
+                            res |= (1 << i);
+                            root = root->children[!bit];
+                        }
+                        else if(root->children[bit] != nullptr) root = root->children[bit];
+                        else {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    return flag == false ? -1 : res;
+                }
+            public:
+                vector<int> maximizeXor(vector<int>& nums, vector<vector<int>>& queries) {
+                    int n = nums.size(), m = queries.size();
+                    Trie* root = new Trie();
+                    vector<int> result;
+                    map<pair<int, int>, int> hash;
+                    vector<pair<int, int>> sortedQueries;
+                    for(auto &query: queries)
+                        sortedQueries.push_back({query[1], query[0]});
+                    sort(nums.begin(), nums.end());
+                    sort(sortedQueries.begin(), sortedQueries.end());
+                    for(int i = 0, idx = 0; i < m;i++) {
+                        auto [m, x] = sortedQueries[i];
+                        while(idx < n && nums[idx] <= m) {
+                            insert(root, nums[idx]);
+                            idx += 1;
+                        }
+                        int ans = getMaxXor(root, x);
+                        hash[{x, m}] = ans;
+                    }
+                    for(auto &query: queries)
+                        result.push_back(hash[{query[0], query[1]}]);
+                    return result;
+                }
+            };
+        
+    </details>
+
+---

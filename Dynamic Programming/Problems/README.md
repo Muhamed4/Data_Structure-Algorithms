@@ -848,3 +848,120 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Maximum Number of Moves in a Grid](https://leetcode.com/problems/maximum-number-of-moves-in-a-grid/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1001][1001];
+                bool isValid(int i, int j, int n, int m) {
+                    return (i >= 0 && i < n && j >= 0 && j < m);
+                }
+                int maxMoves(int i, int j, int n, int m, vector<vector<int>>& grid) {
+                    int& ret = dp[i][j];
+                    if(~ret) return ret;
+                    ret = 0;
+                    if(isValid(i - 1, j + 1, n, m) && grid[i - 1][j + 1] > grid[i][j])
+                        ret = maxMoves(i - 1, j + 1, n, m, grid) + 1;
+                    if(isValid(i, j + 1, n, m) && grid[i][j + 1] > grid[i][j])
+                        ret = max(ret, maxMoves(i, j + 1, n, m, grid) + 1);
+                    if(isValid(i + 1, j + 1, n, m) && grid[i + 1][j + 1] > grid[i][j])
+                        ret = max(ret, maxMoves(i + 1, j + 1, n, m, grid) + 1);
+                    return ret;
+                }
+            public:
+                int maxMoves(vector<vector<int>>& grid) {
+                    int n = grid.size(), m = grid[0].size(), res = 0;
+                    memset(dp, -1, sizeof(dp));
+                    for(int i = 0; i < n;i++) {
+                        res = max(res, maxMoves(i, 0, n, m, grid));
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int minimumMountainRemovals(vector<int>& nums) {
+                    int n = nums.size(), res = 0;
+                    vector<int> lis(n, 1), lds(n, 1);
+                    for(int i = 0; i < n;i++) {
+                        for(int j = i - 1; j >= 0;j--) {
+                            if(nums[i] > nums[j])
+                                lis[i] = max(lis[i], lis[j] + 1);
+                        }
+                    }
+                    for(int i = n - 1; i >= 0;i--) {
+                        for(int j = i + 1; j < n;j++) {
+                            if(nums[i] > nums[j]) 
+                                lds[i] = max(lds[i], lds[j] + 1);
+                        }
+                    }
+                    for(int i = 0; i < n;i++) {
+                        if(lis[i] > 1 && lds[i] > 1) 
+                            res = max(res, lis[i] + lds[i] - 1);
+                    }
+                    return n - res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Minimum Total Distance Traveled](https://leetcode.com/problems/minimum-total-distance-traveled/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                long long minDistance(int r, int f, int n, int m, vector<int>& robot, vector<int>& facs,
+                                vector<vector<long long>>& dp) {
+                    if(r == n) return 0;
+                    if(f == m) return 1e12;
+                    long long &ret = dp[r][f];
+                    if(~ret) return ret;
+                    ret = minDistance(r, f + 1, n, m, robot, facs, dp);
+                    ret = min(ret, minDistance(r + 1, f + 1, n, m, robot, facs, dp) + abs(robot[r] - facs[f]));
+                    return ret;
+                }
+            public:
+                long long minimumTotalDistance(vector<int>& robot, vector<vector<int>>& factory) {
+                    int n = robot.size();
+                    vector<int> facs;
+                    for(auto &fac: factory) {
+                        int limit = fac[1];
+                        while(limit--)
+                            facs.push_back(fac[0]);
+                    }
+                    sort(robot.begin(), robot.end());
+                    sort(facs.begin(), facs.end());
+                    int m = facs.size();
+                    vector<vector<long long>> dp(n + 1, vector<long long>(m + 1, -1));
+                    return minDistance(0, 0, n, m, robot, facs, dp);
+                }
+            };
+        
+    </details>
+
+---

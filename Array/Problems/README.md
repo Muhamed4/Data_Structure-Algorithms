@@ -872,3 +872,71 @@
     </details>
 
 ---
+
+
+
+* [ ] [Majority Element](https://www.geeksforgeeks.org/problems/majority-element-1587115620/1?page=1&company=Amazon,Microsoft,Google,Facebook&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int majorityElement(vector<int>& arr) {
+                    int n = arr.size(), majorityElement = -1, cnt = 0, othCount = 0;
+                    for(int i = 0; i < n;i++) {
+                        if(majorityElement == arr[i]) 
+                            cnt += 1;
+                        else if(cnt == 0) {
+                            majorityElement = arr[i];
+                            cnt = 1;
+                        }
+                        else cnt -= 1;
+                    }
+                    for(int i = 0; i < n;i++) {
+                        if(arr[i] == majorityElement) 
+                            othCount += 1;
+                    }
+                    return othCount > (n / 2) ? majorityElement : -1;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Minimize the Heights II](https://www.geeksforgeeks.org/problems/minimize-the-heights3351/1?page=1&company=Amazon,Microsoft,Google,Facebook&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int getMinDiff(vector<int> &arr, int k) {
+                    int n = arr.size(), res = 0;
+                    multiset<int> st;
+                    vector<int> in(n), de(n);
+                    sort(arr.begin(), arr.end());
+                    for(int i = 0; i < n;i++) {
+                        int increase = arr[i] + k;
+                        int decrease = (arr[i] - k >= 0 ? arr[i] - k : arr[i] + k);
+                        in[i] = increase;
+                        de[i] = decrease;
+                        st.insert(increase);
+                    }
+                    res = *prev(st.end()) - *st.begin();
+                    for(int i = n - 1; i >= 0;i--) {
+                        st.erase(st.find(in[i]));
+                        st.insert(de[i]);
+                        res = min(res, *prev(st.end()) - *st.begin());
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---

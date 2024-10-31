@@ -886,188 +886,41 @@
 ---
 
 
-* [ ] []() 
+
+
+* [ ] [Minimum Number of Removals to Make Mountain Array](https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/description/)
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
-        
-    </details>
-
----
-
-
-
-* [ ] []() 
-    * <details>
-        <summary> Solution </summary>
-
-        ```c++
-            
+            class Solution {
+                void findLongestIncreasingSub(vector<int>& nums, vector<int>& lis, vector<int>& finlList, int dir, int start, int end) {
+                    for(int i = start; i != end; i += dir) {
+                        if(lis.empty()) lis.push_back(nums[i]);
+                        else {
+                            int idx = lower_bound(lis.begin(), lis.end(), nums[i]) - lis.begin();
+                            if(idx == lis.size()) lis.push_back(nums[i]);
+                            else lis[idx] = nums[i];
+                        }
+                        finlList[i] = lis.size();
+                    }
+                }
+            public:
+                int minimumMountainRemovals(vector<int>& nums) {
+                    int n = nums.size(), res = 0;
+                    vector<int> lis1, lis2;
+                    vector<int> start(n), end(n);
+                    findLongestIncreasingSub(nums, lis1, start, 1, 0, n - 1);
+                    findLongestIncreasingSub(nums, lis2, end, -1, n - 1, 0);
+                    for(int i = 1; i < n - 1;i++) {
+                        int len = 0;
+                        if(start[i] >= 2 && end[i] >= 2)
+                            len = start[i] + end[i] - 1;
+                        res = max(res, len);
+                    }
+                    return n - res;
+                }
+            };
         
     </details>
 
