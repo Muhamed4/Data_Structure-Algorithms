@@ -342,3 +342,30 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Largest Combination With Bitwise AND Greater Than Zero](https://leetcode.com/problems/largest-combination-with-bitwise-and-greater-than-zero/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int largestCombination(vector<int>& candidates) {
+                    int res = 0;
+                    unordered_map<int, int> frqBits;
+                    for(auto&bit: candidates) {
+                        for(int i = 31; i >= 0;i--)
+                            frqBits[i] += ((bit >> i) & 1);
+                    }
+                    for(int i = 31; i >= 0;i--)
+                        res = max(res, frqBits[i]);
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
