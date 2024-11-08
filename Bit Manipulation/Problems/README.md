@@ -369,3 +369,30 @@
     </details>
 
 ---
+
+
+
+* [ ] [Maximum XOR for Each Query](https://leetcode.com/problems/maximum-xor-for-each-query/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<int> getMaximumXor(vector<int>& nums, int maximumBit) {
+                    int n = nums.size();
+                    int maxBit = (1 << maximumBit) - 1, _xor = 0;
+                    vector<int> result;
+                    for(auto &it: nums)
+                        _xor ^= it;
+                    for(int i = 0; i < n;i++) {
+                        result.push_back(_xor ^ maxBit);
+                        _xor ^= nums[n - i - 1];
+                    }
+                    return result;
+                }
+            };
+        
+    </details>
+
+---
