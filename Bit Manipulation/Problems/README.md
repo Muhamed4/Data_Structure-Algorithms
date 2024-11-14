@@ -396,3 +396,50 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Shortest Subarray With OR at Least K II](https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int minimumSubarrayLength(vector<int>& nums, int k) {
+                    int n = nums.size(), res = INT_MAX;
+                    vector<vector<int>> arrBit(n, vector<int>(32));
+                    for(int i = 0; i < n;i++) {
+                        for(int j = 31; j >= 0;j--) {
+                            bool bit = (nums[i] >> j) & 1;
+                            arrBit[i][j] += bit;
+                            if(i != 0)
+                                arrBit[i][j] += arrBit[i - 1][j];
+                        }
+                    }
+                    for(int i = 0; i < n;i++) {
+                        int left = i, right = n - 1, cur = -1;
+                        while(left <= right) {
+                            int mid = left + (right - left) / 2;
+                            int cnt = 0;
+                            for(int j = 31; j >= 0;j--) {
+                                bool bit = arrBit[mid][j] - (i != 0 ? arrBit[i - 1][j] : 0);
+                                cnt |= (bit == true ? (1 << j) : 0);
+                            }
+                            if(cnt >= k) {
+                                cur = mid;
+                                right = mid - 1;
+                            }
+                            else left = mid + 1;
+                        }
+                        if(cur != -1)
+                            res = min(res, cur - i + 1);
+                    }
+                    return res == INT_MAX ? -1 : res;
+                }
+            };
+        
+    </details>
+
+---

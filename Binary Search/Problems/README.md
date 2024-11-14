@@ -927,12 +927,181 @@
 ---
 
 
-* [ ] []() 
+* [ ] [Prime Subtraction Operation](https://leetcode.com/problems/prime-subtraction-operation/description/)
     * <details>
         <summary> Solution </summary>
 
         ```c++
-            
+            class Solution {
+                int N = 1003;
+                bool prime[1003];
+                vector<int>  sieve() {
+                    vector<int> primes;
+                    for (int i = 0; i < N; i++){
+                        prime[i] = 1;
+                    }
+                    prime[0] = prime[1] = 0;
+                    for (int i = 2; i < N; i++){
+                        if (prime[i]){
+                            for (int j = i * 2; j < N; j += i){
+                                prime[j] = 0;
+                            }
+                        }
+                    }
+                    for(int i = 2; i < N;i++)
+                        if(prime[i] == true)
+                            primes.push_back(i);
+                    return primes;
+                }
+            public:
+                bool primeSubOperation(vector<int>& nums) {
+                    int n = nums.size(), prev = 0;
+                    vector<int> primes = sieve();
+                    int sz = primes.size();
+                    for(auto &it: nums) {
+                        int next = prev + 1, maxPrime = 0;
+                        int left = 0, right = sz - 1;
+                        while(left <= right) {
+                            int mid = left + (right - left) / 2;
+                            int cur = next + primes[mid];
+                            if(cur <= it) {
+                                maxPrime = primes[mid];
+                                left = mid + 1;
+                            }
+                            else right = mid - 1;
+                        }
+                        int newIt = it - maxPrime;
+                        if(newIt <= prev) return false;
+                        prev = newIt;
+                    }
+                    return true;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Most Beautiful Item for Each Query](https://leetcode.com/problems/most-beautiful-item-for-each-query/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<int> maximumBeauty(vector<vector<int>>& items, vector<int>& queries) {
+                    int q = queries.size(), n = items.size(), mx = 0;
+                    vector<int> res;
+                    sort(items.begin(), items.end());
+                    for(int i = 0; i < n;i++) {
+                        mx = max(mx, items[i][1]);
+                        items[i][1] = mx;
+                    }
+                    for(auto &q: queries) {
+                        int left = 0, right = n - 1, ans = 0;
+                        while(left <= right) {
+                            int mid = left + (right - left) / 2;
+                            if(items[mid][0] <= q) {
+                                ans = items[mid][1];
+                                left = mid + 1;
+                            }
+                            else right = mid - 1;
+                        }
+                        res.push_back(ans);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Count the Number of Fair Pairs](https://leetcode.com/problems/count-the-number-of-fair-pairs/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int lowerIndex(int i, int n, int lower, int upper, vector<int>& arr) {
+                    int left = i + 1, right = n - 1, res = 1;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        if(arr[i] + arr[mid] >= lower && arr[i] + arr[mid] <= upper) {
+                            res = mid;
+                            right = mid - 1;
+                        }
+                        else if(arr[i] + arr[mid] < lower) left = mid + 1;
+                        else if(arr[i] + arr[mid] > upper) right = mid - 1;
+                    }
+                    return res;
+                }
+                
+                int upperIndex(int i, int n, int lower, int upper, vector<int>& arr) {
+                    int left = i + 1, right = n - 1, res = 0;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        if(arr[i] + arr[mid] <= upper && arr[i] + arr[mid] >= lower) {
+                            res = mid;
+                            left = mid + 1;
+                        }
+                        else if(arr[i] + arr[mid] < lower) left = mid + 1;
+                        else if(arr[i] + arr[mid] > upper) right = mid - 1;
+                    }
+                    return res;
+                }
+            public:
+                long long countFairPairs(vector<int>& nums, int lower, int upper) {
+                    int n = nums.size();
+                    long long res = 0;
+                    sort(nums.begin(), nums.end());
+                    for(int i = 0; i < n;i++) {
+                        int lowerIdx = lowerIndex(i, n, lower, upper, nums);
+                        int upperIdx = upperIndex(i, n, lower, upper, nums);
+                        res += (upperIdx - lowerIdx + 1);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+* [ ] [Minimized Maximum of Products Distributed to Any Store](https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int minimizedMaximum(int n, vector<int>& quantities) {
+                    int m = quantities.size();
+                    int left = 1, right = 100000, ans = 0;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        int stores = 0;
+                        for(int i = 0; i < m;i++) {
+                            stores += (quantities[i] / mid);
+                            stores += (quantities[i] % mid != 0);
+                        }
+                        if(stores <= n) {
+                            ans = mid;
+                            right = mid - 1;
+                        }
+                        else left = mid + 1;
+                    }
+                    return ans;
+                }
+            };
         
     </details>
 

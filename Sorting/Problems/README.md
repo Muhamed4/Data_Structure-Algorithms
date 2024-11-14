@@ -1683,3 +1683,57 @@
 
 ---
 
+
+
+
+* [ ] [Surpasser Count](https://www.geeksforgeeks.org/problems/surpasser-count0615/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                void merge(int low, int mid, int high, vector<int>& arr, unordered_map<int, int>& frq) {
+                    int n1 = mid - low + 1;
+                    int n2 = high - mid;
+                    int *arr1 = new int[n1];
+                    int *arr2 = new int[n2];
+                    for(int i = 0; i < n1;i++) arr1[i] = arr[low + i];
+                    for(int i = 0; i < n2;i++) arr2[i] = arr[mid + i + 1];
+                    long long res = 0;
+                    int i = 0, j = 0, k = low;
+                    while(i < n1 && j < n2) {
+                        if(arr1[i] < arr2[j]) frq[arr1[i]] += (n2 - j);
+                        if(arr1[i] < arr2[j]) arr[k++] = arr1[i++];
+                        else arr[k++] = arr2[j++];
+                    }
+                    while(i < n1)
+                        arr[k++] = arr1[i++];
+                    while(j < n2)
+                        arr[k++] = arr2[j++];
+                    delete[] arr1;
+                    delete[] arr2;
+                }
+                void mergeSort(int low, int high, vector<int>& arr, unordered_map<int, int>& frq) {
+                    if(low >= high) return ;
+                    int mid = low + (high - low) / 2;
+                    mergeSort(low, mid, arr, frq);
+                    mergeSort(mid + 1, high, arr, frq);
+                    merge(low, mid, high, arr, frq);
+                }
+            public:
+                vector<int> findSurpasser(vector<int>& arr) {
+                    // code here
+                    int n = arr.size();
+                    vector<int> res, copy = arr;
+                    unordered_map<int, int> frq;
+                    mergeSort(0, n - 1, copy, frq);
+                    for(auto &it: arr)
+                        res.push_back(frq[it]);
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---
+
