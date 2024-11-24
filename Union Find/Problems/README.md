@@ -332,3 +332,68 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Graph is Tree or Not](https://www.geeksforgeeks.org/problems/is-it-a-tree/0) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                int forests;
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    forests = n;
+                    parent = rank = vector<int>(n + 1, 1);
+                    for(int i = 0; i <= n;i++)
+                        parent[i] = i;
+                }
+                
+                int findParent(int x) {
+                    if(x == parent[x])
+                        return x;
+                    return parent[x] = findParent(parent[x]);
+                }
+                
+                void link(int x, int y) {
+                    if(rank[x] > rank[y])
+                        swap(x, y);
+                    parent[x] = y;
+                    if(rank[x] == rank[y])
+                        rank[y] += 1;
+                }
+                
+                void unionFind(int x, int y) {
+                    int parentX = findParent(x);
+                    int parentY = findParent(y);
+                    if(parentX != parentY) {
+                        forests -= 1;
+                        link(parentX, parentY);
+                    }
+                }
+            };
+
+            class Solution {
+                
+            public:
+                int isTree(int n, int m, vector<vector<int>> &adj) {
+                    // code here
+                    UnionFind DSU(n);
+                    for(auto &edge: adj) {
+                        int v = edge[0], u = edge[1];
+                        int parentV = DSU.findParent(v);
+                        int parentU = DSU.findParent(u);
+                        if(parentV == parentU)
+                            return false;
+                        DSU.unionFind(parentV, parentU);
+                    }
+                    return DSU.forests == 1;
+                }
+            };
+
+        
+    </details>
+
+---

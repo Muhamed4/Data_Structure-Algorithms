@@ -2245,3 +2245,124 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+            * };
+            */
+            class Codec {
+                void serialize(TreeNode* root, string& res) {
+                    if(root == nullptr) {
+                        res += 'N';
+                        return;
+                    }
+                    char signal = (root->val < 0 ? 'S' : 'B');
+                    string num = to_string(abs(root->val));
+                    res += num;
+                    res += signal;
+                    serialize(root->left, res);
+                    serialize(root->right, res);
+                }
+
+                TreeNode* deserialize(int& idx, int n, string& data) {
+                    if(idx >= n || data[idx] == 'N') {
+                        idx += 1;
+                        return nullptr;
+                    }
+                    string num = "";
+                    while(data[idx] != 'S' && data[idx] != 'B') num += data[idx++];
+                    int number = (data[idx++] == 'S' ? -stoi(num) : stoi(num));
+                    TreeNode* root = new TreeNode(number);
+                    root->left = deserialize(idx, n, data);
+                    root->right = deserialize(idx, n, data);
+                    return root;
+                }
+            public:
+
+                // Encodes a tree to a single string.
+                string serialize(TreeNode* root) {
+                    string res = "";
+                    serialize(root, res);
+                    return res;
+                }
+
+                // Decodes your encoded data to tree.
+                TreeNode* deserialize(string data) {
+                    int n = data.size(), idx = 0;
+                    return deserialize(idx, n, data);
+                }
+            };
+
+            // Your Codec object will be instantiated and called as such:
+            // Codec ser, deser;
+            // TreeNode* ans = deser.deserialize(ser.serialize(root));
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for a binary tree node.
+            * struct TreeNode {
+            *     int val;
+            *     TreeNode *left;
+            *     TreeNode *right;
+            *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+            *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+            * };
+            */
+            class Solution {
+                bool checkSimilarity(TreeNode* root, TreeNode* subRoot) {
+                    if(root == nullptr && subRoot == nullptr)
+                        return true;
+                    if(root == nullptr || subRoot == nullptr)
+                        return false;
+                    if(root->val != subRoot->val)
+                        return false;
+                    bool flag = true;
+                    flag &= checkSimilarity(root->left, subRoot->left);
+                    flag &= checkSimilarity(root->right, subRoot->right);
+                    return flag;
+                }
+            public:
+                bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+                    if(root == nullptr)
+                        return false;
+                    bool flag = false;
+                    if(root->val == subRoot->val)
+                        flag |= checkSimilarity(root, subRoot);
+                    if(flag == true)
+                        return flag;
+                    flag |= isSubtree(root->left, subRoot);
+                    flag |= isSubtree(root->right, subRoot);
+                    return flag;
+                }
+            };
+        
+    </details>
+
+---

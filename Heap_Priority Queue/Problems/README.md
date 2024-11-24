@@ -790,3 +790,52 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            /**
+            * Definition for singly-linked list.
+            * struct ListNode {
+            *     int val;
+            *     ListNode *next;
+            *     ListNode() : val(0), next(nullptr) {}
+            *     ListNode(int x) : val(x), next(nullptr) {}
+            *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+            * };
+            */
+            class Solution {
+            public:
+                ListNode* mergeKLists(vector<ListNode*>& lists) {
+                    ListNode* head = nullptr, *temp = nullptr;
+                    priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<>> heap;
+                    for(auto &node: lists) {
+                        if(node != nullptr)
+                            heap.push({node->val, node});
+                    }
+                    while(!heap.empty()) {
+                        auto [val, node] = heap.top();
+                        heap.pop();
+                        if(head == nullptr)
+                            head = temp = node;
+                        else {
+                            temp->next = node;
+                            temp = temp->next;
+                        }
+                        node = node->next;
+                        if(node != nullptr)
+                            heap.push({node->val, node});
+                    }
+                    return head;
+                }
+            };
+                    
+    </details>
+
+---

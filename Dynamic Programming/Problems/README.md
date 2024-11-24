@@ -965,3 +965,36 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[202][20004];
+                bool canPartition(int idx, int rem, int n, vector<int>& arr) {
+                    if(idx == n) return rem == 0;
+                    int& ret = dp[idx][rem];
+                    if(~ret) return ret;
+                    ret = false;
+                    ret |= canPartition(idx + 1, rem, n, arr);
+                    if(rem >= arr[idx])
+                        ret |= canPartition(idx + 1, rem - arr[idx], n, arr);
+                    return ret;
+                }
+            public:
+                bool canPartition(vector<int>& nums) {
+                    int n = nums.size(), sum = 0;;
+                    memset(dp, -1, sizeof(dp));
+                    for(auto &it: nums) sum += it;
+                    return (sum % 2 == 0 ? canPartition(0, sum / 2, n, nums) : false);
+                }
+            };
+        
+    </details>
+
+---
