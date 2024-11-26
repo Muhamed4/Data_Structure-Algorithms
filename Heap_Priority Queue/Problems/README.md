@@ -839,3 +839,50 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Minimum Platforms](https://www.geeksforgeeks.org/problems/minimum-platforms-1587115620/1?page=1&company=Microsoft&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                vector<pair<int, int>> ConvertInputToSeconds(vector<int>& arr, vector<int>& dep) {
+                    int sz = arr.size();
+                    vector<pair<int, int>> Conversion;
+                    for(int i = 0; i < sz;i++)
+                        Conversion.push_back({arr[i], dep[i]});
+                    sort(Conversion.begin(), Conversion.end());
+                    return Conversion;
+                }
+            public:
+                // Function to find the minimum number of platforms required at the
+                // railway station such that no train waits.
+                int findPlatform(vector<int>& arr, vector<int>& dep) {
+                    // Your code here
+                    int res = 0;
+                    vector<pair<int, int>> arrivalAndDeparture = ConvertInputToSeconds(arr, dep);
+                    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> maxTrains;
+                    for(auto &times: arrivalAndDeparture) {
+                        int arrive = times.first;
+                        int departure = times.second;
+                        while(!maxTrains.empty()) {
+                            int curDeparture = maxTrains.top().first;
+                            int curArrive = maxTrains.top().second;
+                            if(arrive > curDeparture) {
+                                maxTrains.pop();
+                            }
+                            else break;
+                        }
+                        maxTrains.push({departure, arrive});
+                        res = max(res, (int)maxTrains.size());
+                    }
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---

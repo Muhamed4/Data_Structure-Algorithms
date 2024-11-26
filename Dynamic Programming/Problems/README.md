@@ -998,3 +998,79 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [0 - 1 Knapsack Problem](https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1?page=1&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1003][1003];
+                int knapsack(int idx, int rem, int n, vector<int>& val, vector<int>& wt) {
+                    if(idx == n)
+                        return 0;
+                    int& ret = dp[idx][rem];
+                    if(~ret) return ret;
+                    ret = knapsack(idx + 1, rem, n, val, wt);
+                    if(rem >= wt[idx])
+                        ret = max(ret, knapsack(idx + 1, rem - wt[idx], n, val, wt) + val[idx]);
+                    return ret;
+                }
+            public:
+                // Function to return max value that can be put in knapsack of capacity.
+                int knapSack(int capacity, vector<int> &val, vector<int> &wt) {
+                    // code here
+                    memset(dp, -1, sizeof(dp));
+                    return knapsack(0, capacity, val.size(), val, wt);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Perfect Sum Problem](https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1?page=1&company=Microsoft&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[1003][1003];
+                int countSubset(int idx, int rem, int n, vector<int>& arr) {
+                    if(idx == n || rem == 0)
+                        return rem == 0;
+                    int& ret = dp[idx][rem];
+                    if(~ret) return ret;
+                    ret = countSubset(idx + 1, rem, n, arr);
+                    if(rem >= arr[idx])
+                        ret += countSubset(idx + 1, rem - arr[idx], n, arr);
+                    return ret;
+                }
+            public:
+                int perfectSum(vector<int>& arr, int target) {
+                    // code here
+                    vector<int> newArr;
+                    memset(dp, -1, sizeof(dp));
+                    unordered_map<int, int> frq;
+                    for(auto &it: arr) {
+                        if(it != 0)
+                            newArr.push_back(it);
+                        frq[it] += 1;
+                    }
+                    int n = newArr.size();
+                    int zero = (1 << frq[0]);
+                    int res = countSubset(0, target, n, newArr) * zero;
+                    return res;
+                }
+            };
+        
+    </details>
+
+---

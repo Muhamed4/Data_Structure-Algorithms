@@ -397,3 +397,69 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Connected Components in an Undirected Graph](https://www.geeksforgeeks.org/problems/connected-components-in-an-undirected-graph/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            struct UnionFind {
+                vector<int> parent, rank;
+                UnionFind(int n) {
+                    parent = rank = vector<int>(n);
+                    for(int i = 0; i < n;i++) {
+                        rank[i] = 1;
+                        parent[i] = i;
+                    }
+                }
+                
+                int findParent(int node) {
+                    if(node == parent[node])
+                        return node;
+                    return parent[node] = findParent(parent[node]);
+                }
+                
+                void link(int u, int v) {
+                    if(rank[u] > rank[v])
+                        swap(u, v);
+                    parent[u] = v;
+                    if(rank[u] == rank[v])
+                        rank[v] += 1;
+                }
+                
+                void unionNodes(int u, int v) {
+                    int parentU = findParent(u);
+                    int parentV = findParent(v);
+                    if(parentU != parentV)
+                        link(parentU, parentV);
+                }
+            };
+            class Solution {
+            public:
+                vector<vector<int>> connectedcomponents(int v, vector<vector<int>>& edges) {
+                    // code here
+                    UnionFind DSU(v);
+                    vector<vector<int>> result;
+                    unordered_map<int, vector<int>> storeRelatedNodes;
+                    for(auto &edge: edges) {
+                        int u = edge[0], v = edge[1];
+                        DSU.unionNodes(u, v);
+                    }
+                    for(int i = 0; i < v;i++) {
+                        int parent = DSU.findParent(i);
+                        storeRelatedNodes[parent].push_back(i);
+                    }
+                    for(auto &component: storeRelatedNodes)
+                        result.push_back(component.second);
+                    return result;
+                }
+            };
+
+        
+    </details>
+
+---
