@@ -912,3 +912,89 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Shortest Distance After Road Addition Queries I](https://leetcode.com/problems/shortest-distance-after-road-addition-queries-i/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int shortestDistance(int n, vector<vector<int>>& adj) {
+                    vector<int> dist(n, INT_MAX);
+                    queue<int> bfs;
+                    bfs.push(0);
+                    dist[0] = 0;
+                    while(!bfs.empty()) {
+                        auto node = bfs.front();
+                        bfs.pop();
+                        for(auto &child: adj[node]) {
+                            if(dist[child] > dist[node] + 1) {
+                                dist[child] = dist[node] + 1;
+                                bfs.push(child);
+                            }
+                        }
+                    }
+                    return dist[n - 1];
+                }
+            public:
+                vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {
+                    int q = queries.size();
+                    vector<int> res(q);
+                    vector<vector<int>> adj(n);
+                    for(int i = 0; i < n - 1;i++) 
+                        adj[i].push_back(i + 1);
+                    for(int i = 0; i < q;i++) {
+                        int u = queries[i][0], v = queries[i][1];
+                        adj[u].push_back(v);
+                        res[i] = shortestDistance(n, adj);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Cycle in a Directed Graph](https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1?page=1&company=Microsoft&sortBy=submissions) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                bool isCyclic(int node, vector<int>& color, vector<vector<int>>& adj) {
+                    color[node] = 1;
+                    bool flag = true;
+                    for(auto &child: adj[node]) {
+                        if(color[child] == 0)
+                            flag &= isCyclic(child, color, adj);
+                        else if(color[child] == 1)
+                            return false;
+                    }
+                    color[node] = 2;
+                    return flag;
+                }
+            public:
+                // Function to detect cycle in a directed graph.
+                bool isCyclic(int V, vector<vector<int>> adj) {
+                    // code here
+                    vector<int> color(V);
+                    bool cycle = true;
+                    for(int i = 0; i < V;i++) {
+                        if(color[i] == 0)
+                            cycle &= isCyclic(i, color, adj);
+                    }
+                    return !cycle;
+                }
+            };
+        
+    </details>
+
+---

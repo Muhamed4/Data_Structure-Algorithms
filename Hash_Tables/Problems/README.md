@@ -474,3 +474,34 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Longest Sub-Array with Sum K](https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?page=1&sortBy=submissions)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int lenOfLongestSubarr(vector<int>& arr, int k) {
+                    // code here
+                    int n = arr.size(), sum = 0, res = 0;
+                    unordered_map<int, int> index;
+                    index[0] = -1;
+                    for(int i = 0; i < n;i++) {
+                        sum += arr[i];
+                        int diff = sum - k;
+                        if(index.count(diff) == true)
+                            res = max(res, i - index[diff]);
+                        if(index.count(sum) == false)
+                            index[sum] = i;
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
