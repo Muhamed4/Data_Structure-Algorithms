@@ -505,3 +505,31 @@
     </details>
 
 ---
+
+
+
+* [ ] [Maximum Number of Integers to Choose From a Range I](https://leetcode.com/problems/maximum-number-of-integers-to-choose-from-a-range-i/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maxCount(vector<int>& banned, int n, int maxSum) {
+                    int res = 0, sum = 0;
+                    unordered_map<int, bool> vis;
+                    for(auto &ban: banned)
+                        vis[ban] = true;
+                    for(int i = 1; i <= n;i++) {
+                        if(vis.count(i) == false && sum + i <= maxSum) {
+                            sum += i;
+                            res += 1;
+                        }
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---

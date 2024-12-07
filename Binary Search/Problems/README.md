@@ -1106,3 +1106,37 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Minimum Limit of Balls in a Bag](https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int minimumSize(vector<int>& nums, int maxOperations) {
+                    int n = nums.size();
+                    int left = 1, right = 1E9, res = -1;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        int cnt = 0;
+                        for(int i = 0; i < n;i++) {
+                            int divide = nums[i] / mid;
+                            divide += (nums[i] % mid != 0);
+                            cnt += (divide - 1);
+                        }
+                        if(cnt <= maxOperations) {
+                            res = mid;
+                            right = mid - 1;
+                        } else left = mid + 1;
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
