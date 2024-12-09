@@ -1140,3 +1140,77 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Two Best Non-Overlapping Events](https://leetcode.com/problems/two-best-non-overlapping-events/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maxTwoEvents(vector<vector<int>>& events) {
+                    int n = events.size(), prevMax = INT_MIN, res = 0;
+                    vector<int> maxValue(n);
+                    sort(events.begin(), events.end());
+                    for(int i = n - 1; i >= 0;i--) {
+                        prevMax = max(prevMax, events[i][2]);
+                        maxValue[i] = prevMax;
+                    }
+                    for(int i = 0; i < n;i++) {
+                        int left = i + 1, right = n - 1, ans = 0, end = events[i][1];
+                        while(left <= right) {
+                            int mid = left + (right - left) / 2;
+                            int start = events[mid][0];
+                            if(start > end) {
+                                ans = maxValue[mid];
+                                right = mid - 1;
+                            }
+                            else left = mid + 1;
+                        }
+                        res = max(res, events[i][2] + ans);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Special Array II](https://leetcode.com/problems/special-array-ii/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
+                    int n = nums.size(), q = queries.size();
+                    vector<bool> res;
+                    vector<pair<int, int>> parity;
+                    for(int i = 0; i < n - 1;i++) {
+                        if((nums[i] & 1) == (nums[i + 1] & 1))
+                            parity.push_back({i, i + 1});
+                    }
+                    for(int i = 0; i < q;i++) {
+                        bool correct = true;
+                        int idx = lower_bound(parity.begin(), parity.end(), make_pair(queries[i][0], queries[i][0])) - parity.begin();
+                        if(idx != parity.size()) {
+                            if(parity[idx].first >= queries[i][0] && parity[idx].second <= queries[i][1])
+                                correct = false;
+                        }
+                        res.push_back(correct);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
