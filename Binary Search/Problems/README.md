@@ -1214,3 +1214,84 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Find Longest Special Substring That Occurs Thrice I](https://leetcode.com/problems/find-longest-special-substring-that-occurs-thrice-i/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                bool isCan(string& s, int mid, int n) {
+                    bool can = false;
+                    set<char> distinctChar;
+                    unordered_map<char, int> frq, strFrq;
+                    for(int i = 0; i < mid;i++) {
+                        frq[s[i]] += 1;
+                        distinctChar.insert(s[i]);
+                    }
+                    if(distinctChar.size() == 1)
+                        strFrq[s[0]] += 1;
+                    for(int i = mid; i < n;i++) {
+                        frq[s[i - mid]] -= 1;
+                        if(frq[s[i - mid]] == 0)
+                            distinctChar.erase(s[i - mid]);
+                        frq[s[i]] += 1;
+                        distinctChar.insert(s[i]);
+                        if(distinctChar.size() == 1)
+                            strFrq[s[i]] += 1;
+                        if(strFrq[s[i]] >= 3)
+                            can = true;
+                    }
+                    return can;
+                }
+            public:
+                int maximumLength(string s) {
+                    int n = s.size();
+                    int left = 1, right = n, res = -1;
+                    while(left <= right) {
+                        int mid = left + (right - left) / 2;
+                        bool can = isCan(s, mid, n);
+                        if(can == true) {
+                            res = mid;
+                            left = mid + 1;
+                        }
+                        else right = mid - 1;
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+
+* [ ] [Maximum Beauty of an Array After Applying Operation](https://leetcode.com/problems/maximum-beauty-of-an-array-after-applying-operation/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int maximumBeauty(vector<int>& nums, int k) {
+                    int n = nums.size(), res = 0;
+                    sort(nums.begin(), nums.end());
+                    for(int i = 0; i < n;i++) {
+                        int last = nums[i] + 2 * k;
+                        int idx = upper_bound(nums.begin(), nums.end(), last) - nums.begin();
+                        res = max(res, idx - i);
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
