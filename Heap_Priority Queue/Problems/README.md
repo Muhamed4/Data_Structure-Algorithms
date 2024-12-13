@@ -886,3 +886,39 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Find Score of an Array After Marking All Elements](https://leetcode.com/problems/find-score-of-an-array-after-marking-all-elements/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                long long findScore(vector<int>& nums) {
+                    int n = nums.size();
+                    long long score = 0;
+                    unordered_set<int> vis;
+                    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+                    for(int i = 0; i < n;i++)
+                        pq.push(make_pair(nums[i], i));
+                    while(!pq.empty()) {
+                        while(!pq.empty() && vis.count(pq.top().second) == true)
+                            pq.pop();
+                        if(!pq.empty()) {
+                            auto [val, index] = pq.top();
+                            pq.pop();
+                            score += val;
+                            vis.insert(index + 1);
+                            vis.insert(index - 1);
+                        }
+                    }
+                    return score;
+                }
+            };
+                    
+    </details>
+
+---
