@@ -264,3 +264,41 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Continuous Subarrays](https://leetcode.com/problems/continuous-subarrays/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                long long continuousSubarrays(vector<int>& nums) {
+                    int n = nums.size();
+                    long long res = 0;
+                    set<int> elements;
+                    unordered_map<int, int> frq;
+                    for(int end = 0, start = 0; end < n;end++) {
+                        elements.insert(nums[end]);
+                        frq[nums[end]] += 1;
+                        while(!elements.empty() && (*prev(elements.end()) - *elements.begin() > 2)) {
+                            frq[nums[start]] -= 1;
+                            if(frq[nums[start]] == 0)
+                                elements.erase(nums[start]);
+                            start += 1;
+                        }
+                        int len = end - start + 1;
+                        res += len;
+                    }
+                    return res;
+                }
+            };
+        
+    </details>
+
+---
+
+
+

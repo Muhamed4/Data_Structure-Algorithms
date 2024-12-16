@@ -922,3 +922,39 @@
     </details>
 
 ---
+
+
+
+
+
+* [ ] [Final Array State After K Multiplication Operations I](https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-i/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                vector<int> getFinalState(vector<int>& nums, int k, int multiplier) {
+                    int n = nums.size();
+                    vector<int> res(n);
+                    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+                    for(int i = 0; i < n;i++) 
+                        pq.push(make_pair(nums[i], i));
+                    while(!pq.empty() && k--) {
+                        auto [value, index] = pq.top();
+                        pq.pop();
+                        value *= multiplier;
+                        pq.push(make_pair(value, index));
+                    }
+                    while(!pq.empty()) {
+                        auto [value, index] = pq.top();
+                        pq.pop();
+                        res[index] = value;
+                    }
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---
