@@ -958,3 +958,53 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Construct String With Repeat Limit](https://leetcode.com/problems/construct-string-with-repeat-limit/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                string repeatLimitedString(string s, int repeatLimit) {
+                    int n = s.size();
+                    string res = "";
+                    unordered_map<char, int> frq;
+                    priority_queue<pair<char, int>> pq;
+                    for(auto &ch: s)
+                        frq[ch] += 1;
+                    for(auto &f: frq)
+                        pq.push(make_pair(f.first, f.second));
+                    while(!pq.empty()) {
+                        auto [ch, cnt] = pq.top();
+                        pq.pop();
+                        if(res.empty() || res.back() != ch) {
+                            int mn = min(repeatLimit, cnt);
+                            cnt -= mn;
+                            while(mn--)
+                                res += ch;
+                            if(cnt > 0)
+                                pq.push(make_pair(ch, cnt));
+                        }
+                        else {
+                            if(!pq.empty()) {
+                                auto [ch2, cnt2] = pq.top();
+                                pq.pop();
+                                res += ch2;
+                                cnt2 -= 1;
+                                if(cnt2 > 0)
+                                    pq.push(make_pair(ch2, cnt2));
+                                pq.push(make_pair(ch, cnt));
+                            }
+                        }
+                    }
+                    return res;
+                }
+            };
+                    
+    </details>
+
+---
