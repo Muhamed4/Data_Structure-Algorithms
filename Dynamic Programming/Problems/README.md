@@ -1074,3 +1074,33 @@
     </details>
 
 ---
+
+
+
+* [ ] [Target Sum](https://leetcode.com/problems/target-sum/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int countTarget(int idx, int sum, int n, int target, vector<int>& arr, map<pair<int, int>, int>&dp) {
+                    if(idx == n)
+                        return sum == target;
+                    if(dp.count(make_pair(idx, sum)) == true)
+                        return dp[make_pair(idx, sum)];
+                    int& ret = dp[make_pair(idx, sum)];
+                    ret += countTarget(idx + 1, sum + arr[idx], n, target, arr, dp);
+                    ret += countTarget(idx + 1, sum - arr[idx], n, target, arr, dp);
+                    return ret;
+                }
+            public:
+                int findTargetSumWays(vector<int>& nums, int target) {
+                    int n = nums.size();
+                    map<pair<int, int>, int> dp;
+                    return countTarget(0, 0, n, target, nums, dp);
+                }
+            };
+        
+    </details>
+
+---
