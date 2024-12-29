@@ -1104,3 +1104,44 @@
     </details>
 
 ---
+
+
+
+
+* [ ] [Number of Ways to Form a Target String Given a Dictionary](https://leetcode.com/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            int dp[1001][1001], frq[1001][26], mod = 1E9 + 7;
+            int cntTarget(int i, int j, int n, int m, string& target) {
+                if(i == n) return 1;
+                if(j == m) return 0;
+                int& ret = dp[i][j];
+                if(~ret) return ret;
+                ret = 0;
+                if(frq[j][target[i] - 'a'] >= 1)
+                    ret = cntTarget(i + 1, j + 1, n, m, target);
+                ret = (1ll*frq[j][target[i] - 'a'] * (ret % mod)) % mod;
+                ret = (ret % mod) + (cntTarget(i, j + 1, n, m, target) % mod);
+                return ret % mod;
+            }
+        public:
+            int numWays(vector<string>& words, string target) {
+                int n = words.size(), m = words[0].size(), sz = target.size();
+                memset(dp, -1, sizeof(dp));
+                for(int j = 0; j < m;j++) {
+                    for(int i = 0; i < n;i++) {
+                        frq[j][words[i][j] - 'a'] += 1;
+                    }
+                }
+                return cntTarget(0, 0, sz, m, target);
+            }
+        };
+        
+    </details>
+
+---
+
+
