@@ -1114,31 +1114,61 @@
 
         ```c++
             class Solution {
-            int dp[1001][1001], frq[1001][26], mod = 1E9 + 7;
-            int cntTarget(int i, int j, int n, int m, string& target) {
-                if(i == n) return 1;
-                if(j == m) return 0;
-                int& ret = dp[i][j];
-                if(~ret) return ret;
-                ret = 0;
-                if(frq[j][target[i] - 'a'] >= 1)
-                    ret = cntTarget(i + 1, j + 1, n, m, target);
-                ret = (1ll*frq[j][target[i] - 'a'] * (ret % mod)) % mod;
-                ret = (ret % mod) + (cntTarget(i, j + 1, n, m, target) % mod);
-                return ret % mod;
-            }
-        public:
-            int numWays(vector<string>& words, string target) {
-                int n = words.size(), m = words[0].size(), sz = target.size();
-                memset(dp, -1, sizeof(dp));
-                for(int j = 0; j < m;j++) {
-                    for(int i = 0; i < n;i++) {
-                        frq[j][words[i][j] - 'a'] += 1;
-                    }
+                int dp[1001][1001], frq[1001][26], mod = 1E9 + 7;
+                int cntTarget(int i, int j, int n, int m, string& target) {
+                    if(i == n) return 1;
+                    if(j == m) return 0;
+                    int& ret = dp[i][j];
+                    if(~ret) return ret;
+                    ret = 0;
+                    if(frq[j][target[i] - 'a'] >= 1)
+                        ret = cntTarget(i + 1, j + 1, n, m, target);
+                    ret = (1ll*frq[j][target[i] - 'a'] * (ret % mod)) % mod;
+                    ret = (ret % mod) + (cntTarget(i, j + 1, n, m, target) % mod);
+                    return ret % mod;
                 }
-                return cntTarget(0, 0, sz, m, target);
-            }
-        };
+            public:
+                int numWays(vector<string>& words, string target) {
+                    int n = words.size(), m = words[0].size(), sz = target.size();
+                    memset(dp, -1, sizeof(dp));
+                    for(int j = 0; j < m;j++) {
+                        for(int i = 0; i < n;i++) {
+                            frq[j][words[i][j] - 'a'] += 1;
+                        }
+                    }
+                    return cntTarget(0, 0, sz, m, target);
+                }
+            };
+        
+    </details>
+
+---
+
+
+
+
+* [ ] [Count Ways To Build Good Strings](https://leetcode.com/problems/count-ways-to-build-good-strings/description/)
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int dp[200005], mod = 1E9 + 7;
+                int cntGoodStrings(int _size, int low, int high, int zero, int one) {
+                    if(_size > high) return 0;
+                    int& ret = dp[_size];
+                    if(~ret) return ret % mod;
+                    ret = (_size >= low && _size <= high) ? 1 : 0;
+                    ret = (ret % mod) + (cntGoodStrings(_size + zero, low, high, zero, one) % mod);
+                    ret = (ret % mod) + (cntGoodStrings(_size + one, low, high, zero, one) % mod);
+                    return ret;
+                }
+            public:
+                int countGoodStrings(int low, int high, int zero, int one) {
+                    memset(dp, -1, sizeof(dp));
+                    return cntGoodStrings(0, low, high, zero, one) % mod;
+                }
+            };
         
     </details>
 
