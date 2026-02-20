@@ -12,3 +12,5 @@
 ## Articles :
 
 * [Sparse Table (cp-algorithms)](https://cp-algorithms.com/data_structures/sparse-table.html)
+
+* [what is Sparse Table](https://leetcode.com/discuss/post/4150473/what-the-heck-is-sparse-table-by-anonymo-64fj/)

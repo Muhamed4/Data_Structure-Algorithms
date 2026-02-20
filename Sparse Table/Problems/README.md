@@ -214,3 +214,132 @@
     </details>
 
 ---
+
+
+* [ ] [Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class NumArray {
+                int maxLog, n;
+                vector<int> arr;
+                vector<int> lg;
+                vector<vector<int>> sparseTable;
+
+                void buildLog(int n, vector<int>& lg) {
+                    for (int i = 2; i <= n;i++) {
+                        lg[i] = lg[i / 2] + 1;
+                    }
+                }
+
+                void buildSparseTable(int maxLog, int n, vector<int>& arr, vector<vector<int>>& sparseTable) { // O(N log(N))
+                    for (int i = 0; i <= maxLog; i++) {
+                        for (int j = 0; j + (1 << i) <= n; j++) {
+                            if (i == 0) {
+                                sparseTable[i][j] = arr[j];
+                                continue;
+                            }
+
+                            sparseTable[i][j] = sparseTable[i - 1][j] + sparseTable[i - 1][j + (1 << (i - 1))];
+                        }
+                    }
+                }
+
+                int getIntervalSum(int L, int R) { // O(log(R - L))
+                    if (L > R) return 0;
+                    int k = lg[R - L + 1];
+                    return sparseTable[k][L] + getIntervalSum(L + (1 << k), R);
+                }
+            public:
+                NumArray(vector<int>& nums) {
+                    n = nums.size();
+                    maxLog = log2(n) + 1;
+                    arr = nums;
+                    lg = vector<int>(n + 1);
+                    sparseTable = vector<vector<int>>(maxLog + 1, vector<int>(n + 1));
+                    buildLog(n, lg);
+                    buildSparseTable(maxLog, n, arr, sparseTable);
+                }
+                
+                int sumRange(int left, int right) {
+                    return getIntervalSum(left, right);
+                }
+            };
+
+            /**
+            * Your NumArray object will be instantiated and called as such:
+            * NumArray* obj = new NumArray(nums);
+            * int param_1 = obj->sumRange(left,right);
+            */
+    </details>
+
+---
+
+
+* [ ] [Find a Value of a Mysterious Function Closest to Target](https://leetcode.com/problems/find-a-value-of-a-mysterious-function-closest-to-target/description/) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+                int N = 1000000000;
+                void buildLog(int n, vector<int>& lg) {
+                    for (int i = 2; i <= n; i++) {
+                        lg[i] = lg[i / 2] + 1;
+                    }
+                }
+
+                void buildSparseTable(int maxLog, int n, vector<int>& arr, vector<vector<int>>& sparseTable) {
+                    for (int i = 0; i < maxLog; i++) {
+                        for (int j = 0; j + (1 << i) <= n; j++) {
+                            if (i == 0) {
+                                sparseTable[i][j] = arr[j];
+                                continue;
+                            }
+                            sparseTable[i][j] = sparseTable[i - 1][j] & sparseTable[i - 1][j + (1 << (i - 1))];
+                        }
+                    }
+                }
+
+                int getANDValue(int L, int R, vector<int>& lg, vector<vector<int>>& sparseTable) {
+                    int k = lg[R - L + 1];
+                    return sparseTable[k][L] & sparseTable[k][R - (1 << k) + 1];
+                }
+            public:
+                int closestToTarget(vector<int>& arr, int target) {
+                    int n = arr.size();
+                    int res = N;
+                    int maxLog = log2(n) + 1;
+                    vector<int> lg(n + 1);
+                    vector<vector<int>> sparseTable(maxLog + 1, vector<int>(n + 1));
+                    buildLog(n, lg);
+                    buildSparseTable(maxLog, n, arr, sparseTable);
+                    for (int i = 0; i < n; i++) {
+                        int left = i, right = n - 1, ans = N;
+                        while (left <= right) {
+                            int mid = left + (right - left) / 2;
+                            int andValue = getANDValue(i, mid, lg, sparseTable);
+                            ans = min(ans, abs(andValue - target));
+                            if (andValue > target) {
+                                left = mid + 1;
+                            } else {
+                                right = mid - 1;
+                            }
+                        }
+                        res = min(res, ans);
+                    }
+                    return res;
+                }
+            };
+
+
+            /*
+                1- build sparse table with AND values.
+                2- iterate over the elements and apply binary search for each element to get the most element closer to the target.
+
+            */
+
+    </details>
+
+---
