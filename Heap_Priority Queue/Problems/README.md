@@ -1008,3 +1008,39 @@
     </details>
 
 ---
+
+
+* [ ] [Mice and Cheese](https://leetcode.com/problems/mice-and-cheese/description/?envType=problem-list-v2&envId=heap-priority-queue&) 
+    * <details>
+        <summary> Solution </summary>
+
+        ```c++
+            class Solution {
+            public:
+                int miceAndCheese(vector<int>& reward1, vector<int>& reward2, int k) {
+                    int n = reward1.size();
+                    int result = 0;
+                    priority_queue<pair<int, pair<int, int>>> maxReward;
+                    for (int i = 0; i < n; i++) {
+                        int x = reward1[i];
+                        int y = reward2[i];
+                        maxReward.push({x - y, {x, y}});
+                    }
+
+                    while(!maxReward.empty()) {
+                        auto bestChoice = maxReward.top();
+                        maxReward.pop();
+                        if (k > 0) {
+                            result += bestChoice.second.first;
+                        } else {
+                            result += bestChoice.second.second;
+                        }
+                        k -= 1;
+                    }
+                    return result;
+                }
+            };
+                    
+    </details>
+
+---
